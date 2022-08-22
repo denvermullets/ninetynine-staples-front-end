@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.0.0...v1.1.0) (2022-08-22)
+
+
+### Features
+
+* **all:** general intro setup, MagicCard component base ([#4](https://github.com/denvermullets/ninetynine-staples-front-end/issues/4)) ([139a06e](https://github.com/denvermullets/ninetynine-staples-front-end/commit/139a06ea6a84140670d81c47d8adf274ac4f8b23))
+
 # 1.0.0 (2022-08-20)
 
 
