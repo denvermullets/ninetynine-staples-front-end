@@ -1,0 +1,4 @@
+webpack.*.js
+custom.d.ts
+dist
+sitemap*.xml
