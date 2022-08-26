@@ -16,10 +16,16 @@ interface MagicCardProps {
 }
 
 const MagicCard: React.FC<MagicCardProps> = (props) => {
-  const { name, image_medium } = props;
+  const { name, image_medium, image_small } = props;
 
   return (
-    // <Flex p={50} w="full" alignItems="center" justifyContent="center">
+    // <Flex
+    //   p={50}
+    //   w="full"
+    //   direction="row"
+    //   alignItems="center"
+    //   justifyContent="center"
+    // >
     <Box
       bg={useColorModeValue("white", "gray.800")}
       maxW="sm"

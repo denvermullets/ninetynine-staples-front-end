@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import MagicCard from "../../components/MagicCard";
+import config from "../../config";
 
 const LandingPage: React.FC = () => {
   const [cards, setCards] = useState([]);
@@ -8,7 +9,7 @@ const LandingPage: React.FC = () => {
   const loadCards = async () => {
     try {
       const magicCollection = await axios.get(
-        "http://localhost:3001/api/v1/collection/1/cards"
+        `${config.API_URL}/collection/1/cards`
       );
 
       if (magicCollection) {

@@ -17,19 +17,22 @@ import { FiHelpCircle, FiSearch, FiSettings } from "react-icons/fi";
 import { FcCapacitor } from "react-icons/fc";
 import { Sidebar } from "./Sidebar";
 import { ToggleButton } from "./ToggleButton";
+import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   const isDesktop = useBreakpointValue({ base: false, lg: true });
   const { isOpen, onToggle, onClose } = useDisclosure();
 
   return (
-    <Box as="nav" bg="bg-accent" color="on-accent" padding={4}>
+    <Box as="nav" bg="lightGreen" color="darkGreen" padding={4}>
       <Flex justify="space-between">
         <HStack spacing="4">
           <FcCapacitor />
           {isDesktop && (
-            <ButtonGroup variant="ghost-on-accent" spacing="1">
-              <Button>Home</Button>
+            <ButtonGroup variant="lightBlue" spacing="1">
+              <Link to="/">
+                <Button>Home</Button>
+              </Link>
               <Button aria-current="page">Dashboard</Button>
               <Button>Tasks</Button>
               <Button>Bookmarks</Button>
@@ -39,7 +42,7 @@ export const Navbar = () => {
         </HStack>
         {isDesktop ? (
           <HStack spacing="4">
-            <ButtonGroup variant="ghost-on-accent" spacing="1">
+            <ButtonGroup variant="lightBlue" spacing="1">
               <IconButton
                 icon={<FiSearch fontSize="1.25rem" />}
                 aria-label="Search"
@@ -73,7 +76,7 @@ export const Navbar = () => {
               isFullHeight
               preserveScrollBarGap
               // Only disabled for showcase
-              trapFocus={false}
+              trapFocus={true}
             >
               <DrawerOverlay />
               <DrawerContent>
