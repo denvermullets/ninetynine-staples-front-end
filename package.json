@@ -40,6 +40,8 @@
     "axios": "^0.27.2",
     "chakra-react-select": "^4.1.4",
     "framer-motion": "^7.2.0",
+    "keyrune": "^3.10.0",
+    "mana-font": "^1.14.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",

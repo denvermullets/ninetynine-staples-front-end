@@ -1,15 +1,15 @@
 import axios from "axios";
 import { Select } from "chakra-react-select";
 import React, { useEffect, useState } from "react";
-
+import CardList from "../../components/CardList";
 import MagicCard from "../../components/MagicCard";
 import config from "../../config";
-import { Boxset } from "../../types";
+import { Boxset, MagicCardType } from "../../types";
 
 const Boxsets: React.FC = () => {
-  const [cards, setCards] = useState([]);
-  const [boxsets, setBoxsets] = useState<Boxset[]>([]);
+  const [cards, setCards] = useState<MagicCardType[]>([]);
   const [options, setOptions] = useState([]);
+  const [currentBox, setCurrentBox] = useState<Boxset>();
 
   const loadBoxsets = async () => {
     try {
@@ -23,7 +23,6 @@ const Boxsets: React.FC = () => {
           };
         });
 
-        setBoxsets(boxset.data);
         setOptions(selectOptions);
       }
     } catch (error) {
@@ -38,6 +37,7 @@ const Boxsets: React.FC = () => {
 
       if (loadCards) {
         setCards(loadCards.data.magic_cards);
+        setCurrentBox(loadCards.data);
       }
     } catch (error) {
       throw new Error(`Could not load cards from Boxset ${e.value}`);
@@ -45,7 +45,7 @@ const Boxsets: React.FC = () => {
   };
 
   useEffect(() => {
-    if (boxsets.length === 0) {
+    if (!options.length) {
       console.log("useEffect hit");
       loadBoxsets();
     }
@@ -54,7 +54,14 @@ const Boxsets: React.FC = () => {
     <div style={{ height: "100%" }}>
       <Select options={options} onChange={handleSelectChange} />
       <span>{cards && cards.length ? cards.length : 0}</span>
-      {cards && cards.length
+      {cards && cards.length ? (
+        <CardList
+          cards={cards}
+          setCode={currentBox.code.toLowerCase()}
+          set={currentBox.name}
+        />
+      ) : null}
+      {/* {cards && cards.length
         ? cards.map((card) => {
             return (
               <MagicCard
@@ -66,7 +73,7 @@ const Boxsets: React.FC = () => {
               />
             );
           })
-        : null}
+        : null} */}
     </div>
   );
 };
