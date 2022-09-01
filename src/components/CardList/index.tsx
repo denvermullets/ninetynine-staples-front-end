@@ -18,7 +18,13 @@ import { FiSearch } from "react-icons/fi";
 import { CardListProps, MagicCardType } from "../../types";
 import CardTable from "./CardTable";
 
-const CardList: React.FC<CardListProps> = ({ cards, set, setCode }) => {
+const CardList: React.FC<CardListProps> = ({
+  cards,
+  set,
+  setCode,
+  collection,
+  setUserCollection,
+}) => {
   const [page, setPage] = useState<number>(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(50);
   const [paginatedCards, setPaginatedCards] = useState<MagicCardType[]>([]);
@@ -56,7 +62,7 @@ const CardList: React.FC<CardListProps> = ({ cards, set, setCode }) => {
               justify="space-between"
             >
               <Text fontSize="lg" fontWeight="medium">
-                {set} - {page} - {itemsPerPage}
+                Cards from {set}
               </Text>
               <InputGroup maxW="xs">
                 <InputLeftElement pointerEvents="none">
@@ -67,7 +73,12 @@ const CardList: React.FC<CardListProps> = ({ cards, set, setCode }) => {
             </Stack>
           </Box>
           <Box overflowX="auto">
-            <CardTable cards={paginatedCards} setCode={setCode} />
+            <CardTable
+              cards={paginatedCards}
+              setCode={setCode}
+              collection={collection}
+              setUserCollection={setUserCollection}
+            />
           </Box>
           <Box px={{ base: "4", md: "6" }} pb="5">
             <HStack spacing="3" justify="space-between">

@@ -53,9 +53,37 @@ export interface CardListProps {
   cards: MagicCardType[];
   setCode: string;
   set: string;
+  collection: PlayerCollectionType[];
+  setUserCollection: (userCollection: PlayerCollectionType[]) => void;
 }
 
 export interface CardTableProps {
   cards: MagicCardType[];
   setCode: string;
+  collection: PlayerCollectionType[];
+  setUserCollection: (userCollection: PlayerCollectionType[]) => void;
+}
+
+export interface SelectedCollectionOption {
+  value: number;
+  label: string;
+}
+
+export interface PlayerCollectionType {
+  id: number;
+  quantity: number;
+  collection_id: number;
+  magic_card_id: number;
+  condition: string;
+  notes: string;
+  created_at: string;
+  updated_at: string;
+  magic_card: MagicCardType;
+}
+
+export interface QuantityInputProps {
+  card: MagicCardType;
+  cardQuantity: number;
+  collection: PlayerCollectionType[];
+  setUserCollection: (userCollection: PlayerCollectionType[]) => void;
 }
