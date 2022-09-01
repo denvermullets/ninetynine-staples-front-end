@@ -33,7 +33,9 @@ export const Navbar = () => {
               <Link to="/">
                 <Button>Home</Button>
               </Link>
-              <Button aria-current="page">Dashboard</Button>
+              <Link to="/sets">
+                <Button>Sets</Button>
+              </Link>
               <Button>Tasks</Button>
               <Button>Bookmarks</Button>
               <Button>Users</Button>
