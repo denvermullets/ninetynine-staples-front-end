@@ -36,9 +36,9 @@ export const Navbar = () => {
               <Link to="/sets">
                 <Button>Sets</Button>
               </Link>
-              <Button>Tasks</Button>
+              {/* <Button>Tasks</Button>
               <Button>Bookmarks</Button>
-              <Button>Users</Button>
+              <Button>Users</Button> */}
             </ButtonGroup>
           )}
         </HStack>
