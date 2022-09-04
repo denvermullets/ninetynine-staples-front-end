@@ -24,6 +24,7 @@ const CardTable: React.FC<CardTableProps> = ({
   setCode,
   collection,
   setUserCollection,
+  selectedCollection,
 }) => {
   const findMatch = (card: MagicCardType) => {
     const result = collection.find(
@@ -67,8 +68,8 @@ const CardTable: React.FC<CardTableProps> = ({
           <Th>Foil</Th>
           <Th>Type</Th>
           <Th>Mana</Th>
-          {collection && collection.length ? <Th>Quantity</Th> : null}
-          {collection && collection.length ? <Th>Owned</Th> : null}
+          {collection && selectedCollection ? <Th>Quantity</Th> : null}
+          {collection && selectedCollection ? <Th>Owned</Th> : null}
         </Tr>
       </Thead>
       <Tbody>
@@ -96,7 +97,7 @@ const CardTable: React.FC<CardTableProps> = ({
                 {card && card.mana_cost ? manaSymbols(card.mana_cost) : null}
               </Text>
             </Td>
-            {collection && collection.length ? (
+            {collection && selectedCollection ? (
               <QuantityInput
                 card={card}
                 cardQuantity={Number(findMatch(card)) || 0}
@@ -104,7 +105,8 @@ const CardTable: React.FC<CardTableProps> = ({
                 setUserCollection={setUserCollection}
               />
             ) : null}
-            {collection && collection.length ? (
+
+            {collection && selectedCollection ? (
               <Td>
                 <Badge
                   size="sm"

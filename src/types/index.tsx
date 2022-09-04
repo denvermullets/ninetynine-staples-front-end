@@ -47,6 +47,15 @@ export interface MagicCardType {
   card_side: string;
   created_at: string;
   updated_at: string;
+  magic_card_color_idents: MagicCardColorIdents[];
+}
+
+interface MagicCardColorIdents {
+  color: MagicCardColor;
+}
+
+interface MagicCardColor {
+  name: string;
 }
 
 export interface CardListProps {
@@ -55,6 +64,7 @@ export interface CardListProps {
   set: string;
   collection: PlayerCollectionType[];
   setUserCollection: (userCollection: PlayerCollectionType[]) => void;
+  selectedCollection: SelectedCollectionOption;
 }
 
 export interface CardTableProps {
@@ -62,6 +72,7 @@ export interface CardTableProps {
   setCode: string;
   collection: PlayerCollectionType[];
   setUserCollection: (userCollection: PlayerCollectionType[]) => void;
+  selectedCollection: SelectedCollectionOption;
 }
 
 export interface SelectedCollectionOption {
@@ -86,4 +97,10 @@ export interface QuantityInputProps {
   cardQuantity: number;
   collection: PlayerCollectionType[];
   setUserCollection: (userCollection: PlayerCollectionType[]) => void;
+}
+
+export interface FilterOptions {
+  value: string;
+  label: string;
+  color: string;
 }
