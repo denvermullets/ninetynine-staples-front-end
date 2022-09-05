@@ -92,11 +92,13 @@ const Boxsets: React.FC = () => {
 
       if (data) {
         const collectedCards = data.data.map((collection) => collection);
+        console.log("updating collection", collectedCards);
         setUserCollection(collectedCards);
       }
     };
 
-    if (selectedCollection && !userCollection.length) {
+    if (selectedCollection) {
+      console.log("collection pulled");
       fetchData();
     }
   }, [selectedCollection]);
