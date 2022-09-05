@@ -75,6 +75,11 @@ export interface CardTableProps {
   selectedCollection: SelectedCollectionOption;
 }
 
+export interface CardTableNameProps {
+  card: MagicCardType;
+  setCode: string;
+}
+
 export interface SelectedCollectionOption {
   value: number;
   label: string;
@@ -97,6 +102,7 @@ export interface QuantityInputProps {
   cardQuantity: number;
   collection: PlayerCollectionType[];
   setUserCollection: (userCollection: PlayerCollectionType[]) => void;
+  selectedCollection: SelectedCollectionOption;
 }
 
 export interface FilterOptions {

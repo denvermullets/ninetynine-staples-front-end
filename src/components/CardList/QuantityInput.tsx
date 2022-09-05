@@ -5,6 +5,7 @@ import {
   NumberInputField,
   NumberInputStepper,
   Td,
+  useControllableState,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import "keyrune";
@@ -18,11 +19,15 @@ const QuantityInput: React.FC<QuantityInputProps> = ({
   cardQuantity,
   collection,
   setUserCollection,
+  selectedCollection,
 }) => {
-  const [quantity, setQuantity] = useState<number>();
+  const [quantity, setQuantity] = useState<number>(cardQuantity || 0);
   const timeout = useRef<null | ReturnType<typeof setTimeout>>();
 
+  const handleChange = (value) => setQuantity(value);
+
   useEffect(() => {
+    console.log("updating quantity?", quantity);
     setQuantity(cardQuantity);
   }, [cardQuantity]);
 
@@ -31,8 +36,8 @@ const QuantityInput: React.FC<QuantityInputProps> = ({
   };
 
   const handleQuantityChange = (value: number) => {
-    clearTimeout(timeout.current);
     setQuantity(value);
+    clearTimeout(timeout.current);
 
     timeout.current = setTimeout(async () => {
       try {
@@ -40,7 +45,7 @@ const QuantityInput: React.FC<QuantityInputProps> = ({
           `${config.API_URL}/collection_magic_cards`,
           {
             collection_magic_card: {
-              collection_id: 1,
+              collection_id: selectedCollection.value,
               magic_card_id: card.id,
               quantity: value,
               condition: "Mint",
@@ -61,11 +66,12 @@ const QuantityInput: React.FC<QuantityInputProps> = ({
 
             setUserCollection([...newCollection]);
           }
+          console.log("we upated the db", createCard.data);
         }
       } catch (error) {
         throw new Error("unable to update collection!");
       }
-    }, 1000);
+    }, 500);
   };
 
   const handleFocus = (event) => event.target.select();
@@ -74,14 +80,15 @@ const QuantityInput: React.FC<QuantityInputProps> = ({
     <Td>
       <NumberInput
         key={`card-quantity-${card.id}`}
-        defaultValue={cardQuantity}
+        value={quantity}
         min={0}
         maxWidth={20}
         onChange={(value) => handleQuantityChange(Number(value))}
         name={`card-quantity-${card.id}`}
+        clampValueOnBlur={false}
         onFocus={handleFocus}
       >
-        <NumberInputField value={quantity} />
+        <NumberInputField />
         <NumberInputStepper>
           <NumberIncrementStepper />
           <NumberDecrementStepper />
@@ -92,3 +99,4 @@ const QuantityInput: React.FC<QuantityInputProps> = ({
 };
 
 export default QuantityInput;
+// export default React.memo(QuantityInput);

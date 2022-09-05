@@ -1,6 +1,5 @@
 import {
   Badge,
-  Box,
   Checkbox,
   HStack,
   Icon,
@@ -18,6 +17,7 @@ import { CardTableProps, MagicCardType } from "../../types";
 import "keyrune";
 import "mana-font";
 import QuantityInput from "./QuantityInput";
+import CardTableName from "./CardTableName";
 
 const CardTable: React.FC<CardTableProps> = ({
   cards,
@@ -75,15 +75,7 @@ const CardTable: React.FC<CardTableProps> = ({
       <Tbody>
         {cards.map((card: MagicCardType) => (
           <Tr key={card.id}>
-            <Td>
-              <HStack spacing="3">
-                <Checkbox />
-                <i className={`ss ss-${setCode} ss-${card.rarity} ss-2x`} />
-                <Box>
-                  <Text fontWeight="medium">{card.name}</Text>
-                </Box>
-              </HStack>
-            </Td>
+            <CardTableName card={card} setCode={setCode} />
             <Td>
               <Badge size="sm" colorScheme={card.has_foil ? "green" : "red"}>
                 foil
@@ -103,6 +95,7 @@ const CardTable: React.FC<CardTableProps> = ({
                 cardQuantity={Number(findMatch(card)) || 0}
                 collection={collection}
                 setUserCollection={setUserCollection}
+                selectedCollection={selectedCollection}
               />
             ) : null}
 
