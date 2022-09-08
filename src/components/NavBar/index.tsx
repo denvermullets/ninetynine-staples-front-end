@@ -10,6 +10,7 @@ import {
   HStack,
   IconButton,
   useBreakpointValue,
+  useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 import * as React from "react";
@@ -24,7 +25,12 @@ export const Navbar = () => {
   const { isOpen, onToggle, onClose } = useDisclosure();
 
   return (
-    <Box as="nav" bg="lightGreen" color="darkGreen" padding={4}>
+    <Box
+      as="nav"
+      bg="bg-surface"
+      boxShadow={useColorModeValue("sm", "sm-dark")}
+      padding={4}
+    >
       <Flex justify="space-between">
         <HStack spacing="4">
           <FcCapacitor />
@@ -77,7 +83,6 @@ export const Navbar = () => {
               onClose={onClose}
               isFullHeight
               preserveScrollBarGap
-              // Only disabled for showcase
               trapFocus={true}
             >
               <DrawerOverlay />
