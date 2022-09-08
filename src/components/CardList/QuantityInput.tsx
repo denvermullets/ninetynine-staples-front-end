@@ -5,7 +5,6 @@ import {
   NumberInputField,
   NumberInputStepper,
   Td,
-  useControllableState,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import "keyrune";
@@ -23,8 +22,6 @@ const QuantityInput: React.FC<QuantityInputProps> = ({
 }) => {
   const [quantity, setQuantity] = useState<number>(cardQuantity || 0);
   const timeout = useRef<null | ReturnType<typeof setTimeout>>();
-
-  const handleChange = (value) => setQuantity(value);
 
   useEffect(() => {
     console.log("updating quantity?", quantity);
@@ -99,4 +96,3 @@ const QuantityInput: React.FC<QuantityInputProps> = ({
 };
 
 export default QuantityInput;
-// export default React.memo(QuantityInput);
