@@ -27,7 +27,7 @@ export const Navbar = () => {
   return (
     <Box
       as="nav"
-      bg="bg-surface"
+      bg="white"
       boxShadow={useColorModeValue("sm", "sm-dark")}
       padding={4}
     >
@@ -41,6 +41,9 @@ export const Navbar = () => {
               </Link>
               <Link to="/sets">
                 <Button>Sets</Button>
+              </Link>
+              <Link to="/login">
+                <Button>Login</Button>
               </Link>
               {/* <Button>Tasks</Button>
               <Button>Bookmarks</Button>

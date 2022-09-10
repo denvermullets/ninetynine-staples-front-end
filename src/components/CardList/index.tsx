@@ -174,7 +174,7 @@ const CardList: React.FC<CardListProps> = ({
 
   return (
     <Container
-      py={{ base: "4", md: "8" }}
+      py={{ base: "4", md: "4" }}
       px={{ base: "14", md: "8" }}
       width="100%"
       maxWidth="8xl"
@@ -184,7 +184,7 @@ const CardList: React.FC<CardListProps> = ({
         boxShadow={{ base: "none", md: useColorModeValue("sm", "sm-dark") }}
         borderRadius={useBreakpointValue({ base: "none", md: "lg" })}
       >
-        <Stack spacing="5">
+        <Stack spacing="8">
           <Box px={{ base: "4", md: "6" }} pt="5">
             <Stack
               direction={{ base: "column", md: "row" }}

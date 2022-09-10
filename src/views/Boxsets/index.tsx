@@ -104,49 +104,47 @@ const Boxsets: React.FC = () => {
   }, [selectedCollection]);
 
   return (
-    <div style={{ height: "100%" }}>
-      <Container
-        py={{ base: "4", md: "8" }}
-        px={{ base: "14", md: "8" }}
-        width="100%"
-        maxWidth="8xl"
-      >
-        <Box
-          bg="bg-surface"
-          boxShadow={{ base: "none", md: useColorModeValue("sm", "sm-dark") }}
-          borderRadius={useBreakpointValue({ base: "none", md: "lg" })}
-        >
-          <Grid gap={6} templateColumns="repeat(4, 1fr)" padding={2}>
-            <GridItem colSpan={2}>
-              <Select
-                options={boxsetOptions}
-                onChange={handleBoxsetChange}
-                placeholder="Select a Boxset"
-              />
-            </GridItem>
-            <GridItem colSpan={2}>
-              <Select
-                options={userCollectionsOptions}
-                onChange={(e) => setSelectedCollection(e)}
-                key="userCollection-select"
-                name="user-collection-select"
-                placeholder="Select your Collection"
-              />
-            </GridItem>
-          </Grid>
-          {cards && cards.length ? (
-            <CardList
-              cards={cards}
-              setCode={currentBox.code.toLowerCase()}
-              set={currentBox.name}
-              collection={userCollection}
-              setUserCollection={setUserCollection}
-              selectedCollection={selectedCollection}
+    <Container
+      py={{ base: "4", md: "8" }}
+      px={{ base: "14", md: "8" }}
+      marginTop={4}
+      width="100%"
+      maxWidth="8xl"
+      backgroundColor={"white"}
+      boxShadow={{ base: "none", md: useColorModeValue("sm", "sm-dark") }}
+      borderRadius={useBreakpointValue({ base: "none", md: "lg" })}
+    >
+      <Box bg="white">
+        <Grid gap={6} templateColumns="repeat(4, 1fr)" padding={2}>
+          <GridItem colSpan={2}>
+            <Select
+              options={boxsetOptions}
+              onChange={handleBoxsetChange}
+              placeholder="Select a Boxset"
             />
-          ) : null}
-        </Box>
-      </Container>
-    </div>
+          </GridItem>
+          <GridItem colSpan={2}>
+            <Select
+              options={userCollectionsOptions}
+              onChange={(e) => setSelectedCollection(e)}
+              key="userCollection-select"
+              name="user-collection-select"
+              placeholder="Select your Collection"
+            />
+          </GridItem>
+        </Grid>
+        {cards && cards.length ? (
+          <CardList
+            cards={cards}
+            setCode={currentBox.code.toLowerCase()}
+            set={currentBox.name}
+            collection={userCollection}
+            setUserCollection={setUserCollection}
+            selectedCollection={selectedCollection}
+          />
+        ) : null}
+      </Box>
+    </Container>
   );
 };
 
