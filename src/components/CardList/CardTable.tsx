@@ -53,7 +53,7 @@ const CardTable: React.FC<CardTableProps> = ({
   };
 
   return (
-    <Table>
+    <Table size={"sm"}>
       <Thead>
         <Tr>
           <Th>

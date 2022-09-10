@@ -5,6 +5,7 @@ import AppContainer from "./components/AppContainer";
 import { Navbar } from "./components/NavBar";
 import Boxsets from "./views/Boxsets";
 import LandingPage from "./views/Landing";
+import Login from "./views/Login";
 
 const useStyles = createUseStyles(() => ({
   root: {
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/sets" element={<Boxsets />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
     </AppContainer>
