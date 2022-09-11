@@ -12,6 +12,7 @@ import "mana-font";
 import { PlayerCollectionType, QuantityInputProps } from "../../types";
 import axios from "axios";
 import config from "../../config";
+import { useCurrentPlayerContext } from "../providers/CurrentPlayerProvider";
 
 const QuantityInput: React.FC<QuantityInputProps> = ({
   card,
@@ -22,6 +23,7 @@ const QuantityInput: React.FC<QuantityInputProps> = ({
 }) => {
   const [quantity, setQuantity] = useState<number>(cardQuantity || 0);
   const timeout = useRef<null | ReturnType<typeof setTimeout>>();
+  const { currentPlayer } = useCurrentPlayerContext();
 
   useEffect(() => {
     console.log("updating quantity?", quantity);
@@ -48,6 +50,9 @@ const QuantityInput: React.FC<QuantityInputProps> = ({
               condition: "Mint",
               notes: "",
             },
+          },
+          {
+            headers: { Authorization: `Bearer ${currentPlayer.token}` },
           }
         );
 

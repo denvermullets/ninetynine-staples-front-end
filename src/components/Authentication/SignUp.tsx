@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   Button,
-  Checkbox,
   Container,
   FormControl,
   FormErrorMessage,
@@ -14,20 +13,22 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import config from "../../config";
+import axios from "axios";
 import { useCurrentPlayerContext } from "../providers/CurrentPlayerProvider";
 
+// import axios from "axios";
 // import { useCookies } from "react-cookie";
 
-const LoginForm: React.FC = () => {
-  // const { setCurrentUser } = props;
+const SignUp: React.FC = () => {
   const [email, setEmail] = useState<string>(null);
   const [password, setPassword] = useState<string>(null);
+  const [userName, setUserName] = useState<string>(null);
+  const [userNameError, setUserNameError] = useState<boolean>(false);
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
-  const { setCurrentPlayer } = useCurrentPlayerContext();
   const navigate = useNavigate();
+  const { setCurrentPlayer } = useCurrentPlayerContext();
   // const [, setCookie] = useCookies(["ninetynine_staples"]);
 
   const validateEmail = () => {
@@ -47,32 +48,46 @@ const LoginForm: React.FC = () => {
     setPasswordError(e.target.value === "");
   };
 
-  const login = async () => {
+  const handleUserNameChange = (e) => {
+    setUserName(e.target.value);
+    setUserNameError(e.target.value === "");
+  };
+
+  const createAccount = async () => {
     setEmailError(!email || email === "" || !validateEmail());
     setPasswordError(!password || password === "");
+    setUserNameError(!userName || userName === "");
 
-    if (!email || email === "" || password === "" || !password) {
+    if (
+      !email ||
+      email === "" ||
+      password === "" ||
+      !password ||
+      !userName ||
+      userName === ""
+    ) {
       return;
     }
 
     try {
-      const loginUser = await axios.post(`${config.API_URL}/login`, {
+      const loginUser = await axios.post(`${config.API_URL}/players`, {
         player: {
-          email: email,
+          username: userName,
           password: password,
+          email: email,
         },
       });
 
       if (!loginUser) {
-        console.log("something went wrong logging in");
+        console.log("something went wrong creating an account");
         throw Error("Unable to create account");
       }
 
-      if (loginUser.data.message === "Incorrect email or password") {
-        setEmailError(true);
-        setPasswordError(true);
+      if (loginUser.data.message === "Username is already taken") {
+        setUserNameError(true);
         return;
       }
+
       setCurrentPlayer({
         email: loginUser.data.player.email,
         created_at: loginUser.data.player.created_at,
@@ -109,7 +124,7 @@ const LoginForm: React.FC = () => {
           {/* <Logo /> */}
           <Stack spacing={{ base: "2", md: "3" }} textAlign="center">
             <Heading size={useBreakpointValue({ base: "xs", md: "sm" })}>
-              Log in to your account
+              Create your account
             </Heading>
             <Text color="muted">Start making your dreams come true</Text>
           </Stack>
@@ -130,6 +145,20 @@ const LoginForm: React.FC = () => {
                 </FormErrorMessage>
               )}
             </FormControl>
+            <FormControl isInvalid={userNameError}>
+              <FormLabel htmlFor="username">Username</FormLabel>
+              <Input
+                id="username"
+                placeholder="Enter your username"
+                type="error"
+                onChange={handleUserNameChange}
+              />
+              {userNameError ? (
+                <FormErrorMessage style={{ marginBottom: "6px" }}>
+                  This username is already taken.
+                </FormErrorMessage>
+              ) : null}
+            </FormControl>
             <FormControl isInvalid={passwordError}>
               <FormLabel htmlFor="password">Password</FormLabel>
               <Input
@@ -143,25 +172,19 @@ const LoginForm: React.FC = () => {
               )}
             </FormControl>
           </Stack>
-          <HStack justify="space-between">
-            <Checkbox defaultChecked>Remember me</Checkbox>
-            <Button variant="link" colorScheme="blue" size="sm">
-              Forgot password
-            </Button>
-          </HStack>
           <Stack spacing="4">
-            <Button variant="solid" colorScheme="blue" onClick={login}>
-              Sign in
+            <Button variant="solid" colorScheme="blue" onClick={createAccount}>
+              Create Account
             </Button>
           </Stack>
         </Stack>
         <HStack spacing="1" justify="center">
           <Text fontSize="sm" color="muted">
-            Dont have an account?
+            Already have an account?
           </Text>
-          <Link to="/sign-up">
+          <Link to="/login">
             <Button variant="link" colorScheme="blue" size="sm">
-              Sign up
+              Sign in
             </Button>
           </Link>
         </HStack>
@@ -170,4 +193,4 @@ const LoginForm: React.FC = () => {
   );
 };
 
-export default LoginForm;
+export default SignUp;

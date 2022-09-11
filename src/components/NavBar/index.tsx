@@ -16,13 +16,15 @@ import {
 import * as React from "react";
 import { FiHelpCircle, FiSearch, FiSettings } from "react-icons/fi";
 import { FcCapacitor } from "react-icons/fc";
-import { Sidebar } from "./Sidebar";
+import Sidebar from "./Sidebar";
 import { ToggleButton } from "./ToggleButton";
 import { Link } from "react-router-dom";
+import { useCurrentPlayerContext } from "../providers/CurrentPlayerProvider";
 
 export const Navbar = () => {
   const isDesktop = useBreakpointValue({ base: false, lg: true });
   const { isOpen, onToggle, onClose } = useDisclosure();
+  const { currentPlayer } = useCurrentPlayerContext();
 
   return (
     <Box
@@ -67,11 +69,9 @@ export const Navbar = () => {
                 aria-label="Help Center"
               />
             </ButtonGroup>
-            <Avatar
-              boxSize="10"
-              name="Christoph Winston"
-              src="https://tinyurl.com/yhkm2ek8"
-            />
+            {currentPlayer ? (
+              <Avatar boxSize="10" name={currentPlayer.username} src="" />
+            ) : null}
           </HStack>
         ) : (
           <>

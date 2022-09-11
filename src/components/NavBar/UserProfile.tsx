@@ -4,7 +4,7 @@ import * as React from "react";
 interface UserProfileProps {
   name: string;
   image: string;
-  email: string;
+  email?: string;
 }
 
 export const UserProfile = (props: UserProfileProps) => {
