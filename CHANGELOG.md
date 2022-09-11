@@ -1,3 +1,21 @@
+# [1.2.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.1.0...v1.2.0) (2022-09-11)
+
+
+### Bug Fixes
+
+* **eslint:** resolve warnings ([#15](https://github.com/denvermullets/ninetynine-staples-front-end/issues/15)) ([b607a35](https://github.com/denvermullets/ninetynine-staples-front-end/commit/b607a35b45b9462471b1dbd9a01549fe7f250c47))
+
+
+### Features
+
+* **auth:** add login/sign up view, handle auth, nin-39, nin-42 ([#13](https://github.com/denvermullets/ninetynine-staples-front-end/issues/13)) ([e96afe4](https://github.com/denvermullets/ninetynine-staples-front-end/commit/e96afe462dad834effdf939439bfaf4d59986c6e))
+* **boxset:** add filter options to boxset view, nin-29 ([#9](https://github.com/denvermullets/ninetynine-staples-front-end/issues/9)) ([f82539e](https://github.com/denvermullets/ninetynine-staples-front-end/commit/f82539e8de6fca3d70b5c3b5534f6ba627258554))
+* **boxset:** enable card image hover, fix collection switching, nin-32, nin-31 ([#10](https://github.com/denvermullets/ninetynine-staples-front-end/issues/10)) ([c2bb874](https://github.com/denvermullets/ninetynine-staples-front-end/commit/c2bb8749978ee44fbe61cf80faf5191c96c8ed61))
+* **boxsets:** add boxset search/table view, routing ([#7](https://github.com/denvermullets/ninetynine-staples-front-end/issues/7)) ([8b0158f](https://github.com/denvermullets/ninetynine-staples-front-end/commit/8b0158f112b5c8c09bbddeeb46db2f2bebd991fc))
+* **collections:** can add/remove cards to collection, nin-23 ([#8](https://github.com/denvermullets/ninetynine-staples-front-end/issues/8)) ([3511d11](https://github.com/denvermullets/ninetynine-staples-front-end/commit/3511d1115a1d7153531bf9cda0eadcd01d73c984))
+* **login:** create initial login view, nin-41 ([#12](https://github.com/denvermullets/ninetynine-staples-front-end/issues/12)) ([2ae0d55](https://github.com/denvermullets/ninetynine-staples-front-end/commit/2ae0d556e444f81a3c15e5b6f4b380985eaddc91))
+* **navbar:** add navbar template, add react-router, nin-19 ([#6](https://github.com/denvermullets/ninetynine-staples-front-end/issues/6)) ([23c7d7c](https://github.com/denvermullets/ninetynine-staples-front-end/commit/23c7d7c5c7bb38f046452aa6bc81682236525fbe))
+
 # [1.1.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.0.0...v1.1.0) (2022-08-22)
 
 
