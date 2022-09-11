@@ -170,6 +170,7 @@ const CardList: React.FC<CardListProps> = ({
 
   useEffect(() => {
     setPage(1);
+    setItemsPerPage(50);
   }, [cards]);
 
   return (

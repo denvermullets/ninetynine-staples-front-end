@@ -16,7 +16,7 @@ interface MagicCardProps {
 }
 
 const MagicCard: React.FC<MagicCardProps> = (props) => {
-  const { name, image_medium, image_small } = props;
+  const { name, image_medium } = props;
 
   return (
     // <Flex
