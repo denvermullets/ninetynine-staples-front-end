@@ -10,6 +10,7 @@ import axios from "axios";
 import { Select } from "chakra-react-select";
 import React, { useEffect, useState } from "react";
 import CardList from "../../components/CardList";
+import { useCurrentPlayerContext } from "../../components/providers/CurrentPlayerProvider";
 import config from "../../config";
 import { Boxset, MagicCardType, SelectedCollectionOption } from "../../types";
 
@@ -21,6 +22,7 @@ const Boxsets: React.FC = () => {
   const [selectedCollection, setSelectedCollection] =
     useState<SelectedCollectionOption>();
   const [userCollection, setUserCollection] = useState([]);
+  const { currentPlayer } = useCurrentPlayerContext();
 
   const loadBoxsets = async () => {
     try {
@@ -43,9 +45,11 @@ const Boxsets: React.FC = () => {
   const loadUserCollectionsOptions = async () => {
     try {
       const collections = await axios(
-        `${config.API_URL}/collections?player_id=1`
+        `${config.API_URL}/collections?player_id=${currentPlayer.id}`,
+        { headers: { Authorization: `Bearer ${currentPlayer.token}` } }
       );
 
+      console.log("this is the collection options?", collections);
       if (collections) {
         const selectOptions = collections.data.map((collection) => {
           return {
@@ -78,11 +82,12 @@ const Boxsets: React.FC = () => {
     if (!boxsetOptions.length) {
       loadBoxsets();
     }
-    if (!userCollectionsOptions.length) {
+    if (!userCollectionsOptions.length && currentPlayer) {
+      console.log("load collection options?");
       // potential loop if no collection created
       loadUserCollectionsOptions();
     }
-  }, []);
+  }, [currentPlayer]);
 
   useEffect(() => {
     const fetchData = async () => {
