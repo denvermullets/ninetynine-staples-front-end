@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.2.0...v1.2.1) (2022-09-12)
+
+
+### Bug Fixes
+
+* **netlify:** fix redirects not working w/react router dom ([#17](https://github.com/denvermullets/ninetynine-staples-front-end/issues/17)) ([9e1e8d9](https://github.com/denvermullets/ninetynine-staples-front-end/commit/9e1e8d94fe5ce98acabdb5a35c9c36522f61165b))
+
 # [1.2.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.1.0...v1.2.0) (2022-09-11)
 
 
