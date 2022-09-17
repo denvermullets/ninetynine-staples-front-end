@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.2.1...v1.3.0) (2022-09-17)
+
+
+### Features
+
+* **boxsets:** add card number and cards sort by number, nin-50 ([#19](https://github.com/denvermullets/ninetynine-staples-front-end/issues/19)) ([7ace19a](https://github.com/denvermullets/ninetynine-staples-front-end/commit/7ace19a4773579f503312f006cc9b402311486b8))
+
 ## [1.2.1](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.2.0...v1.2.1) (2022-09-12)
 
 
