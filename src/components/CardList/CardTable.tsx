@@ -18,6 +18,14 @@ import "keyrune";
 import "mana-font";
 import QuantityInput from "./QuantityInput";
 import CardTableName from "./CardTableName";
+import { createUseStyles } from "react-jss";
+
+const useStyles = createUseStyles(() => ({
+  smallerTable: {
+    paddingLeft: "0px",
+    paddingRight: "0px",
+  },
+}));
 
 const CardTable: React.FC<CardTableProps> = ({
   cards,
@@ -26,6 +34,7 @@ const CardTable: React.FC<CardTableProps> = ({
   setUserCollection,
   selectedCollection,
 }) => {
+  const classes = useStyles();
   const findMatch = (card: MagicCardType) => {
     const result = collection.find(
       (collectionCard) => collectionCard.magic_card.id === card.id
@@ -56,12 +65,12 @@ const CardTable: React.FC<CardTableProps> = ({
     <Table size={"sm"}>
       <Thead>
         <Tr>
+          <Th className={classes.smallerTable}>#</Th>
           <Th>
             <HStack spacing="3">
-              <Checkbox />
+              <i className={`ss ss-${setCode} ss-mythic ss-2x`} />
               <HStack spacing="1">
                 <Text>Name</Text>
-                <Icon as={IoArrowDown} color="muted" boxSize="4" />
               </HStack>
             </HStack>
           </Th>
@@ -75,6 +84,7 @@ const CardTable: React.FC<CardTableProps> = ({
       <Tbody>
         {cards.map((card: MagicCardType) => (
           <Tr key={card.id}>
+            <Td className={classes.smallerTable}>{card.card_number}</Td>
             <CardTableName card={card} setCode={setCode} />
             <Td>
               <Badge size="sm" colorScheme={card.has_foil ? "green" : "red"}>
