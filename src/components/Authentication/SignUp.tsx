@@ -17,7 +17,6 @@ import config from "../../config";
 import axios from "axios";
 import { useCurrentPlayerContext } from "../providers/CurrentPlayerProvider";
 
-// import axios from "axios";
 // import { useCookies } from "react-cookie";
 
 const SignUp: React.FC = () => {

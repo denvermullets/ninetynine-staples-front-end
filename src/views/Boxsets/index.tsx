@@ -70,6 +70,14 @@ const Boxsets: React.FC = () => {
       const loadCards = await axios(`${config.API_URL}/boxsets/${e.value}`);
 
       if (loadCards) {
+        loadCards.data.magic_cards.sort((a: MagicCardType, b: MagicCardType) =>
+          Number(a.card_number) > Number(b.card_number)
+            ? 1
+            : Number(b.card_number) > Number(a.card_number)
+            ? -1
+            : 0
+        );
+
         setCards(loadCards.data.magic_cards);
         setCurrentBox(loadCards.data);
       }
