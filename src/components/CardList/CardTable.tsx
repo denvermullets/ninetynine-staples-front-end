@@ -1,8 +1,6 @@
 import {
   Badge,
-  Checkbox,
   HStack,
-  Icon,
   Table,
   Tbody,
   Td,
@@ -12,7 +10,6 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import React from "react";
-import { IoArrowDown } from "react-icons/io5";
 import { CardTableProps, MagicCardType } from "../../types";
 import "keyrune";
 import "mana-font";
