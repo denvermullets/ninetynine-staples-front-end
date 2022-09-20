@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 
 interface MagicCardProps {
-  id: string;
+  // id: string;
   name: string;
   image_small: string;
   image_medium: string;
@@ -19,13 +19,6 @@ const MagicCard: React.FC<MagicCardProps> = (props) => {
   const { name, image_medium } = props;
 
   return (
-    // <Flex
-    //   p={50}
-    //   w="full"
-    //   direction="row"
-    //   alignItems="center"
-    //   justifyContent="center"
-    // >
     <Box
       bg={useColorModeValue("white", "gray.800")}
       maxW="sm"
@@ -43,18 +36,17 @@ const MagicCard: React.FC<MagicCardProps> = (props) => {
           </Badge>
         </Box>
         <Flex mt="1" justifyContent="space-between" alignContent="center">
-          <Box fontSize="2xl" fontWeight="semibold" as="h4" lineHeight="tight">
+          <Box fontSize="xl" fontWeight="semibold" as="h4" lineHeight="tight">
             {name}
           </Box>
         </Flex>
-        <Flex justifyContent="space-between" alignContent="center">
-          <Box fontSize="2xl" color={useColorModeValue("gray.800", "white")}>
-            this is a card
+        {/* <Flex justifyContent="space-between" alignContent="center">
+          <Box color={useColorModeValue("gray.800", "white")}>
+            <Text fontSize="md">{setName}</Text>
           </Box>
-        </Flex>
+        </Flex> */}
       </Box>
     </Box>
-    // </Flex>
   );
 };
 
