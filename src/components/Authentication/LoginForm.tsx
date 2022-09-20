@@ -82,8 +82,6 @@ const LoginForm: React.FC = () => {
       };
 
       setCurrentPlayer(player);
-
-      navigate("/sets");
       setCookie("ninetynine_staples", player, {
         path: "/",
         secure: true,
@@ -91,6 +89,8 @@ const LoginForm: React.FC = () => {
         expires: new Date(Date.now() + 3600 * 1000 * 4),
         sameSite: true,
       });
+
+      navigate("/sets");
     } catch (error) {
       console.log(error);
     }
