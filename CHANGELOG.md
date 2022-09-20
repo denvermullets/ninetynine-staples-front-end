@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.4.0...v1.5.0) (2022-09-20)
+
+
+### Features
+
+* **login:** set cookie when user logs in, setup default landing page, nin-49, nin-14 ([#23](https://github.com/denvermullets/ninetynine-staples-front-end/issues/23)) ([64c0b77](https://github.com/denvermullets/ninetynine-staples-front-end/commit/64c0b77b268b6777cec74dc2338e3b0c49b05ce8))
+
 # [1.4.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.3.0...v1.4.0) (2022-09-20)
 
 
