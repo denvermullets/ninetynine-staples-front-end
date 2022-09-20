@@ -88,6 +88,7 @@ export interface SelectedCollectionOption {
 export interface PlayerCollectionType {
   id: number;
   quantity: number;
+  foil_quantity: number;
   collection_id: number;
   magic_card_id: number;
   condition: string;
@@ -109,4 +110,9 @@ export interface FilterOptions {
   value: string;
   label: string;
   color: string;
+}
+
+export interface CollectionQuantity {
+  normal: number;
+  foil: number;
 }
