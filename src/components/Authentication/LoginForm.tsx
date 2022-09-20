@@ -17,18 +17,16 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import config from "../../config";
 import { useCurrentPlayerContext } from "../providers/CurrentPlayerProvider";
-
-// import { useCookies } from "react-cookie";
+import { useCookies } from "react-cookie";
 
 const LoginForm: React.FC = () => {
-  // const { setCurrentUser } = props;
   const [email, setEmail] = useState<string>(null);
   const [password, setPassword] = useState<string>(null);
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const { setCurrentPlayer } = useCurrentPlayerContext();
   const navigate = useNavigate();
-  // const [, setCookie] = useCookies(["ninetynine_staples"]);
+  const [, setCookie] = useCookies(["ninetynine_staples"]);
 
   const validateEmail = () => {
     if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
@@ -73,22 +71,26 @@ const LoginForm: React.FC = () => {
         setPasswordError(true);
         return;
       }
-      setCurrentPlayer({
+
+      const player = {
         email: loginUser.data.player.email,
         created_at: loginUser.data.player.created_at,
         updated_at: loginUser.data.player.updated_at,
         id: loginUser.data.player.id,
         username: loginUser.data.player.username,
         token: loginUser.data.token,
+      };
+
+      setCurrentPlayer(player);
+      setCookie("ninetynine_staples", player, {
+        path: "/",
+        secure: true,
+        // i think a 4hr cookie is ok, probably not going to need more than that w/tokens exp
+        expires: new Date(Date.now() + 3600 * 1000 * 4),
+        sameSite: true,
       });
 
       navigate("/sets");
-      // setCookie("ninetynine_staples", user, {
-      //   path: "/",
-      //   secure: true,
-      //   expires: new Date(Date.now() + 3600 * 1000 * 48),
-      //   sameSite: true,
-      // });
     } catch (error) {
       console.log(error);
     }

@@ -81,6 +81,7 @@ const QuantityInput: React.FC<QuantityInputProps> = ({
   return (
     <Td>
       <NumberInput
+        isDisabled={!card.has_non_foil}
         key={`card-quantity-${card.id}`}
         value={quantity}
         min={0}

@@ -5,6 +5,7 @@ import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider } from "@chakra-ui/react";
 import customTheme from "./theme";
 import { BrowserRouter } from "react-router-dom";
+import { CurrentPlayerProvider } from "./components/providers/CurrentPlayerProvider";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -13,7 +14,9 @@ root.render(
   <React.StrictMode>
     <ChakraProvider theme={customTheme}>
       <BrowserRouter>
-        <App />
+        <CurrentPlayerProvider>
+          <App />
+        </CurrentPlayerProvider>
       </BrowserRouter>
     </ChakraProvider>
   </React.StrictMode>

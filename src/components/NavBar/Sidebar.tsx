@@ -49,9 +49,11 @@ const Sidebar: React.FC = () => {
               <Link to="/sets">
                 <NavButton label="Sets" icon={FiBarChart2} />
               </Link>
-              <Link to="/login">
-                <NavButton label="Login" icon={FiUsers} />
-              </Link>
+              {!currentPlayer ? (
+                <Link to="/login">
+                  <NavButton label="Login" icon={FiUsers} />
+                </Link>
+              ) : null}
               {/* <NavButton label="Tasks" icon={FiCheckSquare} />
               <NavButton label="Bookmarks" icon={FiBookmark} /> */}
             </Stack>
