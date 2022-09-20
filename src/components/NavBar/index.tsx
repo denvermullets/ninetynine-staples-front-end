@@ -44,9 +44,11 @@ export const Navbar = () => {
               <Link to="/sets">
                 <Button>Sets</Button>
               </Link>
-              <Link to="/login">
-                <Button>Login</Button>
-              </Link>
+              {!currentPlayer ? (
+                <Link to="/login">
+                  <Button>Login</Button>
+                </Link>
+              ) : null}
               {/* <Button>Tasks</Button>
               <Button>Bookmarks</Button>
               <Button>Users</Button> */}
