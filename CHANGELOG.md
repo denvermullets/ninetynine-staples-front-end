@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.3.0...v1.4.0) (2022-09-20)
+
+
+### Features
+
+* **boxset:** add foils to collection, nin-52 ([#21](https://github.com/denvermullets/ninetynine-staples-front-end/issues/21)) ([7069050](https://github.com/denvermullets/ninetynine-staples-front-end/commit/70690500620d370e1fb6e9f7bb820fe525538989))
+
 # [1.3.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.2.1...v1.3.0) (2022-09-17)
 
 
