@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.5.0...v1.6.0) (2022-09-21)
+
+
+### Features
+
+* **boxset:** add border color listing, update magiccard, add loading icon ([#25](https://github.com/denvermullets/ninetynine-staples-front-end/issues/25)) ([27250e6](https://github.com/denvermullets/ninetynine-staples-front-end/commit/27250e64a31bfeea1a2df47a2f4110325ffa7351))
+
 # [1.5.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.4.0...v1.5.0) (2022-09-20)
 
 
