@@ -10,9 +10,9 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { Select } from "chakra-react-select";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CardList from "../../components/CardList";
-import { useCurrentPlayerContext } from "../../components/providers/CurrentPlayerProvider";
+import { PlayerContext } from "../../components/providers/CurrentPlayerProvider";
 import config from "../../config";
 import { Boxset, MagicCardType, SelectedCollectionOption } from "../../types";
 
@@ -25,7 +25,7 @@ const Boxsets: React.FC = () => {
     useState<SelectedCollectionOption>();
   const [userCollection, setUserCollection] = useState([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const { currentPlayer } = useCurrentPlayerContext();
+  const { currentPlayer } = useContext(PlayerContext);
 
   const loadBoxsets = async () => {
     try {
