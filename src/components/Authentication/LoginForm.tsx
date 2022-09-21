@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Button,
   Checkbox,
@@ -16,7 +16,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import config from "../../config";
-import { useCurrentPlayerContext } from "../providers/CurrentPlayerProvider";
+import { PlayerContext } from "../providers/CurrentPlayerProvider";
 import { useCookies } from "react-cookie";
 
 const LoginForm: React.FC = () => {
@@ -24,7 +24,8 @@ const LoginForm: React.FC = () => {
   const [password, setPassword] = useState<string>(null);
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
-  const { setCurrentPlayer } = useCurrentPlayerContext();
+  const { setCurrentPlayer } = useContext(PlayerContext);
+
   const navigate = useNavigate();
   const [, setCookie] = useCookies(["ninetynine_staples"]);
 

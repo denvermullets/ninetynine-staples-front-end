@@ -6,13 +6,13 @@ import {
   NumberInputStepper,
   Td,
 } from "@chakra-ui/react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "keyrune";
 import "mana-font";
 import { PlayerCollectionType, QuantityInputProps } from "../../types";
 import axios from "axios";
 import config from "../../config";
-import { useCurrentPlayerContext } from "../providers/CurrentPlayerProvider";
+import { PlayerContext } from "../providers/CurrentPlayerProvider";
 
 const FoilQuantityInput: React.FC<QuantityInputProps> = ({
   card,
@@ -23,7 +23,7 @@ const FoilQuantityInput: React.FC<QuantityInputProps> = ({
 }) => {
   const [quantity, setQuantity] = useState<number>(cardQuantity || 0);
   const timeout = useRef<null | ReturnType<typeof setTimeout>>();
-  const { currentPlayer } = useCurrentPlayerContext();
+  const { currentPlayer } = useContext(PlayerContext);
 
   useEffect(() => {
     console.log("updating quantity?", quantity);
