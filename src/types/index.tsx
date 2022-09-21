@@ -116,3 +116,8 @@ export interface CollectionQuantity {
   normal: number;
   foil: number;
 }
+
+export interface SearchProps {
+  search: string;
+  setSearch: (search: string) => void;
+}

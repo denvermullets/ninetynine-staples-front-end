@@ -76,12 +76,22 @@ const QuantityInput: React.FC<QuantityInputProps> = ({
     }, 500);
   };
 
+  const checkDisabled = () => {
+    if (!card.has_non_foil && !card.has_foil) {
+      return false;
+    } else if (card.has_non_foil) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   const handleFocus = (event) => event.target.select();
 
   return (
     <Td>
       <NumberInput
-        isDisabled={!card.has_non_foil}
+        isDisabled={checkDisabled()}
         key={`card-quantity-${card.id}`}
         value={quantity}
         min={0}
