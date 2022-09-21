@@ -157,4 +157,4 @@ const CardTable: React.FC<CardTableProps> = ({
   );
 };
 
-export default CardTable;
+export default React.memo(CardTable);

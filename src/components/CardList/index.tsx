@@ -5,10 +5,6 @@ import {
   Container,
   FormControl,
   HStack,
-  Icon,
-  Input,
-  InputGroup,
-  InputLeftElement,
   Stack,
   Text,
   useBreakpointValue,
@@ -16,9 +12,9 @@ import {
 } from "@chakra-ui/react";
 import { Select } from "chakra-react-select";
 import React, { useEffect, useState } from "react";
-import { FiSearch } from "react-icons/fi";
 import { CardListProps, FilterOptions, MagicCardType } from "../../types";
 import CardTable from "./CardTable";
+import Search from "./Search";
 
 const CardList: React.FC<CardListProps> = ({
   cards,
@@ -33,6 +29,7 @@ const CardList: React.FC<CardListProps> = ({
   const [paginatedCards, setPaginatedCards] = useState<MagicCardType[]>([]);
   const [filters, setFilters] = useState<FilterOptions[]>([]);
   const [filterColors, setFilterColors] = useState<FilterOptions[]>([]);
+  const [search, setSearch] = useState<string>("");
 
   const cardRarity = [
     { value: "mythic", label: "Mythic" },
@@ -87,8 +84,8 @@ const CardList: React.FC<CardListProps> = ({
     return magicCards.slice(offset).slice(0, itemsPerPage);
   };
 
-  const filterByRarity = () => {
-    const filterCards = cards.filter((card) => {
+  const filterByRarity = (searchCards: MagicCardType[]) => {
+    const filterCards = searchCards.filter((card) => {
       const options = filters.map((filter) => {
         return filter.value;
       });
@@ -102,8 +99,8 @@ const CardList: React.FC<CardListProps> = ({
     setPaginatedCards(magicCards);
   };
 
-  const filterByColor = () => {
-    const filterCards = cards.filter((card) => {
+  const filterByColor = (searchCards: MagicCardType[]) => {
+    const filterCards = searchCards.filter((card) => {
       const options = filterColors.map((filter) => {
         return filter.value;
       });
@@ -124,8 +121,8 @@ const CardList: React.FC<CardListProps> = ({
     setPaginatedCards(magicCards);
   };
 
-  const filterByColorAndRarity = () => {
-    const filterCards = cards.filter((card) => {
+  const filterByColorAndRarity = (searchCards: MagicCardType[]) => {
+    const filterCards = searchCards.filter((card) => {
       const rarityOptions = filters.map((filter) => {
         return filter.value;
       });
@@ -150,23 +147,28 @@ const CardList: React.FC<CardListProps> = ({
   };
 
   useEffect(() => {
+    // search takes priority before filters
+    const searchedCards = cards.filter((card: MagicCardType) =>
+      card.name.toLowerCase().includes(search)
+    );
+
     if (!filters.length && !filterColors.length) {
       // no filters
-      const magicCards = paginate(cards);
+      const magicCards = paginate(searchedCards);
       setPaginatedCards(magicCards);
 
       return;
     } else if (filters.length && !filterColors.length) {
       // just rarity
-      filterByRarity();
+      filterByRarity(searchedCards);
     } else if (!filters.length && filterColors.length) {
       // just colors
-      filterByColor();
+      filterByColor(searchedCards);
     } else {
       // both rarity and color
-      filterByColorAndRarity();
+      filterByColorAndRarity(searchedCards);
     }
-  }, [page, cards, filters, filterColors]);
+  }, [page, cards, filters, filterColors, search]);
 
   useEffect(() => {
     setPage(1);
@@ -207,12 +209,7 @@ const CardList: React.FC<CardListProps> = ({
                   onChange={(e) => handleFilters(e)}
                 />
               </FormControl>
-              <InputGroup maxW="xs">
-                <InputLeftElement pointerEvents="none">
-                  <Icon as={FiSearch} color="muted" boxSize="5" />
-                </InputLeftElement>
-                <Input placeholder="Search" />
-              </InputGroup>
+              <Search search={search} setSearch={setSearch} />
             </Stack>
           </Box>
           <Box overflowX="auto">
