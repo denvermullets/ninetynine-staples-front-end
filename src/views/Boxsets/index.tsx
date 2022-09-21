@@ -3,6 +3,8 @@ import {
   Container,
   Grid,
   GridItem,
+  HStack,
+  Spinner,
   useBreakpointValue,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -22,6 +24,7 @@ const Boxsets: React.FC = () => {
   const [selectedCollection, setSelectedCollection] =
     useState<SelectedCollectionOption>();
   const [userCollection, setUserCollection] = useState([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const { currentPlayer } = useCurrentPlayerContext();
 
   const loadBoxsets = async () => {
@@ -66,6 +69,8 @@ const Boxsets: React.FC = () => {
   };
 
   const handleBoxsetChange = async (e) => {
+    setLoading(true);
+    setCards([]);
     try {
       const loadCards = await axios(`${config.API_URL}/boxsets/${e.value}`);
 
@@ -80,8 +85,10 @@ const Boxsets: React.FC = () => {
 
         setCards(loadCards.data.magic_cards);
         setCurrentBox(loadCards.data);
+        setLoading(false);
       }
     } catch (error) {
+      setLoading(false);
       throw new Error(`Could not load cards from Boxset ${e.value}`);
     }
   };
@@ -146,6 +153,17 @@ const Boxsets: React.FC = () => {
             />
           </GridItem>
         </Grid>
+        {loading ? (
+          <HStack justifyContent="center" margin={20}>
+            <Spinner
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="blue.500"
+              size="xl"
+            />
+          </HStack>
+        ) : null}
         {cards && cards.length ? (
           <CardList
             cards={cards}
