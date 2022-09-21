@@ -29,14 +29,14 @@ const MagicCard: React.FC<MagicCardProps> = (props) => {
     >
       <Circle size="10px" position="absolute" top={2} right={2} bg="red.200" />
       <Image src={image_medium} alt={`Picture of ${name}`} roundedTop="lg" />
-      <Box p="6">
+      <Box p="4">
         <Box alignItems="baseline">
           <Badge rounded="full" px="2" fontSize="0.8em" colorScheme="red">
             New
           </Badge>
         </Box>
         <Flex mt="1" justifyContent="space-between" alignContent="center">
-          <Box fontSize="xl" fontWeight="semibold" as="h4" lineHeight="tight">
+          <Box fontSize="lg" fontWeight="semibold" as="h4" lineHeight="tight">
             {name}
           </Box>
         </Flex>

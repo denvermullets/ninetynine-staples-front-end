@@ -79,6 +79,7 @@ const CardTable: React.FC<CardTableProps> = ({
             </HStack>
           </Th>
           <Th>Foil</Th>
+          <Th>Border</Th>
           <Th>Type</Th>
           <Th>Mana</Th>
           {collection && selectedCollection ? <Th>Normal</Th> : null}
@@ -94,6 +95,18 @@ const CardTable: React.FC<CardTableProps> = ({
             <Td>
               <Badge size="sm" colorScheme={card.has_foil ? "green" : "red"}>
                 foil
+              </Badge>
+            </Td>
+            <Td>
+              <Badge
+                size="sm"
+                colorScheme={
+                  card.border_color === "borderless"
+                    ? "green"
+                    : card.border_color
+                }
+              >
+                {card.border_color}
               </Badge>
             </Td>
             <Td>
