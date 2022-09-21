@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.7.0...v1.7.1) (2022-09-21)
+
+
+### Bug Fixes
+
+* **currentPlayer:** fix context ([#29](https://github.com/denvermullets/ninetynine-staples-front-end/issues/29)) ([8a15f9d](https://github.com/denvermullets/ninetynine-staples-front-end/commit/8a15f9d6fd781496882d8b288d648398dae2460d))
+
 # [1.7.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.6.0...v1.7.0) (2022-09-21)
 
 
