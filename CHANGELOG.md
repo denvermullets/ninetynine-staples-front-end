@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.6.0...v1.7.0) (2022-09-21)
+
+
+### Features
+
+* **boxset:** add search to cardList table, fix etched versions, nin-54 ([#27](https://github.com/denvermullets/ninetynine-staples-front-end/issues/27)) ([ecf6316](https://github.com/denvermullets/ninetynine-staples-front-end/commit/ecf6316bb4d7a1b37b7188461023b8768e6693ff))
+
 # [1.6.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.5.0...v1.6.0) (2022-09-21)
 
 
