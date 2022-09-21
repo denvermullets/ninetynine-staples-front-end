@@ -13,18 +13,18 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
-import * as React from "react";
+import React, { useContext } from "react";
 import { FiHelpCircle, FiSearch, FiSettings } from "react-icons/fi";
 import { FcCapacitor } from "react-icons/fc";
 import Sidebar from "./Sidebar";
 import { ToggleButton } from "./ToggleButton";
 import { Link } from "react-router-dom";
-import { useCurrentPlayerContext } from "../providers/CurrentPlayerProvider";
+import { PlayerContext } from "../providers/CurrentPlayerProvider";
 
-export const Navbar = () => {
+const Navbar: React.FC = () => {
   const isDesktop = useBreakpointValue({ base: false, lg: true });
   const { isOpen, onToggle, onClose } = useDisclosure();
-  const { currentPlayer } = useCurrentPlayerContext();
+  const { currentPlayer } = useContext(PlayerContext);
 
   return (
     <Box
@@ -101,3 +101,5 @@ export const Navbar = () => {
     </Box>
   );
 };
+
+export default Navbar;

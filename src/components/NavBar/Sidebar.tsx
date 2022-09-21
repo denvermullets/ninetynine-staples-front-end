@@ -7,7 +7,7 @@ import {
   InputLeftElement,
   Stack,
 } from "@chakra-ui/react";
-import * as React from "react";
+import React, { useContext } from "react";
 import {
   FiBarChart2,
   FiHelpCircle,
@@ -17,12 +17,12 @@ import {
   FiUsers,
 } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import { useCurrentPlayerContext } from "../providers/CurrentPlayerProvider";
+import { PlayerContext } from "../providers/CurrentPlayerProvider";
 import { NavButton } from "./NavButton";
 import { UserProfile } from "./UserProfile";
 
 const Sidebar: React.FC = () => {
-  const { currentPlayer } = useCurrentPlayerContext();
+  const { currentPlayer } = useContext(PlayerContext);
   return (
     <Flex as="section" minH="100vh" bg="bg-canvas">
       <Flex
