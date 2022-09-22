@@ -1,3 +1,10 @@
+## [1.7.2](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.7.1...v1.7.2) (2022-09-22)
+
+
+### Bug Fixes
+
+* **cookies:** disable cookies ([#31](https://github.com/denvermullets/ninetynine-staples-front-end/issues/31)) ([c238d5a](https://github.com/denvermullets/ninetynine-staples-front-end/commit/c238d5af46993a4cad86c1a3bb52a2ef79c72231))
+
 ## [1.7.1](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.7.0...v1.7.1) (2022-09-21)
 
 
