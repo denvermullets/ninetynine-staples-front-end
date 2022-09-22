@@ -36,23 +36,22 @@ const LandingPage: React.FC = () => {
   const { currentPlayer } = useContext(PlayerContext);
 
   const loadBoxsets = async () => {
-    try {
-      const boxset = await axios(`${config.API_URL}/boxsets`);
-
-      if (boxset) {
-        const selectOptions = boxset.data.map((box: Boxset) => {
-          return {
-            value: box.id,
-            label: box.name,
-          };
-        });
-
-        setBoxsetOptions(selectOptions);
-      }
-    } catch (error) {
-      throw new Error("Could not load boxset!");
-    }
+    // try {
+    //   const boxset = await axios(`${config.API_URL}/boxsets`);
+    //   if (boxset) {
+    //     const selectOptions = boxset.data.map((box: Boxset) => {
+    //       return {
+    //         value: box.id,
+    //         label: box.name,
+    //       };
+    //     });
+    //     setBoxsetOptions(selectOptions);
+    //   }
+    // } catch (error) {
+    //   throw new Error("Could not load boxset!");
+    // }
   };
+
   const loadUserCollectionsOptions = async () => {
     try {
       const collections = await axios(
