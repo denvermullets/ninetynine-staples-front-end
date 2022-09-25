@@ -1,5 +1,4 @@
-import React, { useState, createContext, useEffect } from "react";
-import { useCookies } from "react-cookie";
+import React, { useState, createContext } from "react";
 
 export interface PropsType {
   children: React.ReactNode;

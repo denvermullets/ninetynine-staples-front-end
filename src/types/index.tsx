@@ -48,6 +48,7 @@ export interface MagicCardType {
   created_at: string;
   updated_at: string;
   magic_card_color_idents: MagicCardColorIdents[];
+  boxset?: Boxset;
 }
 
 interface MagicCardColorIdents {
@@ -60,16 +61,15 @@ interface MagicCardColor {
 
 export interface CardListProps {
   cards: MagicCardType[];
-  setCode: string;
-  set: string;
   collection: PlayerCollectionType[];
   setUserCollection: (userCollection: PlayerCollectionType[]) => void;
   selectedCollection: SelectedCollectionOption;
+  gridView: boolean;
+  setGridView?: (gridView: boolean) => void;
 }
 
 export interface CardTableProps {
   cards: MagicCardType[];
-  setCode: string;
   collection: PlayerCollectionType[];
   setUserCollection: (userCollection: PlayerCollectionType[]) => void;
   selectedCollection: SelectedCollectionOption;
@@ -120,4 +120,10 @@ export interface CollectionQuantity {
 export interface SearchProps {
   search: string;
   setSearch: (search: string) => void;
+}
+
+export interface GridListProps {
+  userCollection: PlayerCollectionType[];
+  gridView: boolean;
+  setGridView?: (gridView: boolean) => void;
 }

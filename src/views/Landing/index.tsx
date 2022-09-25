@@ -3,27 +3,24 @@ import {
   Container,
   Grid,
   GridItem,
-  Heading,
-  Stack,
-  Text,
   useBreakpointValue,
   useColorModeValue,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { Select } from "chakra-react-select";
 import React, { useContext, useEffect, useState } from "react";
-import MagicCard from "../../components/MagicCard";
+import CardList from "../../components/CardList";
+import GridList from "../../components/GridList";
 import { PlayerContext } from "../../components/providers/CurrentPlayerProvider";
 import config from "../../config";
 import {
   Boxset,
-  // MagicCardType,
+  MagicCardType,
   PlayerCollectionType,
   SelectedCollectionOption,
 } from "../../types";
 
 const LandingPage: React.FC = () => {
-  // const [cards, setCards] = useState<MagicCardType[]>([]);
   const [boxsetOptions, setBoxsetOptions] = useState<Boxset[]>([]);
   const [userCollectionsOptions, setUserCollectionsOptions] = useState<
     SelectedCollectionOption[]
@@ -33,6 +30,8 @@ const LandingPage: React.FC = () => {
   const [userCollection, setUserCollection] = useState<PlayerCollectionType[]>(
     []
   );
+  const [cards, setCards] = useState<MagicCardType[]>([]);
+  const [gridView, setGridView] = useState<boolean>(false);
   const { currentPlayer } = useContext(PlayerContext);
 
   const loadBoxsets = async () => {
@@ -99,6 +98,7 @@ const LandingPage: React.FC = () => {
     if (!boxsetOptions.length) {
       loadBoxsets();
     }
+
     if (!userCollectionsOptions.length && currentPlayer) {
       console.log("load collection options?");
       // potential loop if no collection created
@@ -108,14 +108,23 @@ const LandingPage: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await axios(
+      const collectionData = await axios(
         `${config.API_URL}/collection/${selectedCollection.value}/cards`
       );
 
-      if (data) {
-        const collectedCards = data.data.map((collection) => collection);
+      if (collectionData) {
+        const collectedCards = collectionData.data.map(
+          (collection: PlayerCollectionType) => collection
+        );
+        const magicCards = [];
+        collectionData.data.map((collection: PlayerCollectionType) => {
+          if (collection.quantity > 0 || collection.foil_quantity > 0) {
+            magicCards.push(collection.magic_card);
+          }
+        });
         console.log("updating collection", collectedCards);
         setUserCollection(collectedCards);
+        setCards(magicCards);
       }
     };
 
@@ -136,64 +145,44 @@ const LandingPage: React.FC = () => {
       boxShadow={{ base: "none", md: useColorModeValue("sm", "sm-dark") }}
       borderRadius={useBreakpointValue({ base: "none", md: "lg" })}
     >
-      {currentPlayer ? (
-        <Box bg="white">
-          <Grid gap={6} templateColumns="repeat(4, 1fr)" padding={2}>
-            <GridItem colSpan={2}>
-              <Select
-                isDisabled={true}
-                options={boxsetOptions}
-                onChange={handleBoxsetChange}
-                placeholder="Select a Boxset"
-              />
-            </GridItem>
-            <GridItem colSpan={2}>
-              <Select
-                options={userCollectionsOptions}
-                defaultValue={
-                  userCollectionsOptions && userCollectionsOptions[0]
-                }
-                onChange={(e) => setSelectedCollection(e)}
-                key="userCollection-select"
-                name="user-collection-select"
-                placeholder="Select your Collection"
-              />
-            </GridItem>
-          </Grid>
-          <Grid templateColumns="repeat(5, 1fr)" gap={6} marginTop={12}>
-            {userCollection && userCollection.length
-              ? userCollection.map(
-                  (collectionCard: PlayerCollectionType, index: number) => {
-                    return (
-                      <MagicCard
-                        key={`${collectionCard.magic_card.name}-${collectionCard.id}-${index}`}
-                        // id={String(collectionCard.id)}
-                        name={collectionCard.magic_card.name}
-                        image_small={collectionCard.magic_card.image_small}
-                        image_medium={collectionCard.magic_card.image_medium}
-                        // quantity={collectionCard.quantity}
-                      />
-                    );
-                  }
-                )
-              : null}
-          </Grid>
-        </Box>
-      ) : (
-        <Container>
-          <Stack spacing="1">
-            <Heading
-              size={useBreakpointValue({ base: "xs", md: "xl" })}
-              as="h1"
-            >
-              Please login to see your collection
-            </Heading>
-            <Text color="muted">
-              Once you are logged in your collection options will display here
-            </Text>
-          </Stack>
-        </Container>
-      )}
+      <Box bg="white">
+        <Grid gap={6} templateColumns="repeat(4, 1fr)" padding={2}>
+          <GridItem colSpan={2}>
+            <Select
+              isDisabled={true}
+              options={boxsetOptions}
+              onChange={handleBoxsetChange}
+              placeholder="Select a Boxset"
+            />
+          </GridItem>
+          <GridItem colSpan={2}>
+            <Select
+              options={userCollectionsOptions}
+              defaultValue={userCollectionsOptions && userCollectionsOptions[0]}
+              onChange={(e) => setSelectedCollection(e)}
+              key="userCollection-select"
+              name="user-collection-select"
+              placeholder="Select your Collection"
+            />
+          </GridItem>
+        </Grid>
+        {gridView ? (
+          <GridList
+            userCollection={userCollection}
+            gridView={gridView}
+            setGridView={setGridView}
+          />
+        ) : (
+          <CardList
+            gridView={gridView}
+            setGridView={setGridView}
+            cards={cards}
+            collection={userCollection}
+            setUserCollection={setUserCollection}
+            selectedCollection={selectedCollection}
+          />
+        )}
+      </Box>
     </Container>
   );
 };
