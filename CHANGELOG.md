@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.7.2...v1.8.0) (2022-09-25)
+
+
+### Features
+
+* **collection:** add grid and list view for collection ([#33](https://github.com/denvermullets/ninetynine-staples-front-end/issues/33)) ([0c62ec4](https://github.com/denvermullets/ninetynine-staples-front-end/commit/0c62ec446d11d1a5f86c10de6ffe06b37f88dcd1))
+
 ## [1.7.2](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.7.1...v1.7.2) (2022-09-22)
 
 
