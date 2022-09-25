@@ -1,14 +1,4 @@
-import {
-  Badge,
-  HStack,
-  Table,
-  Tbody,
-  Td,
-  Text,
-  Th,
-  Thead,
-  Tr,
-} from "@chakra-ui/react";
+import { Badge, Table, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
 import React from "react";
 import { CardTableProps, CollectionQuantity, MagicCardType } from "../../types";
 import "keyrune";
@@ -27,7 +17,6 @@ const useStyles = createUseStyles(() => ({
 
 const CardTable: React.FC<CardTableProps> = ({
   cards,
-  setCode,
   collection,
   setUserCollection,
   selectedCollection,
@@ -70,14 +59,7 @@ const CardTable: React.FC<CardTableProps> = ({
       <Thead>
         <Tr>
           <Th className={classes.smallerTable}>#</Th>
-          <Th>
-            <HStack spacing="3">
-              <i className={`ss ss-${setCode} ss-mythic ss-2x`} />
-              <HStack spacing="1">
-                <Text>Name</Text>
-              </HStack>
-            </HStack>
-          </Th>
+          <Th>Name</Th>
           <Th>Foil</Th>
           <Th>Border</Th>
           <Th>Type</Th>
@@ -91,7 +73,10 @@ const CardTable: React.FC<CardTableProps> = ({
         {cards.map((card: MagicCardType) => (
           <Tr key={card.id}>
             <Td className={classes.smallerTable}>{card.card_number}</Td>
-            <CardTableName card={card} setCode={setCode} />
+            <CardTableName
+              card={card}
+              setCode={card.boxset.code.toLowerCase()}
+            />
             <Td>
               <Badge size="sm" colorScheme={card.has_foil ? "green" : "red"}>
                 foil

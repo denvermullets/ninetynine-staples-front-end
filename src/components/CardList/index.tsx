@@ -1,3 +1,4 @@
+import { DragHandleIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -5,6 +6,7 @@ import {
   Container,
   FormControl,
   HStack,
+  IconButton,
   Stack,
   Text,
   useBreakpointValue,
@@ -18,11 +20,11 @@ import Search from "./Search";
 
 const CardList: React.FC<CardListProps> = ({
   cards,
-  set,
-  setCode,
   collection,
   setUserCollection,
   selectedCollection,
+  gridView,
+  setGridView,
 }) => {
   const [page, setPage] = useState<number>(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(50);
@@ -193,10 +195,7 @@ const CardList: React.FC<CardListProps> = ({
               direction={{ base: "column", md: "row" }}
               justify="space-between"
             >
-              <Text fontSize="lg" fontWeight="medium" width={"80%"}>
-                {set}
-              </Text>
-              <FormControl maxW="s">
+              <FormControl>
                 <Select
                   isMulti
                   options={groupedOptions}
@@ -210,12 +209,27 @@ const CardList: React.FC<CardListProps> = ({
                 />
               </FormControl>
               <Search search={search} setSearch={setSearch} />
+              <Stack direction="row" spacing={2}>
+                <IconButton
+                  variant={gridView ? null : "outline"}
+                  disabled={gridView}
+                  aria-label="View as Grid"
+                  icon={<DragHandleIcon />}
+                  onClick={() => setGridView(true)}
+                />
+                <IconButton
+                  variant={gridView ? "outline" : null}
+                  disabled={!gridView}
+                  onClick={() => setGridView(false)}
+                  aria-label="View as List"
+                  icon={<HamburgerIcon />}
+                />
+              </Stack>
             </Stack>
           </Box>
           <Box overflowX="auto">
             <CardTable
               cards={paginatedCards}
-              setCode={setCode}
               collection={collection}
               setUserCollection={setUserCollection}
               selectedCollection={selectedCollection}
