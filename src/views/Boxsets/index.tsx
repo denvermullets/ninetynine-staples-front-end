@@ -25,6 +25,7 @@ const Boxsets: React.FC = () => {
     useState<SelectedCollectionOption>();
   const [userCollection, setUserCollection] = useState([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [gridView, setGridView] = useState<boolean>(false);
   const { currentPlayer } = useContext(PlayerContext);
 
   const loadBoxsets = async () => {
@@ -166,9 +167,9 @@ const Boxsets: React.FC = () => {
         ) : null}
         {cards && cards.length ? (
           <CardList
+            setGridView={setGridView}
+            gridView={gridView}
             cards={cards}
-            setCode={currentBox.code.toLowerCase()}
-            set={currentBox.name}
             collection={userCollection}
             setUserCollection={setUserCollection}
             selectedCollection={selectedCollection}
