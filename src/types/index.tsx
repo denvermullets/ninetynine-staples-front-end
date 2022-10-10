@@ -85,8 +85,14 @@ export interface SelectedCollectionOption {
   label: string;
 }
 
+export interface CollectionOption {
+  value: number;
+  label: string;
+}
+
 export interface PlayerCollectionType {
   id: number;
+  name: string;
   quantity: number;
   foil_quantity: number;
   collection_id: number;
@@ -104,6 +110,16 @@ export interface QuantityInputProps {
   collection: PlayerCollectionType[];
   setUserCollection: (userCollection: PlayerCollectionType[]) => void;
   selectedCollection: SelectedCollectionOption;
+}
+
+export interface CollectionQuantityProps {
+  collectionId: number;
+  cardId: number;
+  cardQuantity: number;
+  foil?: boolean;
+  playerCollection: PlayerCollectionType[];
+  setPlayerCollection: (playerCollection: PlayerCollectionType[]) => void;
+  disabled: boolean;
 }
 
 export interface FilterOptions {
@@ -126,4 +142,9 @@ export interface GridListProps {
   userCollection: PlayerCollectionType[];
   gridView: boolean;
   setGridView?: (gridView: boolean) => void;
+}
+
+export interface CollectionTableProps {
+  playerCollection: PlayerCollectionType[];
+  setPlayerCollection: (playerCollection: PlayerCollectionType[]) => void;
 }
