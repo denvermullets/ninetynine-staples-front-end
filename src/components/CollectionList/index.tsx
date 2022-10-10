@@ -6,7 +6,6 @@ import {
   Checkbox,
   Container,
   FormControl,
-  FormLabel,
   Grid,
   GridItem,
   HStack,
@@ -15,14 +14,10 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Select as ChakraSelect,
   Stack,
   Text,
   useBreakpointValue,
   useColorModeValue,
-  Center,
-  Flex,
-  VStack,
   CheckboxGroup,
 } from "@chakra-ui/react";
 import axios from "axios";
@@ -35,7 +30,6 @@ import {
   Boxset,
   CollectionOption,
   FilterOptions,
-  MagicCardType,
   PlayerCollectionType,
 } from "../../types";
 import { useCustomSearchParams } from "../../util/customHooks";
