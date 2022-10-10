@@ -5,17 +5,23 @@ import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider } from "@chakra-ui/react";
 import customTheme from "./theme";
 import { BrowserRouter } from "react-router-dom";
+import { CookiesProvider } from "react-cookie";
+import { CurrentPlayerProvider } from "./components/providers/CurrentPlayerProvider";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <ChakraProvider theme={customTheme}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ChakraProvider>
+    <CookiesProvider>
+      <CurrentPlayerProvider>
+        <ChakraProvider theme={customTheme}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </ChakraProvider>
+      </CurrentPlayerProvider>
+    </CookiesProvider>
   </React.StrictMode>
 );
 
