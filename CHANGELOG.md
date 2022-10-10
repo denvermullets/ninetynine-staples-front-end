@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.8.0...v1.9.0) (2022-10-10)
+
+
+### Features
+
+* **collection:** update collection view to handle params, nin-61, nin-60, nin-58, nin-51 ([#35](https://github.com/denvermullets/ninetynine-staples-front-end/issues/35)) ([46c6eda](https://github.com/denvermullets/ninetynine-staples-front-end/commit/46c6edae2104b4e00fa02a5154b5ac201e5cdf96))
+
 # [1.8.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.7.2...v1.8.0) (2022-09-25)
 
 
