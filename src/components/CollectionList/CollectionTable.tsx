@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Badge,
   Box,
@@ -18,6 +18,8 @@ import "keyrune";
 import "mana-font";
 import { createUseStyles } from "react-jss";
 import CollectionQuantityInput from "./CollectionQuantityInput";
+import { PlayerContext } from "../providers/CurrentPlayerProvider";
+import { useParams } from "react-router-dom";
 
 const useStyles = createUseStyles(() => ({
   smallerTable: {
@@ -31,6 +33,8 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
   setPlayerCollection,
 }) => {
   const classes = useStyles();
+  const { username } = useParams();
+  const { currentPlayer } = useContext(PlayerContext);
 
   const manaSymbols = (manaCost: string) => {
     const removeBrace = manaCost.replace(/[{]/g, "");
@@ -46,15 +50,11 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
     return symbols;
   };
 
-  // const checkDisabled = () => {
-  //   if (!card.has_non_foil && !card.has_foil) {
-  //     return false;
-  //   } else if (card.has_non_foil) {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // };
+  const playerLoggedIn = () => {
+    return (
+      playerCollection && currentPlayer && currentPlayer.username === username
+    );
+  };
 
   return (
     <Table size={"sm"}>
@@ -62,7 +62,6 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
         <Tr>
           <Th className={classes.smallerTable}>#</Th>
           <Th>Name</Th>
-          <Th>Has Foil</Th>
           <Th>Border</Th>
           <Th>Type</Th>
           <Th>Mana</Th>
@@ -94,14 +93,6 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
             <Td>
               <Badge
                 size="sm"
-                colorScheme={card.magic_card.has_foil ? "green" : "red"}
-              >
-                foil
-              </Badge>
-            </Td>
-            <Td>
-              <Badge
-                size="sm"
                 colorScheme={
                   card.magic_card.border_color === "borderless"
                     ? "green"
@@ -121,7 +112,7 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
                   : null}
               </Text>
             </Td>
-            {playerCollection ? (
+            {playerCollection && playerLoggedIn() ? (
               <CollectionQuantityInput
                 disabled={
                   (!card.magic_card.has_non_foil &&
@@ -136,8 +127,17 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
                 playerCollection={playerCollection}
                 setPlayerCollection={setPlayerCollection}
               />
-            ) : null}
-            {playerCollection ? (
+            ) : (
+              <Td textAlign="center">
+                <Badge
+                  size="sm"
+                  colorScheme={card.quantity > 0 ? "green" : "red"}
+                >
+                  {card.quantity}
+                </Badge>
+              </Td>
+            )}
+            {playerCollection && playerLoggedIn() ? (
               <CollectionQuantityInput
                 disabled={!card.magic_card.has_foil}
                 collectionId={card.collection_id}
@@ -147,9 +147,18 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
                 setPlayerCollection={setPlayerCollection}
                 foil
               />
-            ) : null}
+            ) : (
+              <Td textAlign="center">
+                <Badge
+                  size="sm"
+                  colorScheme={card.foil_quantity > 0 ? "green" : "red"}
+                >
+                  {card.foil_quantity}
+                </Badge>
+              </Td>
+            )}
             {playerCollection ? (
-              <Td>
+              <Td textAlign="center">
                 <Badge
                   size="sm"
                   colorScheme={

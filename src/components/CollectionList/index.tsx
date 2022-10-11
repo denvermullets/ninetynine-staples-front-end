@@ -54,8 +54,8 @@ const CollectionList: React.FC = () => {
 
   // const searchAsObject = Object.fromEntries(new URLSearchParams(searchParams));
   // const [paginatedCards, setPaginatedCards] = useState<MagicCardType[]>([]);
-  const [filters, setFilters] = useState<FilterOptions[]>([]);
-  const [filterColors, setFilterColors] = useState<FilterOptions[]>([]);
+  // const [filters, setFilters] = useState<FilterOptions[]>([]);
+  // const [filterColors, setFilterColors] = useState<FilterOptions[]>([]);
 
   const cardRarity = [
     { value: "mythic", label: "Mythic" },
@@ -104,9 +104,18 @@ const CollectionList: React.FC = () => {
     console.log(selectedFilters);
     console.log("user option", e);
 
-    // TODO: if colors or selectedFilters is empty, remove keys if found? need to update hook
+    const deleteSearch = { ...search };
+
+    if (!selectedFilters?.length && search?.rarity) {
+      delete deleteSearch["rarity"];
+    }
+
+    if (!colors?.length && search?.color) {
+      delete deleteSearch["color"];
+    }
+
     setSearch({
-      ...search,
+      ...deleteSearch,
       ...(selectedFilters?.length && {
         rarity: selectedFilters
           .map((rarity: FilterOptions) => rarity.value)
@@ -116,8 +125,20 @@ const CollectionList: React.FC = () => {
         color: colors.map((color: FilterOptions) => color.value).join(","),
       }),
     });
-    setFilters(selectedFilters);
-    setFilterColors(colors);
+  };
+
+  const handleExactMatch = () => {
+    const deleteExact = { ...search };
+
+    if (!exactMatch === false && search?.exact) {
+      delete deleteExact["exact"];
+    }
+
+    setSearch({
+      ...deleteExact,
+      ...(!exactMatch === true && { exact: "yes" }),
+    });
+    setExactMatch(!exactMatch);
   };
 
   const handleBoxsetChange = (e) => {
@@ -144,9 +165,9 @@ const CollectionList: React.FC = () => {
       `${config.API_URL}/collections/${username}/${id}`,
       {
         params: {
-          ...(search && search.rarity && { rarity: search.rarity }),
-          ...(search && search.color && { color: search.color }),
-          ...(search && search.exact && { exact: search.exact }),
+          ...(search?.rarity && { rarity: search.rarity }),
+          ...(search?.color && { color: search.color }),
+          ...(search?.exact && { exact: search.exact }),
         },
       }
     );
@@ -282,13 +303,7 @@ const CollectionList: React.FC = () => {
                     marginTop={2}
                     value="exact"
                     isChecked={exactMatch}
-                    onChange={() => {
-                      setSearch({
-                        ...search,
-                        exact: !exactMatch ? "yes" : "no",
-                      });
-                      setExactMatch(!exactMatch);
-                    }}
+                    onChange={handleExactMatch}
                   >
                     Exact
                   </Checkbox>
