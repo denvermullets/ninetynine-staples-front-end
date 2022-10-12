@@ -54,8 +54,8 @@ const CollectionList: React.FC = () => {
 
   // const searchAsObject = Object.fromEntries(new URLSearchParams(searchParams));
   // const [paginatedCards, setPaginatedCards] = useState<MagicCardType[]>([]);
-  const [filters, setFilters] = useState<FilterOptions[]>([]);
-  const [filterColors, setFilterColors] = useState<FilterOptions[]>([]);
+  // const [filters, setFilters] = useState<FilterOptions[]>([]);
+  // const [filterColors, setFilterColors] = useState<FilterOptions[]>([]);
 
   const cardRarity = [
     { value: "mythic", label: "Mythic" },
@@ -104,9 +104,18 @@ const CollectionList: React.FC = () => {
     console.log(selectedFilters);
     console.log("user option", e);
 
-    // TODO: if colors or selectedFilters is empty, remove keys if found? need to update hook
+    const deleteSearch = { ...search };
+
+    if (!selectedFilters?.length && search?.rarity) {
+      delete deleteSearch["rarity"];
+    }
+
+    if (!colors?.length && search?.color) {
+      delete deleteSearch["color"];
+    }
+
     setSearch({
-      ...search,
+      ...deleteSearch,
       ...(selectedFilters?.length && {
         rarity: selectedFilters
           .map((rarity: FilterOptions) => rarity.value)
@@ -116,8 +125,20 @@ const CollectionList: React.FC = () => {
         color: colors.map((color: FilterOptions) => color.value).join(","),
       }),
     });
-    setFilters(selectedFilters);
-    setFilterColors(colors);
+  };
+
+  const handleExactMatch = () => {
+    const deleteExact = { ...search };
+
+    if (!exactMatch === false && search?.exact) {
+      delete deleteExact["exact"];
+    }
+
+    setSearch({
+      ...deleteExact,
+      ...(!exactMatch === true && { exact: "yes" }),
+    });
+    setExactMatch(!exactMatch);
   };
 
   const handleBoxsetChange = (e) => {
@@ -137,22 +158,24 @@ const CollectionList: React.FC = () => {
     console.log("search object changed", search);
 
     fetchData();
-  }, [search?.rarity, search?.color, search?.exact]);
+  }, [search?.rarity, search?.color, search?.exact, search?.page]);
 
   const fetchData = async () => {
     const collectionData = await axios(
       `${config.API_URL}/collections/${username}/${id}`,
       {
         params: {
-          ...(search && search.rarity && { rarity: search.rarity }),
-          ...(search && search.color && { color: search.color }),
-          ...(search && search.exact && { exact: search.exact }),
+          ...(search?.rarity && { rarity: search.rarity }),
+          ...(search?.color && { color: search.color }),
+          ...(search?.exact && { exact: search.exact }),
+          page: page ? page : 1,
+          quantity: itemsPerPage ? itemsPerPage : 50,
         },
       }
     );
 
     if (collectionData) {
-      console.log("no", collectionData.data);
+      console.log("collection loaded", collectionData.data);
       setPlayerCollection(collectionData.data);
     }
   };
@@ -282,13 +305,7 @@ const CollectionList: React.FC = () => {
                     marginTop={2}
                     value="exact"
                     isChecked={exactMatch}
-                    onChange={() => {
-                      setSearch({
-                        ...search,
-                        exact: !exactMatch ? "yes" : "no",
-                      });
-                      setExactMatch(!exactMatch);
-                    }}
+                    onChange={handleExactMatch}
                   >
                     Exact
                   </Checkbox>
@@ -337,12 +354,22 @@ const CollectionList: React.FC = () => {
                 width={{ base: "full", md: "auto" }}
                 variant="secondary"
               >
-                <Button onClick={() => setPage(page - 1)} disabled={page < 2}>
+                <Button
+                  onClick={() => {
+                    setSearch({ ...search, page: String(page - 1) });
+                    setPage(page - 1);
+                  }}
+                  disabled={page < 2}
+                >
                   Previous
                 </Button>
                 <Button
-                  onClick={() => setPage(page + 1)}
+                  onClick={() => {
+                    setSearch({ ...search, page: String(page + 1) });
+                    setPage(page + 1);
+                  }}
                   // disabled={Math.ceil(cards.length / itemsPerPage) === page}
+                  disabled={playerCollection.length < itemsPerPage - 1}
                 >
                   Next
                 </Button>
