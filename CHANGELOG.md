@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.9.0...v1.10.0) (2022-10-12)
+
+
+### Features
+
+* **collection:** restrict view, add pagination, nin-62, nin-63 ([#37](https://github.com/denvermullets/ninetynine-staples-front-end/issues/37)) ([bce2350](https://github.com/denvermullets/ninetynine-staples-front-end/commit/bce235096adc017b85875c22685b561f421ace98))
+
 # [1.9.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.8.0...v1.9.0) (2022-10-10)
 
 
