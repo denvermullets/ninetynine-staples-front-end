@@ -3,7 +3,6 @@ import { createUseStyles } from "react-jss";
 import { Route, Routes } from "react-router-dom";
 import AppContainer from "./components/AppContainer";
 import SignUp from "./components/Authentication/SignUp";
-import CollectionList from "./components/CollectionList";
 import Navbar from "./components/NavBar";
 import Boxsets from "./views/Boxsets";
 import Collections from "./views/Collections";
