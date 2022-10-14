@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.10.0...v1.11.0) (2022-10-14)
+
+
+### Features
+
+* **collection:** add ability to filter by boxset, nin-65 ([#39](https://github.com/denvermullets/ninetynine-staples-front-end/issues/39)) ([9c7f052](https://github.com/denvermullets/ninetynine-staples-front-end/commit/9c7f052ba5480b17d4c3a0974b6eec4db09dac56))
+
 # [1.10.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.9.0...v1.10.0) (2022-10-12)
 
 
