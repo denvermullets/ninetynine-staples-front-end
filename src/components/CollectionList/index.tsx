@@ -158,7 +158,13 @@ const CollectionList: React.FC = () => {
     console.log("search object changed", search);
 
     fetchData();
-  }, [search?.rarity, search?.color, search?.exact, search?.page]);
+  }, [
+    search?.rarity,
+    search?.color,
+    search?.exact,
+    search?.page,
+    search?.boxset,
+  ]);
 
   const fetchData = async () => {
     const collectionData = await axios(
@@ -168,6 +174,7 @@ const CollectionList: React.FC = () => {
           ...(search?.rarity && { rarity: search.rarity }),
           ...(search?.color && { color: search.color }),
           ...(search?.exact && { exact: search.exact }),
+          ...(search?.boxset && { boxset: search.boxset }),
           page: page ? page : 1,
           quantity: itemsPerPage ? itemsPerPage : 50,
         },
@@ -251,7 +258,7 @@ const CollectionList: React.FC = () => {
             <Grid gap={6} templateColumns="repeat(10, 1fr)" padding={2}>
               <GridItem colSpan={4}>
                 <Select
-                  isDisabled={true}
+                  // isDisabled={true}
                   useBasicStyles
                   options={boxsetOptions}
                   onChange={handleBoxsetChange}
