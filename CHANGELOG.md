@@ -1,3 +1,10 @@
+## [1.12.1](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.12.0...v1.12.1) (2022-10-17)
+
+
+### Bug Fixes
+
+* **magicCards:** split out price columns ([#45](https://github.com/denvermullets/ninetynine-staples-front-end/issues/45)) ([d80a578](https://github.com/denvermullets/ninetynine-staples-front-end/commit/d80a5789c70d9bec3556c3917d91baac78475f69))
+
 # [1.12.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.11.1...v1.12.0) (2022-10-17)
 
 
