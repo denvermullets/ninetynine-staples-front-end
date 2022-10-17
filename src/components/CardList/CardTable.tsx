@@ -7,6 +7,8 @@ import QuantityInput from "./QuantityInput";
 import CardTableName from "./CardTableName";
 import { createUseStyles } from "react-jss";
 import FoilQuantityInput from "./FoilQuantityInput";
+import axios from "axios";
+import { formatPrice } from "../../util/helpers";
 
 const useStyles = createUseStyles(() => ({
   smallerTable: {
@@ -64,6 +66,7 @@ const CardTable: React.FC<CardTableProps> = ({
           <Th>Border</Th>
           <Th>Type</Th>
           <Th>Mana</Th>
+          <Th>Price</Th>
           {collection && selectedCollection ? <Th>Normal</Th> : null}
           {collection && selectedCollection ? <Th>Foil</Th> : null}
           {collection && selectedCollection ? <Th>Owned</Th> : null}
@@ -102,6 +105,7 @@ const CardTable: React.FC<CardTableProps> = ({
                 {card && card.mana_cost ? manaSymbols(card.mana_cost) : null}
               </Text>
             </Td>
+            <Td>{formatPrice(card)}</Td>
             {collection &&
             selectedCollection &&
             (card.card_side == "a" || card.card_side === null) ? (
