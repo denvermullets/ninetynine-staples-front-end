@@ -1,3 +1,10 @@
+## [1.12.2](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.12.1...v1.12.2) (2022-10-17)
+
+
+### Bug Fixes
+
+* **collection:** fix storybook cards ([#47](https://github.com/denvermullets/ninetynine-staples-front-end/issues/47)) ([38af043](https://github.com/denvermullets/ninetynine-staples-front-end/commit/38af043ff2ac392cc56d8814fdd5ffc7c0d527da))
+
 ## [1.12.1](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.12.0...v1.12.1) (2022-10-17)
 
 
