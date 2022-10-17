@@ -49,6 +49,8 @@ export interface MagicCardType {
   updated_at: string;
   magic_card_color_idents: MagicCardColorIdents[];
   boxset?: Boxset;
+  normal_price: string;
+  foil_price: string;
 }
 
 interface MagicCardColorIdents {
