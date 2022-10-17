@@ -85,7 +85,11 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
                     } ss-2x`}
                   />
                   <Box>
-                    <Text fontWeight="medium">{card.magic_card.name}</Text>
+                    <Text fontWeight="medium">
+                      {card.magic_card.face_name
+                        ? card.magic_card.face_name
+                        : card.magic_card.name}
+                    </Text>
                   </Box>
                 </HStack>
               </Tooltip>
@@ -112,7 +116,10 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
                   : null}
               </Text>
             </Td>
-            {playerCollection && playerLoggedIn() ? (
+            {playerCollection &&
+            playerLoggedIn() &&
+            (card.magic_card.card_side == "a" ||
+              card.magic_card.card_side === null) ? (
               <CollectionQuantityInput
                 disabled={
                   (!card.magic_card.has_non_foil &&
@@ -137,7 +144,10 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
                 </Badge>
               </Td>
             )}
-            {playerCollection && playerLoggedIn() ? (
+            {playerCollection &&
+            playerLoggedIn() &&
+            (card.magic_card.card_side == "a" ||
+              card.magic_card.card_side === null) ? (
               <CollectionQuantityInput
                 disabled={!card.magic_card.has_foil}
                 collectionId={card.collection_id}
