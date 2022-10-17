@@ -20,7 +20,6 @@ import { createUseStyles } from "react-jss";
 import CollectionQuantityInput from "./CollectionQuantityInput";
 import { PlayerContext } from "../providers/CurrentPlayerProvider";
 import { useParams } from "react-router-dom";
-import { formatPrice } from "../../util/helpers";
 
 const useStyles = createUseStyles(() => ({
   smallerTable: {
@@ -69,7 +68,8 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
           {playerCollection ? <Th>Normal</Th> : null}
           {playerCollection ? <Th>Foil</Th> : null}
           {playerCollection ? <Th>Owned</Th> : null}
-          <Th>Price</Th>
+          <Th>Normal</Th>
+          <Th>Foil</Th>
         </Tr>
       </Thead>
       <Tbody>
@@ -183,7 +183,8 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
                 </Badge>
               </Td>
             ) : null}
-            <Td>{formatPrice(card.magic_card)}</Td>
+            <Td>{card.magic_card.normal_price}</Td>
+            <Td>{card.magic_card.foil_price}</Td>
           </Tr>
         ))}
       </Tbody>
