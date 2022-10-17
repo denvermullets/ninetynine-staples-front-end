@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.11.0...v1.11.1) (2022-10-17)
+
+
+### Bug Fixes
+
+* **magicCards:** fix double sided cards, nin-55 ([#41](https://github.com/denvermullets/ninetynine-staples-front-end/issues/41)) ([cfe8e87](https://github.com/denvermullets/ninetynine-staples-front-end/commit/cfe8e87c3ecbd40781e19a38512b129e34a76af3))
+
 # [1.11.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.10.0...v1.11.0) (2022-10-14)
 
 
