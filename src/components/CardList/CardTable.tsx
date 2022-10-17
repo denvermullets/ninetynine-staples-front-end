@@ -7,7 +7,6 @@ import QuantityInput from "./QuantityInput";
 import CardTableName from "./CardTableName";
 import { createUseStyles } from "react-jss";
 import FoilQuantityInput from "./FoilQuantityInput";
-import axios from "axios";
 import { formatPrice } from "../../util/helpers";
 
 const useStyles = createUseStyles(() => ({
