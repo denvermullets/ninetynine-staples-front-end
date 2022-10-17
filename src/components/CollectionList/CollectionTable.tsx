@@ -120,8 +120,7 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
             </Td>
             {playerCollection &&
             playerLoggedIn() &&
-            (card.magic_card.card_side == "a" ||
-              card.magic_card.card_side === null) ? (
+            card.magic_card.card_side !== "b" ? (
               <CollectionQuantityInput
                 disabled={
                   (!card.magic_card.has_non_foil &&
@@ -148,8 +147,7 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
             )}
             {playerCollection &&
             playerLoggedIn() &&
-            (card.magic_card.card_side == "a" ||
-              card.magic_card.card_side === null) ? (
+            card.magic_card.card_side !== "b" ? (
               <CollectionQuantityInput
                 disabled={!card.magic_card.has_foil}
                 collectionId={card.collection_id}

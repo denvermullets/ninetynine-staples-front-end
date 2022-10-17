@@ -104,9 +104,7 @@ const CardTable: React.FC<CardTableProps> = ({
                 {card && card.mana_cost ? manaSymbols(card.mana_cost) : null}
               </Text>
             </Td>
-            {collection &&
-            selectedCollection &&
-            (card.card_side == "a" || card.card_side === null) ? (
+            {collection && selectedCollection && card.card_side !== "b" ? (
               <QuantityInput
                 card={card}
                 cardQuantity={Number(findMatch(card).normal) || 0}
@@ -115,9 +113,7 @@ const CardTable: React.FC<CardTableProps> = ({
                 selectedCollection={selectedCollection}
               />
             ) : null}
-            {collection &&
-            selectedCollection &&
-            (card.card_side == "a" || card.card_side === null) ? (
+            {collection && selectedCollection && card.card_side !== "b" ? (
               <FoilQuantityInput
                 card={card}
                 cardQuantity={Number(findMatch(card).foil) || 0}
