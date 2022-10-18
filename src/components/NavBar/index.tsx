@@ -17,7 +17,6 @@ import {
 } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { FiHelpCircle, FiSearch, FiSettings } from "react-icons/fi";
-import { FcCapacitor } from "react-icons/fc";
 import Logo from "./ninety_logo_512.png";
 import Sidebar from "./Sidebar";
 import { ToggleButton } from "./ToggleButton";
