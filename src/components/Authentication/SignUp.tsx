@@ -16,6 +16,7 @@ import { Link, useNavigate } from "react-router-dom";
 import config from "../../config";
 import axios from "axios";
 import { PlayerContext } from "../providers/CurrentPlayerProvider";
+import { useCookies } from "react-cookie";
 
 // import { useCookies } from "react-cookie";
 
@@ -28,7 +29,7 @@ const SignUp: React.FC = () => {
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const navigate = useNavigate();
   const { setCurrentPlayer } = useContext(PlayerContext);
-  // const [, setCookie] = useCookies(["ninetynine_staples"]);
+  const [, setCookie] = useCookies(["ninetynine_staples"]);
 
   const validateEmail = () => {
     if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
@@ -87,22 +88,34 @@ const SignUp: React.FC = () => {
         return;
       }
 
-      setCurrentPlayer({
-        email: loginUser.data.player.email,
-        created_at: loginUser.data.player.created_at,
-        updated_at: loginUser.data.player.updated_at,
-        id: loginUser.data.player.id,
-        username: loginUser.data.player.username,
-        token: loginUser.data.token,
-      });
+      const collections = await axios(
+        `${config.API_URL}/collections/${loginUser.data.player.username}`
+      );
 
-      navigate("/sets");
-      // setCookie("ninetynine_staples", user, {
-      //   path: "/",
-      //   secure: true,
-      //   expires: new Date(Date.now() + 3600 * 1000 * 48),
-      //   sameSite: true,
-      // });
+      if (collections) {
+        const player = {
+          email: loginUser.data.player.email,
+          created_at: loginUser.data.player.created_at,
+          updated_at: loginUser.data.player.updated_at,
+          id: loginUser.data.player.id,
+          username: loginUser.data.player.username,
+          token: loginUser.data.token,
+          defaultCollection: collections.data.collections[0],
+        };
+
+        setCurrentPlayer(player);
+        setCookie("ninetynine_staples", player, {
+          path: "/",
+          secure: true,
+          // i think a 4hr cookie is ok, probably not going to need more than that w/tokens exp
+          expires: new Date(Date.now() + 3600 * 1000 * 4),
+          sameSite: true,
+        });
+
+        navigate(
+          `/collections/${player.username}/${player.defaultCollection.id}`
+        );
+      }
     } catch (error) {
       console.log(error);
     }
