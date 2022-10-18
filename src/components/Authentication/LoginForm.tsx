@@ -97,7 +97,9 @@ const LoginForm: React.FC = () => {
           sameSite: true,
         });
 
-        navigate("/sets");
+        navigate(
+          `/collections/${player.username}/${player.defaultCollection.id}`
+        );
       }
     } catch (error) {
       console.log(error);
