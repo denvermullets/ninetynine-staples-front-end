@@ -21,12 +21,15 @@ import Logo from "./ninety_logo_512.png";
 import Sidebar from "./Sidebar";
 import { ToggleButton } from "./ToggleButton";
 import { Link } from "react-router-dom";
-import { PlayerContext } from "../providers/CurrentPlayerProvider";
+import {
+  CurrentPlayerContext,
+  PlayerContext,
+} from "../providers/CurrentPlayerProvider";
 
 const Navbar: React.FC = () => {
   const isDesktop = useBreakpointValue({ base: false, lg: true });
   const { isOpen, onToggle, onClose } = useDisclosure();
-  const { currentPlayer } = useContext(PlayerContext);
+  const { currentPlayer } = useContext<CurrentPlayerContext>(PlayerContext);
 
   return (
     <Box
@@ -48,9 +51,17 @@ const Navbar: React.FC = () => {
                   alt="Ninety Nine Staples Logo"
                 />
               </Button>
-              <Link to="/">
-                <Button>Home</Button>
-              </Link>
+              {currentPlayer && (
+                <Link
+                  to={
+                    "/collections" +
+                    `/${currentPlayer.username}` +
+                    `/${currentPlayer.defaultCollection.id}`
+                  }
+                >
+                  <Button>Collections</Button>
+                </Link>
+              )}
               <Link to="/sets">
                 <Button>Sets</Button>
               </Link>

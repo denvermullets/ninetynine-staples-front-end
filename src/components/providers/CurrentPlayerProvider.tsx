@@ -1,5 +1,8 @@
+import axios from "axios";
 import React, { useState, createContext, useEffect } from "react";
 import { useCookies } from "react-cookie";
+import config from "../../config";
+import { CollectionType } from "../../types";
 
 export interface PropsType {
   children: React.ReactNode;
@@ -13,6 +16,7 @@ export interface CurrentPlayer {
   updated_at: string;
   username: string;
   token: string;
+  defaultCollection: CollectionType;
 }
 
 export interface CurrentPlayerContext {
@@ -26,8 +30,12 @@ export const CurrentPlayerProvider = ({ children }) => {
   const [currentPlayer, setCurrentPlayer] = useState<CurrentPlayer>();
   const [cookies] = useCookies(["ninetynine_staples"]);
 
-  useEffect(() => {
-    if (cookies?.ninetynine_staples) {
+  const loadCollections = async () => {
+    const collections = await axios(
+      `${config.API_URL}/collections/${cookies.ninetynine_staples.username}`
+    );
+
+    if (collections) {
       setCurrentPlayer({
         email: cookies.ninetynine_staples.email,
         created_at: cookies.ninetynine_staples.created_at,
@@ -35,7 +43,14 @@ export const CurrentPlayerProvider = ({ children }) => {
         id: cookies.ninetynine_staples.id,
         username: cookies.ninetynine_staples.username,
         token: cookies.ninetynine_staples.token,
+        defaultCollection: collections.data.collections[0],
       });
+    }
+  };
+
+  useEffect(() => {
+    if (cookies?.ninetynine_staples) {
+      loadCollections();
     }
   }, [cookies]);
 
