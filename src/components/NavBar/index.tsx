@@ -9,13 +9,15 @@ import {
   Flex,
   HStack,
   IconButton,
+  Image,
+  Stack,
   useBreakpointValue,
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { FiHelpCircle, FiSearch, FiSettings } from "react-icons/fi";
-import { FcCapacitor } from "react-icons/fc";
+import Logo from "./ninety_logo_512.png";
 import Sidebar from "./Sidebar";
 import { ToggleButton } from "./ToggleButton";
 import { Link } from "react-router-dom";
@@ -35,19 +37,23 @@ const Navbar: React.FC = () => {
     >
       <Flex justify="space-between">
         <HStack spacing="4">
-          <FcCapacitor />
+          <Stack direction="row" alignContent="center"></Stack>
           {isDesktop && (
             <ButtonGroup variant="lightBlue" spacing="1">
+              <Button>
+                <Image
+                  boxSize="32px"
+                  objectFit="fill"
+                  src={Logo}
+                  alt="Ninety Nine Staples Logo"
+                />
+              </Button>
               <Link to="/">
                 <Button>Home</Button>
               </Link>
               <Link to="/sets">
                 <Button>Sets</Button>
               </Link>
-
-              {/* <Button>Tasks</Button>
-              <Button>Bookmarks</Button>
-              <Button>Users</Button> */}
             </ButtonGroup>
           )}
         </HStack>
