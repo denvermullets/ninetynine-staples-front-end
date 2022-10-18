@@ -20,10 +20,10 @@ import { createUseStyles } from "react-jss";
 import CollectionQuantityInput from "./CollectionQuantityInput";
 import { PlayerContext } from "../providers/CurrentPlayerProvider";
 import { useParams } from "react-router-dom";
+import { currencyFormat } from "../../util/helpers";
 
 const useStyles = createUseStyles(() => ({
   smallerTable: {
-    paddingLeft: "0px",
     paddingRight: "0px",
   },
 }));
@@ -57,10 +57,12 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
   };
 
   return (
-    <Table size={"sm"}>
+    <Table size={"sm"} variant="striped" colorScheme="gray">
       <Thead>
         <Tr>
-          <Th className={classes.smallerTable}>#</Th>
+          <Th className={classes.smallerTable} isNumeric>
+            #
+          </Th>
           <Th>Name</Th>
           <Th>Border</Th>
           <Th>Type</Th>
@@ -68,14 +70,15 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
           {playerCollection ? <Th>Normal</Th> : null}
           {playerCollection ? <Th>Foil</Th> : null}
           {playerCollection ? <Th>Owned</Th> : null}
-          <Th>Normal</Th>
-          <Th>Foil</Th>
+          <Th isNumeric>Normal</Th>
+          <Th isNumeric>Foil</Th>
+          <Th isNumeric>Total</Th>
         </Tr>
       </Thead>
       <Tbody>
         {playerCollection.map((card: PlayerCollectionType) => (
           <Tr key={card.id}>
-            <Td className={classes.smallerTable}>
+            <Td className={classes.smallerTable} isNumeric>
               {card.magic_card.card_number}
             </Td>
             <Td>
@@ -168,7 +171,7 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
               </Td>
             )}
             {playerCollection ? (
-              <Td textAlign="center">
+              <Td isNumeric>
                 <Badge
                   size="sm"
                   colorScheme={
@@ -181,8 +184,34 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
                 </Badge>
               </Td>
             ) : null}
-            <Td>{card.magic_card.normal_price}</Td>
-            <Td>{card.magic_card.foil_price}</Td>
+            <Td isNumeric>
+              {card.quantity > 0
+                ? currencyFormat(
+                    Number(
+                      card.magic_card.normal_price
+                        ? card.magic_card.normal_price
+                        : 0
+                    )
+                  )
+                : null}
+            </Td>
+            <Td isNumeric>
+              {card.foil_quantity > 0
+                ? currencyFormat(
+                    Number(
+                      card.magic_card.foil_price
+                        ? card.magic_card.foil_price
+                        : 0
+                    )
+                  )
+                : null}
+            </Td>
+            <Td isNumeric>
+              {currencyFormat(
+                card.quantity * Number(card.magic_card.normal_price) +
+                  card.foil_quantity * Number(card.magic_card.foil_price)
+              )}
+            </Td>
           </Tr>
         ))}
       </Tbody>
