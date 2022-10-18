@@ -73,25 +73,34 @@ const LoginForm: React.FC = () => {
         return;
       }
 
-      const player = {
-        email: loginUser.data.player.email,
-        created_at: loginUser.data.player.created_at,
-        updated_at: loginUser.data.player.updated_at,
-        id: loginUser.data.player.id,
-        username: loginUser.data.player.username,
-        token: loginUser.data.token,
-      };
+      const collections = await axios(
+        `${config.API_URL}/collections/${loginUser.data.player.username}`
+      );
 
-      setCurrentPlayer(player);
-      setCookie("ninetynine_staples", player, {
-        path: "/",
-        secure: true,
-        // i think a 4hr cookie is ok, probably not going to need more than that w/tokens exp
-        expires: new Date(Date.now() + 3600 * 1000 * 4),
-        sameSite: true,
-      });
+      if (collections) {
+        const player = {
+          email: loginUser.data.player.email,
+          created_at: loginUser.data.player.created_at,
+          updated_at: loginUser.data.player.updated_at,
+          id: loginUser.data.player.id,
+          username: loginUser.data.player.username,
+          token: loginUser.data.token,
+          defaultCollection: collections.data.collections[0],
+        };
 
-      navigate("/sets");
+        setCurrentPlayer(player);
+        setCookie("ninetynine_staples", player, {
+          path: "/",
+          secure: true,
+          // i think a 4hr cookie is ok, probably not going to need more than that w/tokens exp
+          expires: new Date(Date.now() + 3600 * 1000 * 4),
+          sameSite: true,
+        });
+
+        navigate(
+          `/collections/${player.username}/${player.defaultCollection.id}`
+        );
+      }
     } catch (error) {
       console.log(error);
     }

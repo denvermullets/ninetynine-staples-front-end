@@ -348,7 +348,7 @@ const CollectionList: React.FC = () => {
           <Box px={{ base: "4", md: "6" }} pb="5" paddingTop={5}>
             <HStack spacing="3" justify="space-between">
               <Text color="muted" fontSize="sm">
-                Showing {page * itemsPerPage - itemsPerPage + 1} to{" "}
+                {/* Showing {page * itemsPerPage - itemsPerPage + 1} to{" "} */}
                 {/* {page * itemsPerPage > cards.length
                     ? cards.length
                     : page * itemsPerPage}{" "}

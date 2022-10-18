@@ -16,6 +16,13 @@ export interface Boxset {
   updated_at: Date;
 }
 
+export interface CollectionType {
+  id: string;
+  name: string;
+  description: string;
+  player_id: string;
+}
+
 export interface MagicCardType {
   id: string | number;
   boxset_id: number;

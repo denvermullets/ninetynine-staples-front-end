@@ -9,22 +9,27 @@ import {
   Flex,
   HStack,
   IconButton,
+  Image,
+  Stack,
   useBreakpointValue,
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { FiHelpCircle, FiSearch, FiSettings } from "react-icons/fi";
-import { FcCapacitor } from "react-icons/fc";
+import Logo from "./ninety_logo_512.png";
 import Sidebar from "./Sidebar";
 import { ToggleButton } from "./ToggleButton";
 import { Link } from "react-router-dom";
-import { PlayerContext } from "../providers/CurrentPlayerProvider";
+import {
+  CurrentPlayerContext,
+  PlayerContext,
+} from "../providers/CurrentPlayerProvider";
 
 const Navbar: React.FC = () => {
   const isDesktop = useBreakpointValue({ base: false, lg: true });
   const { isOpen, onToggle, onClose } = useDisclosure();
-  const { currentPlayer } = useContext(PlayerContext);
+  const { currentPlayer } = useContext<CurrentPlayerContext>(PlayerContext);
 
   return (
     <Box
@@ -35,41 +40,57 @@ const Navbar: React.FC = () => {
     >
       <Flex justify="space-between">
         <HStack spacing="4">
-          <FcCapacitor />
+          <Stack direction="row" alignContent="center"></Stack>
           {isDesktop && (
             <ButtonGroup variant="lightBlue" spacing="1">
-              <Link to="/">
-                <Button>Home</Button>
-              </Link>
+              <Button>
+                <Image
+                  boxSize="32px"
+                  objectFit="fill"
+                  src={Logo}
+                  alt="Ninety Nine Staples Logo"
+                />
+              </Button>
+              {currentPlayer && (
+                <Link
+                  to={
+                    "/collections" +
+                    `/${currentPlayer.username}` +
+                    `/${currentPlayer.defaultCollection.id}`
+                  }
+                >
+                  <Button>Collections</Button>
+                </Link>
+              )}
               <Link to="/sets">
                 <Button>Sets</Button>
               </Link>
-              {!currentPlayer ? (
-                <Link to="/login">
-                  <Button>Login</Button>
-                </Link>
-              ) : null}
-              {/* <Button>Tasks</Button>
-              <Button>Bookmarks</Button>
-              <Button>Users</Button> */}
             </ButtonGroup>
           )}
         </HStack>
         {isDesktop ? (
           <HStack spacing="4">
             <ButtonGroup variant="lightBlue" spacing="1">
-              <IconButton
-                icon={<FiSearch fontSize="1.25rem" />}
-                aria-label="Search"
-              />
-              <IconButton
-                icon={<FiSettings fontSize="1.25rem" />}
-                aria-label="Settings"
-              />
-              <IconButton
-                icon={<FiHelpCircle fontSize="1.25rem" />}
-                aria-label="Help Center"
-              />
+              {!currentPlayer ? (
+                <Link to="/login">
+                  <Button>Login</Button>
+                </Link>
+              ) : (
+                <>
+                  <IconButton
+                    icon={<FiSearch fontSize="1.25rem" />}
+                    aria-label="Search"
+                  />
+                  <IconButton
+                    icon={<FiSettings fontSize="1.25rem" />}
+                    aria-label="Settings"
+                  />
+                  <IconButton
+                    icon={<FiHelpCircle fontSize="1.25rem" />}
+                    aria-label="Help Center"
+                  />
+                </>
+              )}
             </ButtonGroup>
             {currentPlayer ? (
               <Avatar boxSize="10" name={currentPlayer.username} src="" />
