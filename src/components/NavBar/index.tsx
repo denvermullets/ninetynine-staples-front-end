@@ -44,11 +44,7 @@ const Navbar: React.FC = () => {
               <Link to="/sets">
                 <Button>Sets</Button>
               </Link>
-              {!currentPlayer ? (
-                <Link to="/login">
-                  <Button>Login</Button>
-                </Link>
-              ) : null}
+
               {/* <Button>Tasks</Button>
               <Button>Bookmarks</Button>
               <Button>Users</Button> */}
@@ -58,18 +54,26 @@ const Navbar: React.FC = () => {
         {isDesktop ? (
           <HStack spacing="4">
             <ButtonGroup variant="lightBlue" spacing="1">
-              <IconButton
-                icon={<FiSearch fontSize="1.25rem" />}
-                aria-label="Search"
-              />
-              <IconButton
-                icon={<FiSettings fontSize="1.25rem" />}
-                aria-label="Settings"
-              />
-              <IconButton
-                icon={<FiHelpCircle fontSize="1.25rem" />}
-                aria-label="Help Center"
-              />
+              {!currentPlayer ? (
+                <Link to="/login">
+                  <Button>Login</Button>
+                </Link>
+              ) : (
+                <>
+                  <IconButton
+                    icon={<FiSearch fontSize="1.25rem" />}
+                    aria-label="Search"
+                  />
+                  <IconButton
+                    icon={<FiSettings fontSize="1.25rem" />}
+                    aria-label="Settings"
+                  />
+                  <IconButton
+                    icon={<FiHelpCircle fontSize="1.25rem" />}
+                    aria-label="Help Center"
+                  />
+                </>
+              )}
             </ButtonGroup>
             {currentPlayer ? (
               <Avatar boxSize="10" name={currentPlayer.username} src="" />
