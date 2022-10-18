@@ -1,3 +1,11 @@
+## [1.12.3](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.12.2...v1.12.3) (2022-10-18)
+
+
+### Bug Fixes
+
+* **logo:** update logo / navbar ([#50](https://github.com/denvermullets/ninetynine-staples-front-end/issues/50)) ([e02b6eb](https://github.com/denvermullets/ninetynine-staples-front-end/commit/e02b6eb02b1672d5ce5320b4f5712d0f1a6f9864))
+* **navBar:** add default collection link, update manifest ([#51](https://github.com/denvermullets/ninetynine-staples-front-end/issues/51)) ([a7da2b4](https://github.com/denvermullets/ninetynine-staples-front-end/commit/a7da2b4de18303286a366e47ed8c5e4cb0c57991))
+
 ## [1.12.2](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.12.1...v1.12.2) (2022-10-17)
 
 
