@@ -110,7 +110,9 @@ const CardTable: React.FC<CardTableProps> = ({
                 setUserCollection={setUserCollection}
                 selectedCollection={selectedCollection}
               />
-            ) : null}
+            ) : (
+              <Td />
+            )}
             {collection && selectedCollection && card.card_side !== "b" ? (
               <FoilQuantityInput
                 card={card}
@@ -119,12 +121,13 @@ const CardTable: React.FC<CardTableProps> = ({
                 setUserCollection={setUserCollection}
                 selectedCollection={selectedCollection}
               />
-            ) : null}
-
-            {collection &&
-            selectedCollection &&
-            (card.card_side == "a" || card.card_side === null) ? (
-              <Td isNumeric>
+            ) : (
+              <Td />
+            )}
+            <Td isNumeric>
+              {collection &&
+              selectedCollection &&
+              (card.card_side == "a" || card.card_side === null) ? (
                 <Badge
                   size="sm"
                   colorScheme={
@@ -135,15 +138,19 @@ const CardTable: React.FC<CardTableProps> = ({
                 >
                   {findMatch(card).normal + findMatch(card).foil}
                 </Badge>
-              </Td>
-            ) : null}
-            <Td isNumeric>
-              {currencyFormat(
-                card.normal_price ? Number(card.normal_price) : 0
-              )}
+              ) : null}
             </Td>
             <Td isNumeric>
-              {currencyFormat(Number(card.foil_price ? card.foil_price : 0))}
+              {card.normal_price
+                ? currencyFormat(
+                    card.normal_price ? Number(card.normal_price) : 0
+                  )
+                : null}
+            </Td>
+            <Td isNumeric>
+              {card.foil_price
+                ? currencyFormat(Number(card.foil_price ? card.foil_price : 0))
+                : null}
             </Td>
           </Tr>
         ))}
