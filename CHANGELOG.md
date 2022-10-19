@@ -1,3 +1,11 @@
+## [1.12.4](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.12.3...v1.12.4) (2022-10-19)
+
+
+### Bug Fixes
+
+* **boxset:** fix formatting if card is b-side, nin-77 ([#56](https://github.com/denvermullets/ninetynine-staples-front-end/issues/56)) ([1c9a90e](https://github.com/denvermullets/ninetynine-staples-front-end/commit/1c9a90eee235f9d8c86b5a191bbdf0b1d2b4e09d))
+* **collection:** filter out zero quantity items, nin-74 ([#53](https://github.com/denvermullets/ninetynine-staples-front-end/issues/53)) ([0889b54](https://github.com/denvermullets/ninetynine-staples-front-end/commit/0889b5453dd04de9f86fd226ce4f89488680c021))
+
 ## [1.12.3](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.12.2...v1.12.3) (2022-10-18)
 
 
