@@ -110,7 +110,9 @@ const CardTable: React.FC<CardTableProps> = ({
                 setUserCollection={setUserCollection}
                 selectedCollection={selectedCollection}
               />
-            ) : (
+            ) : null}
+            {/* this is for when it's a bside card to keep table aligned properly */}
+            {collection && selectedCollection && card.card_side === "b" && (
               <Td />
             )}
             {collection && selectedCollection && card.card_side !== "b" ? (
@@ -121,13 +123,15 @@ const CardTable: React.FC<CardTableProps> = ({
                 setUserCollection={setUserCollection}
                 selectedCollection={selectedCollection}
               />
-            ) : (
+            ) : null}
+            {/* this is for when it's a bside card to keep table aligned properly */}
+            {collection && selectedCollection && card.card_side === "b" && (
               <Td />
             )}
-            <Td isNumeric>
-              {collection &&
-              selectedCollection &&
-              (card.card_side == "a" || card.card_side === null) ? (
+            {collection &&
+            selectedCollection &&
+            (card.card_side == "a" || card.card_side === null) ? (
+              <Td isNumeric>
                 <Badge
                   size="sm"
                   colorScheme={
@@ -138,8 +142,12 @@ const CardTable: React.FC<CardTableProps> = ({
                 >
                   {findMatch(card).normal + findMatch(card).foil}
                 </Badge>
-              ) : null}
-            </Td>
+              </Td>
+            ) : null}
+            {/* this is for when it's a bside card to keep table aligned properly */}
+            {collection && selectedCollection && card.card_side === "b" && (
+              <Td />
+            )}
             <Td isNumeric>
               {card.normal_price
                 ? currencyFormat(
