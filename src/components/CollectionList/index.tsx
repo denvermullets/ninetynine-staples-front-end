@@ -29,7 +29,6 @@ import config from "../../config";
 import {
   Boxset,
   CollectionOption,
-  CollectionType,
   FilterOptions,
   PlayerCollectionType,
 } from "../../types";
