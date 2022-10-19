@@ -183,7 +183,11 @@ const CollectionList: React.FC = () => {
 
     if (collectionData) {
       console.log("collection loaded", collectionData.data);
-      setPlayerCollection(collectionData.data);
+      const collection = collectionData.data.filter(
+        (collection: PlayerCollectionType) =>
+          collection.quantity > 0 || collection.foil_quantity > 0
+      );
+      setPlayerCollection(collection);
     }
   };
 

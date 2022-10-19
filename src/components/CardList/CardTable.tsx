@@ -111,6 +111,10 @@ const CardTable: React.FC<CardTableProps> = ({
                 selectedCollection={selectedCollection}
               />
             ) : null}
+            {/* this is for when it's a bside card to keep table aligned properly */}
+            {collection && selectedCollection && card.card_side === "b" && (
+              <Td />
+            )}
             {collection && selectedCollection && card.card_side !== "b" ? (
               <FoilQuantityInput
                 card={card}
@@ -120,7 +124,10 @@ const CardTable: React.FC<CardTableProps> = ({
                 selectedCollection={selectedCollection}
               />
             ) : null}
-
+            {/* this is for when it's a bside card to keep table aligned properly */}
+            {collection && selectedCollection && card.card_side === "b" && (
+              <Td />
+            )}
             {collection &&
             selectedCollection &&
             (card.card_side == "a" || card.card_side === null) ? (
@@ -137,13 +144,21 @@ const CardTable: React.FC<CardTableProps> = ({
                 </Badge>
               </Td>
             ) : null}
+            {/* this is for when it's a bside card to keep table aligned properly */}
+            {collection && selectedCollection && card.card_side === "b" && (
+              <Td />
+            )}
             <Td isNumeric>
-              {currencyFormat(
-                card.normal_price ? Number(card.normal_price) : 0
-              )}
+              {card.normal_price
+                ? currencyFormat(
+                    card.normal_price ? Number(card.normal_price) : 0
+                  )
+                : null}
             </Td>
             <Td isNumeric>
-              {currencyFormat(Number(card.foil_price ? card.foil_price : 0))}
+              {card.foil_price
+                ? currencyFormat(Number(card.foil_price ? card.foil_price : 0))
+                : null}
             </Td>
           </Tr>
         ))}
