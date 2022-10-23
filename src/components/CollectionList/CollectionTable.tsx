@@ -185,26 +185,44 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
               </Td>
             ) : null}
             <Td isNumeric>
-              {card.quantity > 0
-                ? currencyFormat(
+              {card.quantity > 0 ? (
+                currencyFormat(
+                  Number(
+                    card.magic_card.normal_price
+                      ? card.magic_card.normal_price
+                      : 0
+                  )
+                )
+              ) : (
+                <Text color="gray">
+                  {currencyFormat(
                     Number(
                       card.magic_card.normal_price
                         ? card.magic_card.normal_price
                         : 0
                     )
-                  )
-                : null}
+                  )}
+                </Text>
+              )}
             </Td>
             <Td isNumeric>
-              {card.foil_quantity > 0
-                ? currencyFormat(
+              {card.foil_quantity > 0 ? (
+                currencyFormat(
+                  Number(
+                    card.magic_card.foil_price ? card.magic_card.foil_price : 0
+                  )
+                )
+              ) : (
+                <Text color="gray">
+                  {currencyFormat(
                     Number(
                       card.magic_card.foil_price
                         ? card.magic_card.foil_price
                         : 0
                     )
-                  )
-                : null}
+                  )}
+                </Text>
+              )}
             </Td>
             <Td isNumeric>
               {currencyFormat(
