@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.13.0...v1.14.0) (2023-03-25)
+
+
+### Features
+
+* **collections:** handle searching for card by name, nin-16 ([#68](https://github.com/denvermullets/ninetynine-staples-front-end/issues/68)) ([104c59b](https://github.com/denvermullets/ninetynine-staples-front-end/commit/104c59b5042c43b093316b811d5ff53adeb6fcd7))
+
 # [1.13.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.12.4...v1.13.0) (2022-10-23)
 
 
