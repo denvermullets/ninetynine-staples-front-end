@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Flex,
-  Circle,
-  Box,
-  Image,
-  Badge,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Flex, Circle, Box, Image, Badge, useColorModeValue } from "@chakra-ui/react";
 
 interface MagicCardProps {
   // id: string;

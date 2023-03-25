@@ -22,66 +22,29 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { Select } from "chakra-react-select";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { useParams } from "react-router-dom";
 import config from "../../config";
-import {
-  Boxset,
-  CollectionOption,
-  FilterOptions,
-  PlayerCollectionType,
-} from "../../types";
+import { Boxset, CollectionOption, FilterOptions, PlayerCollectionType } from "../../types";
 import { useCustomSearchParams } from "../../util/customHooks";
 import CollectionTable from "./CollectionTable";
+import { groupedOptions } from "./helpers";
 
 const CollectionList: React.FC = () => {
   const { username, id } = useParams();
   const [page, setPage] = useState<number>(1);
-  const [playerCollection, setPlayerCollection] = useState<
-    PlayerCollectionType[]
-  >([]);
+  const [playerCollection, setPlayerCollection] = useState<PlayerCollectionType[]>([]);
   const [itemsPerPage, setItemsPerPage] = useState<number>(50);
   const [boxsetOptions, setBoxsetOptions] = useState<CollectionOption[]>([]);
-  const [collectionOptions, setCollectionOptions] = useState<
-    CollectionOption[]
-  >([]);
+  const [collectionOptions, setCollectionOptions] = useState<CollectionOption[]>([]);
   const [selectedCollection, setSelectedCollection] = useState(null);
   const [boxset, setBoxset] = useState(null);
   const [search, setSearch] = useCustomSearchParams();
+  const [searchByCard, setSearchByCard] = useState<string>("");
   const [loadedCollection, setLoadedCollection] = useState<boolean>(false);
   const [exactMatch, setExactMatch] = useState<boolean>(false);
-
-  // const searchAsObject = Object.fromEntries(new URLSearchParams(searchParams));
-  // const [paginatedCards, setPaginatedCards] = useState<MagicCardType[]>([]);
-  // const [filters, setFilters] = useState<FilterOptions[]>([]);
-  // const [filterColors, setFilterColors] = useState<FilterOptions[]>([]);
-
-  const cardRarity = [
-    { value: "mythic", label: "Mythic" },
-    { value: "rare", label: "Rare" },
-    { value: "uncommon", label: "Uncommon" },
-    { value: "common", label: "Common" },
-  ];
-
-  const cardColor = [
-    { value: "W", label: "White", colorScheme: "white" },
-    { value: "U", label: "Blue", colorScheme: "blue" },
-    { value: "R", label: "Red", colorScheme: "red" },
-    { value: "B", label: "Black", colorScheme: "gray" },
-    { value: "G", label: "Green", colorScheme: "green" },
-  ];
-
-  const groupedOptions = [
-    {
-      label: "Rarity",
-      options: cardRarity,
-    },
-    {
-      label: "Color",
-      options: cardColor,
-    },
-  ];
+  const timeout = useRef<null | ReturnType<typeof setTimeout>>();
 
   const handleFilters = (e) => {
     const selectedFilters = e.filter(
@@ -101,30 +64,31 @@ const CollectionList: React.FC = () => {
         color.value === "G"
     );
 
-    console.log(selectedFilters);
-    console.log("user option", e);
-
-    const deleteSearch = { ...search };
-
-    if (!selectedFilters?.length && search?.rarity) {
-      delete deleteSearch["rarity"];
-    }
-
-    if (!colors?.length && search?.color) {
-      delete deleteSearch["color"];
-    }
-
+    // this kinda seems weird, why did i do this? was i dumb??
     setSearch({
-      ...deleteSearch,
       ...(selectedFilters?.length && {
-        rarity: selectedFilters
-          .map((rarity: FilterOptions) => rarity.value)
-          .join(","),
+        rarity: selectedFilters.map((rarity: FilterOptions) => rarity.value).join(","),
       }),
       ...(colors?.length && {
         color: colors.map((color: FilterOptions) => color.value).join(","),
       }),
     });
+  };
+
+  const handleSearch = (e) => {
+    clearTimeout(timeout.current);
+    setSearchByCard(e.target.value);
+
+    timeout.current = setTimeout(async () => {
+      if (e.target.value !== "") {
+        setSearch({ ...search, search: e.target.value });
+      } else {
+        const updatedSearch = { ...search };
+        delete updatedSearch["search"];
+
+        setSearch({ ...updatedSearch });
+      }
+    }, 500);
   };
 
   const handleExactMatch = () => {
@@ -143,7 +107,6 @@ const CollectionList: React.FC = () => {
 
   const handleBoxsetChange = (e) => {
     // chakra react select is not an html element so just .value to get value
-    console.log(e);
     setBoxset(e);
     setSearch({ ...search, boxset: e.label });
   };
@@ -158,28 +121,20 @@ const CollectionList: React.FC = () => {
     console.log("search object changed", search);
 
     fetchData();
-  }, [
-    search?.rarity,
-    search?.color,
-    search?.exact,
-    search?.page,
-    search?.boxset,
-  ]);
+  }, [search?.rarity, search?.color, search?.exact, search?.page, search?.boxset, search?.search]);
 
   const fetchData = async () => {
-    const collectionData = await axios(
-      `${config.API_URL}/collections/${username}/${id}`,
-      {
-        params: {
-          ...(search?.rarity && { rarity: search.rarity }),
-          ...(search?.color && { color: search.color }),
-          ...(search?.exact && { exact: search.exact }),
-          ...(search?.boxset && { boxset: search.boxset }),
-          page: page ? page : 1,
-          quantity: itemsPerPage ? itemsPerPage : 50,
-        },
-      }
-    );
+    const collectionData = await axios(`${config.API_URL}/collections/${username}/${id}`, {
+      params: {
+        ...(search?.rarity && { rarity: search.rarity }),
+        ...(search?.color && { color: search.color }),
+        ...(search?.exact && { exact: search.exact }),
+        ...(search?.boxset && { boxset: search.boxset }),
+        ...(search?.search && { search: search.search }),
+        page: page ? page : 1,
+        quantity: itemsPerPage ? itemsPerPage : 50,
+      },
+    });
 
     if (collectionData) {
       console.log("collection loaded", collectionData.data);
@@ -206,39 +161,29 @@ const CollectionList: React.FC = () => {
   useEffect(() => {
     // load boxsets & collections
     const fetchOptions = async () => {
-      const filterOptions = await axios(
-        `${config.API_URL}/collections/${username}`
-      );
+      const filterOptions = await axios(`${config.API_URL}/collections/${username}`);
 
       if (filterOptions) {
-        console.log("no", filterOptions.data);
-        const boxsets: CollectionOption[] = filterOptions.data.boxsets.map(
-          (box: Boxset) => {
+        const boxsets: CollectionOption[] = filterOptions.data.boxsets.map((box: Boxset) => {
+          return {
+            value: box.id,
+            label: box.name,
+          };
+        });
+
+        const collections: CollectionOption[] = filterOptions.data.collections.map(
+          (collection: PlayerCollectionType) => {
             return {
-              value: box.id,
-              label: box.name,
+              value: collection.id,
+              label: collection.name,
             };
           }
         );
 
-        const collections: CollectionOption[] =
-          filterOptions.data.collections.map(
-            (collection: PlayerCollectionType) => {
-              return {
-                value: collection.id,
-                label: collection.name,
-              };
-            }
-          );
+        const defaultCollection = collections.filter((collection: CollectionOption) => {
+          return Number(collection.value) === Number(id);
+        });
 
-        const defaultCollection = collections.filter(
-          (collection: CollectionOption) => {
-            return Number(collection.value) === Number(id);
-          }
-        );
-
-        console.log("collections", collections);
-        console.log("default collectino", defaultCollection);
         setBoxsetOptions(boxsets);
         setCollectionOptions(collections);
         setSelectedCollection(defaultCollection[0]);
@@ -262,7 +207,6 @@ const CollectionList: React.FC = () => {
             <Grid gap={6} templateColumns="repeat(10, 1fr)" padding={2}>
               <GridItem colSpan={4}>
                 <Select
-                  // isDisabled={true}
                   useBasicStyles
                   options={boxsetOptions}
                   onChange={handleBoxsetChange}
@@ -285,12 +229,7 @@ const CollectionList: React.FC = () => {
                   <InputLeftElement pointerEvents="none">
                     <Icon as={FiSearch} color="muted" boxSize="5" />
                   </InputLeftElement>
-                  <Input
-                    placeholder="Search"
-                    isDisabled={true}
-                    // onChange={handleSearch}
-                    // value={search}
-                  />
+                  <Input placeholder="Find a card" onChange={handleSearch} value={searchByCard} />
                 </InputGroup>
               </GridItem>
               <GridItem colSpan={6}>
@@ -344,21 +283,16 @@ const CollectionList: React.FC = () => {
             </Grid>
           </Box>
           <Box overflowX="auto">
-            <CollectionTable
-              playerCollection={playerCollection}
-              setPlayerCollection={setPlayerCollection}
-            />
+            {playerCollection && (
+              <CollectionTable
+                playerCollection={playerCollection}
+                setPlayerCollection={setPlayerCollection}
+              />
+            )}
           </Box>
           <Box px={{ base: "4", md: "6" }} pb="5" paddingTop={5}>
             <HStack spacing="3" justify="space-between">
-              <Text color="muted" fontSize="sm">
-                {/* Showing {page * itemsPerPage - itemsPerPage + 1} to{" "} */}
-                {/* {page * itemsPerPage > cards.length
-                    ? cards.length
-                    : page * itemsPerPage}{" "}
-                  of {cards.length} results */}
-              </Text>
-
+              <Text color="muted" fontSize="sm"></Text>
               <ButtonGroup
                 spacing="3"
                 justifyContent="space-between"
@@ -379,7 +313,6 @@ const CollectionList: React.FC = () => {
                     setSearch({ ...search, page: String(page + 1) });
                     setPage(page + 1);
                   }}
-                  // disabled={Math.ceil(cards.length / itemsPerPage) === page}
                   disabled={playerCollection.length < itemsPerPage - 1}
                 >
                   Next
@@ -387,7 +320,6 @@ const CollectionList: React.FC = () => {
               </ButtonGroup>
             </HStack>
           </Box>
-          {/* </Stack> */}
         </Box>
       </Container>
     </Box>

@@ -97,9 +97,7 @@ const LoginForm: React.FC = () => {
           sameSite: true,
         });
 
-        navigate(
-          `/collections/${player.username}/${player.defaultCollection.id}`
-        );
+        navigate(`/collections/${player.username}/${player.defaultCollection.id}`);
       }
     } catch (error) {
       console.log(error);
@@ -150,9 +148,7 @@ const LoginForm: React.FC = () => {
                 type="password"
                 onChange={handlePasswordChange}
               />
-              {!passwordError ? null : (
-                <FormErrorMessage>Password is required.</FormErrorMessage>
-              )}
+              {!passwordError ? null : <FormErrorMessage>Password is required.</FormErrorMessage>}
             </FormControl>
           </Stack>
           <HStack justify="space-between">
