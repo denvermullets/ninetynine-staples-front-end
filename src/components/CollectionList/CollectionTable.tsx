@@ -41,19 +41,14 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
     const result = removeBrace.split("}").filter(Boolean);
 
     const symbols = result.map((symbol, index) => (
-      <i
-        className={`ms ms-${symbol.toLowerCase()} ms-cost`}
-        key={symbol + index}
-      />
+      <i className={`ms ms-${symbol.toLowerCase()} ms-cost`} key={symbol + index} />
     ));
 
     return symbols;
   };
 
   const playerLoggedIn = () => {
-    return (
-      playerCollection && currentPlayer && currentPlayer.username === username
-    );
+    return playerCollection && currentPlayer && currentPlayer.username === username;
   };
 
   return (
@@ -91,9 +86,7 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
                   />
                   <Box>
                     <Text fontWeight="medium">
-                      {card.magic_card.face_name
-                        ? card.magic_card.face_name
-                        : card.magic_card.name}
+                      {card.magic_card.face_name ? card.magic_card.face_name : card.magic_card.name}
                     </Text>
                   </Box>
                 </HStack>
@@ -116,18 +109,13 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
             </Td>
             <Td>
               <Text color="muted">
-                {card && card.magic_card.mana_cost
-                  ? manaSymbols(card.magic_card.mana_cost)
-                  : null}
+                {card && card.magic_card.mana_cost ? manaSymbols(card.magic_card.mana_cost) : null}
               </Text>
             </Td>
-            {playerCollection &&
-            playerLoggedIn() &&
-            card.magic_card.card_side !== "b" ? (
+            {playerCollection && playerLoggedIn() && card.magic_card.card_side !== "b" ? (
               <CollectionQuantityInput
                 disabled={
-                  (!card.magic_card.has_non_foil &&
-                    !card.magic_card.has_foil) ||
+                  (!card.magic_card.has_non_foil && !card.magic_card.has_foil) ||
                   card.magic_card.has_non_foil
                     ? false
                     : true
@@ -140,17 +128,12 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
               />
             ) : (
               <Td textAlign="center">
-                <Badge
-                  size="sm"
-                  colorScheme={card.quantity > 0 ? "green" : "red"}
-                >
+                <Badge size="sm" colorScheme={card.quantity > 0 ? "green" : "red"}>
                   {card.quantity}
                 </Badge>
               </Td>
             )}
-            {playerCollection &&
-            playerLoggedIn() &&
-            card.magic_card.card_side !== "b" ? (
+            {playerCollection && playerLoggedIn() && card.magic_card.card_side !== "b" ? (
               <CollectionQuantityInput
                 disabled={!card.magic_card.has_foil}
                 collectionId={card.collection_id}
@@ -162,10 +145,7 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
               />
             ) : (
               <Td textAlign="center">
-                <Badge
-                  size="sm"
-                  colorScheme={card.foil_quantity > 0 ? "green" : "red"}
-                >
+                <Badge size="sm" colorScheme={card.foil_quantity > 0 ? "green" : "red"}>
                   {card.foil_quantity}
                 </Badge>
               </Td>
@@ -174,11 +154,7 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
               <Td isNumeric>
                 <Badge
                   size="sm"
-                  colorScheme={
-                    card.quantity > 0 || card.foil_quantity > 0
-                      ? "green"
-                      : "red"
-                  }
+                  colorScheme={card.quantity > 0 || card.foil_quantity > 0 ? "green" : "red"}
                 >
                   {card.quantity + card.foil_quantity}
                 </Badge>
@@ -187,39 +163,23 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
             <Td isNumeric>
               {card.quantity > 0 ? (
                 currencyFormat(
-                  Number(
-                    card.magic_card.normal_price
-                      ? card.magic_card.normal_price
-                      : 0
-                  )
+                  Number(card.magic_card.normal_price ? card.magic_card.normal_price : 0)
                 )
               ) : (
                 <Text color="gray">
                   {currencyFormat(
-                    Number(
-                      card.magic_card.normal_price
-                        ? card.magic_card.normal_price
-                        : 0
-                    )
+                    Number(card.magic_card.normal_price ? card.magic_card.normal_price : 0)
                   )}
                 </Text>
               )}
             </Td>
             <Td isNumeric>
               {card.foil_quantity > 0 ? (
-                currencyFormat(
-                  Number(
-                    card.magic_card.foil_price ? card.magic_card.foil_price : 0
-                  )
-                )
+                currencyFormat(Number(card.magic_card.foil_price ? card.magic_card.foil_price : 0))
               ) : (
                 <Text color="gray">
                   {currencyFormat(
-                    Number(
-                      card.magic_card.foil_price
-                        ? card.magic_card.foil_price
-                        : 0
-                    )
+                    Number(card.magic_card.foil_price ? card.magic_card.foil_price : 0)
                   )}
                 </Text>
               )}

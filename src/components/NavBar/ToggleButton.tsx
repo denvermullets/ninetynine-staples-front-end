@@ -29,14 +29,8 @@ const ToggleIcon = (props: { active: boolean }) => {
       aria-hidden
       pointerEvents="none"
     >
-      <Bar
-        top="0.4375rem"
-        _groupActive={{ top: "0.6875rem", transform: "rotate(45deg)" }}
-      />
-      <Bar
-        bottom="0.4375rem"
-        _groupActive={{ bottom: "0.6875rem", transform: "rotate(-45deg)" }}
-      />
+      <Bar top="0.4375rem" _groupActive={{ top: "0.6875rem", transform: "rotate(45deg)" }} />
+      <Bar bottom="0.4375rem" _groupActive={{ bottom: "0.6875rem", transform: "rotate(-45deg)" }} />
     </Box>
   );
 };

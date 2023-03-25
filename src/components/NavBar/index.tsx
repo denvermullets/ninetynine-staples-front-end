@@ -21,10 +21,7 @@ import Logo from "./ninety_logo_512.png";
 import Sidebar from "./Sidebar";
 import { ToggleButton } from "./ToggleButton";
 import { Link } from "react-router-dom";
-import {
-  CurrentPlayerContext,
-  PlayerContext,
-} from "../providers/CurrentPlayerProvider";
+import { CurrentPlayerContext, PlayerContext } from "../providers/CurrentPlayerProvider";
 
 const Navbar: React.FC = () => {
   const isDesktop = useBreakpointValue({ base: false, lg: true });
@@ -32,24 +29,14 @@ const Navbar: React.FC = () => {
   const { currentPlayer } = useContext<CurrentPlayerContext>(PlayerContext);
 
   return (
-    <Box
-      as="nav"
-      bg="white"
-      boxShadow={useColorModeValue("sm", "sm-dark")}
-      padding={4}
-    >
+    <Box as="nav" bg="white" boxShadow={useColorModeValue("sm", "sm-dark")} padding={4}>
       <Flex justify="space-between">
         <HStack spacing="4">
           <Stack direction="row" alignContent="center"></Stack>
           {isDesktop && (
             <ButtonGroup variant="lightBlue" spacing="1">
               <Button>
-                <Image
-                  boxSize="32px"
-                  objectFit="fill"
-                  src={Logo}
-                  alt="Ninety Nine Staples Logo"
-                />
+                <Image boxSize="32px" objectFit="fill" src={Logo} alt="Ninety Nine Staples Logo" />
               </Button>
               {currentPlayer && (
                 <Link
@@ -77,32 +64,17 @@ const Navbar: React.FC = () => {
                 </Link>
               ) : (
                 <>
-                  <IconButton
-                    icon={<FiSearch fontSize="1.25rem" />}
-                    aria-label="Search"
-                  />
-                  <IconButton
-                    icon={<FiSettings fontSize="1.25rem" />}
-                    aria-label="Settings"
-                  />
-                  <IconButton
-                    icon={<FiHelpCircle fontSize="1.25rem" />}
-                    aria-label="Help Center"
-                  />
+                  <IconButton icon={<FiSearch fontSize="1.25rem" />} aria-label="Search" />
+                  <IconButton icon={<FiSettings fontSize="1.25rem" />} aria-label="Settings" />
+                  <IconButton icon={<FiHelpCircle fontSize="1.25rem" />} aria-label="Help Center" />
                 </>
               )}
             </ButtonGroup>
-            {currentPlayer ? (
-              <Avatar boxSize="10" name={currentPlayer.username} src="" />
-            ) : null}
+            {currentPlayer ? <Avatar boxSize="10" name={currentPlayer.username} src="" /> : null}
           </HStack>
         ) : (
           <>
-            <ToggleButton
-              isOpen={isOpen}
-              aria-label="Open Menu"
-              onClick={onToggle}
-            />
+            <ToggleButton isOpen={isOpen} aria-label="Open Menu" onClick={onToggle} />
             <Drawer
               isOpen={isOpen}
               placement="left"
