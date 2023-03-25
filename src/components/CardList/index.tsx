@@ -106,9 +106,7 @@ const CardList: React.FC<CardListProps> = ({
       const options = filterColors.map((filter) => {
         return filter.value;
       });
-      const cardColors = card.magic_card_color_idents.map(
-        (idents) => idents.color.name
-      );
+      const cardColors = card.magic_card_color_idents.map((idents) => idents.color.name);
 
       const filtered = options.filter((optionColor) =>
         cardColors.find((identColor) => optionColor === identColor)
@@ -131,9 +129,7 @@ const CardList: React.FC<CardListProps> = ({
       const colorOptions = filterColors.map((filter) => {
         return filter.value;
       });
-      const cardColors = card.magic_card_color_idents.map(
-        (idents) => idents.color.name
-      );
+      const cardColors = card.magic_card_color_idents.map((idents) => idents.color.name);
 
       const filtered = colorOptions.filter((optionColor) =>
         cardColors.find((identColor) => optionColor === identColor)
@@ -178,12 +174,7 @@ const CardList: React.FC<CardListProps> = ({
   }, [cards]);
 
   return (
-    <Container
-      py={{ base: "4", md: "4" }}
-      px={{ base: "14", md: "8" }}
-      width="100%"
-      maxWidth="8xl"
-    >
+    <Container py={{ base: "4", md: "4" }} px={{ base: "14", md: "8" }} width="100%" maxWidth="8xl">
       <Box
         bg="bg-surface"
         boxShadow={{ base: "none", md: useColorModeValue("sm", "sm-dark") }}
@@ -191,10 +182,7 @@ const CardList: React.FC<CardListProps> = ({
       >
         <Stack spacing="8">
           <Box px={{ base: "4", md: "6" }} pt="5">
-            <Stack
-              direction={{ base: "column", md: "row" }}
-              justify="space-between"
-            >
+            <Stack direction={{ base: "column", md: "row" }} justify="space-between">
               <FormControl>
                 <Select
                   isMulti
@@ -239,10 +227,8 @@ const CardList: React.FC<CardListProps> = ({
             <HStack spacing="3" justify="space-between">
               <Text color="muted" fontSize="sm">
                 Showing {page * itemsPerPage - itemsPerPage + 1} to{" "}
-                {page * itemsPerPage > cards.length
-                  ? cards.length
-                  : page * itemsPerPage}{" "}
-                of {cards.length} results
+                {page * itemsPerPage > cards.length ? cards.length : page * itemsPerPage} of{" "}
+                {cards.length} results
               </Text>
 
               <ButtonGroup

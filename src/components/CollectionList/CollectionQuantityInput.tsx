@@ -33,9 +33,7 @@ const CollectionQuantityInput: React.FC<CollectionQuantityProps> = ({
   }, [cardQuantity]);
 
   const findCardInCollection = (newCard: PlayerCollectionType) => {
-    return playerCollection.filter(
-      (existingCard) => existingCard.id === newCard.id
-    );
+    return playerCollection.filter((existingCard) => existingCard.id === newCard.id);
   };
 
   const handleQuantityChange = (value: number) => {

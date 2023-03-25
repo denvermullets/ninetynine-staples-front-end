@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  Container,
-  useBreakpointValue,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Container, useBreakpointValue, useColorModeValue } from "@chakra-ui/react";
 import CollectionList from "../../components/CollectionList";
 
 const Collections: React.FC = () => {

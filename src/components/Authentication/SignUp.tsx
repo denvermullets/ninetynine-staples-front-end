@@ -58,14 +58,7 @@ const SignUp: React.FC = () => {
     setPasswordError(!password || password === "");
     setUserNameError(!userName || userName === "");
 
-    if (
-      !email ||
-      email === "" ||
-      password === "" ||
-      !password ||
-      !userName ||
-      userName === ""
-    ) {
+    if (!email || email === "" || password === "" || !password || !userName || userName === "") {
       return;
     }
 
@@ -112,9 +105,7 @@ const SignUp: React.FC = () => {
           sameSite: true,
         });
 
-        navigate(
-          `/collections/${player.username}/${player.defaultCollection.id}`
-        );
+        navigate(`/collections/${player.username}/${player.defaultCollection.id}`);
       }
     } catch (error) {
       console.log(error);
@@ -179,9 +170,7 @@ const SignUp: React.FC = () => {
                 type="password"
                 onChange={handlePasswordChange}
               />
-              {!passwordError ? null : (
-                <FormErrorMessage>Password is required.</FormErrorMessage>
-              )}
+              {!passwordError ? null : <FormErrorMessage>Password is required.</FormErrorMessage>}
             </FormControl>
           </Stack>
           <Stack spacing="4">

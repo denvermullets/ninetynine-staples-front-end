@@ -1,21 +1,7 @@
 import { Icon } from "@chakra-ui/icons";
-import {
-  Divider,
-  Flex,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Stack,
-} from "@chakra-ui/react";
+import { Divider, Flex, Input, InputGroup, InputLeftElement, Stack } from "@chakra-ui/react";
 import React, { useContext } from "react";
-import {
-  FiBarChart2,
-  FiHelpCircle,
-  FiHome,
-  FiSearch,
-  FiSettings,
-  FiUsers,
-} from "react-icons/fi";
+import { FiBarChart2, FiHelpCircle, FiHome, FiSearch, FiSettings, FiUsers } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { PlayerContext } from "../providers/CurrentPlayerProvider";
 import { NavButton } from "./NavButton";
@@ -65,11 +51,7 @@ const Sidebar: React.FC = () => {
             </Stack>
             <Divider />
             {currentPlayer ? (
-              <UserProfile
-                name={currentPlayer.username}
-                image=""
-                email={currentPlayer.email}
-              />
+              <UserProfile name={currentPlayer.username} image="" email={currentPlayer.email} />
             ) : null}
           </Stack>
         </Stack>

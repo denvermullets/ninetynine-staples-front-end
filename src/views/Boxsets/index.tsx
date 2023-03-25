@@ -21,8 +21,7 @@ const Boxsets: React.FC = () => {
   const [boxsetOptions, setBoxsetOptions] = useState<Boxset[]>([]);
   const [currentBox, setCurrentBox] = useState<Boxset>();
   const [userCollectionsOptions, setUserCollectionsOptions] = useState([]);
-  const [selectedCollection, setSelectedCollection] =
-    useState<SelectedCollectionOption>();
+  const [selectedCollection, setSelectedCollection] = useState<SelectedCollectionOption>();
   const [userCollection, setUserCollection] = useState([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [gridView, setGridView] = useState<boolean>(false);

@@ -23,9 +23,7 @@ const CardTable: React.FC<CardTableProps> = ({
 }) => {
   const classes = useStyles();
   const findMatch = (card: MagicCardType): CollectionQuantity => {
-    const result = collection.find(
-      (collectionCard) => collectionCard.magic_card.id === card.id
-    );
+    const result = collection.find((collectionCard) => collectionCard.magic_card.id === card.id);
 
     if (result) {
       return {
@@ -45,10 +43,7 @@ const CardTable: React.FC<CardTableProps> = ({
     const result = removeBrace.split("}").filter(Boolean);
 
     const symbols = result.map((symbol, index) => (
-      <i
-        className={`ms ms-${symbol.toLowerCase()} ms-cost`}
-        key={symbol + index}
-      />
+      <i className={`ms ms-${symbol.toLowerCase()} ms-cost`} key={symbol + index} />
     ));
 
     return symbols;
@@ -78,18 +73,11 @@ const CardTable: React.FC<CardTableProps> = ({
             <Td isNumeric className={classes.smallerTable}>
               {card.card_number}
             </Td>
-            <CardTableName
-              card={card}
-              setCode={card.boxset.code.toLowerCase()}
-            />
+            <CardTableName card={card} setCode={card.boxset.code.toLowerCase()} />
             <Td>
               <Badge
                 size="sm"
-                colorScheme={
-                  card.border_color === "borderless"
-                    ? "green"
-                    : card.border_color
-                }
+                colorScheme={card.border_color === "borderless" ? "green" : card.border_color}
               >
                 {card.border_color}
               </Badge>
@@ -112,9 +100,7 @@ const CardTable: React.FC<CardTableProps> = ({
               />
             ) : null}
             {/* this is for when it's a bside card to keep table aligned properly */}
-            {collection && selectedCollection && card.card_side === "b" && (
-              <Td />
-            )}
+            {collection && selectedCollection && card.card_side === "b" && <Td />}
             {collection && selectedCollection && card.card_side !== "b" ? (
               <FoilQuantityInput
                 card={card}
@@ -125,9 +111,7 @@ const CardTable: React.FC<CardTableProps> = ({
               />
             ) : null}
             {/* this is for when it's a bside card to keep table aligned properly */}
-            {collection && selectedCollection && card.card_side === "b" && (
-              <Td />
-            )}
+            {collection && selectedCollection && card.card_side === "b" && <Td />}
             {collection &&
             selectedCollection &&
             (card.card_side == "a" || card.card_side === null) ? (
@@ -135,9 +119,7 @@ const CardTable: React.FC<CardTableProps> = ({
                 <Badge
                   size="sm"
                   colorScheme={
-                    findMatch(card).normal > 0 || findMatch(card).foil > 0
-                      ? "green"
-                      : "red"
+                    findMatch(card).normal > 0 || findMatch(card).foil > 0 ? "green" : "red"
                   }
                 >
                   {findMatch(card).normal + findMatch(card).foil}
@@ -145,14 +127,10 @@ const CardTable: React.FC<CardTableProps> = ({
               </Td>
             ) : null}
             {/* this is for when it's a bside card to keep table aligned properly */}
-            {collection && selectedCollection && card.card_side === "b" && (
-              <Td />
-            )}
+            {collection && selectedCollection && card.card_side === "b" && <Td />}
             <Td isNumeric>
               {card.normal_price
-                ? currencyFormat(
-                    card.normal_price ? Number(card.normal_price) : 0
-                  )
+                ? currencyFormat(card.normal_price ? Number(card.normal_price) : 0)
                 : null}
             </Td>
             <Td isNumeric>

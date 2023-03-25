@@ -10,9 +10,7 @@ const CardTableName: React.FC<CardTableNameProps> = ({ setCode, card }) => {
           <HStack spacing="3">
             <i className={`ss ss-${setCode} ss-${card.rarity} ss-2x`} />
             <Box>
-              <Text fontWeight="medium">
-                {card.face_name ? card.face_name : card.name}
-              </Text>
+              <Text fontWeight="medium">{card.face_name ? card.face_name : card.name}</Text>
             </Box>
           </HStack>
         </Tooltip>

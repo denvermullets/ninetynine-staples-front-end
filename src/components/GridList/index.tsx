@@ -14,11 +14,7 @@ import { GridListProps, PlayerCollectionType } from "../../types";
 import Search from "../CardList/Search";
 import MagicCard from "../MagicCard";
 
-const GridList: React.FC<GridListProps> = ({
-  userCollection,
-  gridView,
-  setGridView,
-}) => {
+const GridList: React.FC<GridListProps> = ({ userCollection, gridView, setGridView }) => {
   const [search, setSearch] = useState<string>("");
 
   return (
@@ -29,10 +25,7 @@ const GridList: React.FC<GridListProps> = ({
     >
       <Stack spacing="8">
         <Box px={{ base: "4", md: "6" }} pt="5">
-          <Stack
-            direction={{ base: "column", md: "row" }}
-            justify="space-between"
-          >
+          <Stack direction={{ base: "column", md: "row" }} justify="space-between">
             <FormControl>
               <Select
                 isMulti
@@ -68,20 +61,18 @@ const GridList: React.FC<GridListProps> = ({
       </Stack>
       <Grid templateColumns="repeat(5, 1fr)" gap={6} marginTop={12}>
         {userCollection && userCollection.length
-          ? userCollection.map(
-              (collectionCard: PlayerCollectionType, index: number) => {
-                return (
-                  <MagicCard
-                    key={`${collectionCard.magic_card.name}-${collectionCard.id}-${index}`}
-                    // id={String(collectionCard.id)}
-                    name={collectionCard.magic_card.name}
-                    image_small={collectionCard.magic_card.image_small}
-                    image_medium={collectionCard.magic_card.image_medium}
-                    // quantity={collectionCard.quantity}
-                  />
-                );
-              }
-            )
+          ? userCollection.map((collectionCard: PlayerCollectionType, index: number) => {
+              return (
+                <MagicCard
+                  key={`${collectionCard.magic_card.name}-${collectionCard.id}-${index}`}
+                  // id={String(collectionCard.id)}
+                  name={collectionCard.magic_card.name}
+                  image_small={collectionCard.magic_card.image_small}
+                  image_medium={collectionCard.magic_card.image_medium}
+                  // quantity={collectionCard.quantity}
+                />
+              );
+            })
           : null}
       </Grid>
     </Box>
