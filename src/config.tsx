@@ -2,7 +2,7 @@
 const API_URL = process.env.REACT_APP_API_URL || "";
 
 if (!API_URL) {
-  console.log("Missing API environment variable");
+  console.error("Missing API environment variable");
 }
 
 const config = {

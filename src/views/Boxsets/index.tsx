@@ -52,7 +52,6 @@ const Boxsets: React.FC = () => {
         { headers: { Authorization: `Bearer ${currentPlayer.token}` } }
       );
 
-      console.log("this is the collection options?", collections);
       if (collections) {
         const selectOptions = collections.data.map((collection) => {
           return {
@@ -98,7 +97,6 @@ const Boxsets: React.FC = () => {
       loadBoxsets();
     }
     if (!userCollectionsOptions.length && currentPlayer) {
-      console.log("load collection options?");
       // potential loop if no collection created
       loadUserCollectionsOptions();
     }
@@ -112,13 +110,12 @@ const Boxsets: React.FC = () => {
 
       if (data) {
         const collectedCards = data.data.map((collection) => collection);
-        console.log("updating collection", collectedCards);
+
         setUserCollection(collectedCards);
       }
     };
 
     if (selectedCollection) {
-      console.log("collection pulled");
       fetchData();
     }
   }, [selectedCollection]);

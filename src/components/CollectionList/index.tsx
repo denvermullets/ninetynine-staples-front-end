@@ -112,14 +112,11 @@ const CollectionList: React.FC = () => {
   };
 
   const handleCollectionChange = (event) => {
-    console.log("this is the event", event);
     // setSearch({ ...search, collection: "hi" });
     // setSelectedCollection(event);
   };
 
   useEffect(() => {
-    console.log("search object changed", search);
-
     fetchData();
   }, [search?.rarity, search?.color, search?.exact, search?.page, search?.boxset, search?.search]);
 
@@ -137,7 +134,6 @@ const CollectionList: React.FC = () => {
     });
 
     if (collectionData) {
-      console.log("collection loaded", collectionData.data);
       const collection = collectionData.data.filter(
         (collection: PlayerCollectionType) =>
           collection.quantity > 0 || collection.foil_quantity > 0
@@ -148,7 +144,7 @@ const CollectionList: React.FC = () => {
 
   useEffect(() => {
     if (!username || !id) {
-      console.log("not found");
+      console.warn("not found");
       return;
     }
 

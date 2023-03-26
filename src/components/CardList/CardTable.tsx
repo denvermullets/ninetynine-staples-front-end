@@ -23,7 +23,7 @@ const CardTable: React.FC<CardTableProps> = ({
 }) => {
   const classes = useStyles();
   const findMatch = (card: MagicCardType): CollectionQuantity => {
-    const result = collection.find((collectionCard) => collectionCard.magic_card.id === card.id);
+    const result = collection.find((collectionCard) => collectionCard?.magic_card?.id === card.id);
 
     if (result) {
       return {
