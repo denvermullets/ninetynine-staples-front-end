@@ -44,6 +44,7 @@ const CollectionList: React.FC = () => {
   const [searchByCard, setSearchByCard] = useState<string>("");
   const [loadedCollection, setLoadedCollection] = useState<boolean>(false);
   const [exactMatch, setExactMatch] = useState<boolean>(false);
+  const [collectionValue, setCollectionValue] = useState<string>("");
   const timeout = useRef<null | ReturnType<typeof setTimeout>>();
 
   const handleFilters = (e) => {
@@ -180,6 +181,12 @@ const CollectionList: React.FC = () => {
           return Number(collection.value) === Number(id);
         });
 
+        const value = filterOptions.data.collections.find(
+          (collection) => collection.name === "Main Collection"
+        );
+        console.log("value", value);
+
+        setCollectionValue(value.total_value);
         setBoxsetOptions(boxsets);
         setCollectionOptions(collections);
         setSelectedCollection(defaultCollection[0]);
@@ -275,6 +282,12 @@ const CollectionList: React.FC = () => {
                     icon={<HamburgerIcon />}
                   />
                 </Stack>
+              </GridItem>
+              <GridItem colSpan={1}>
+                <Text>
+                  Value:{" "}
+                  {collectionValue !== "" && collectionValue ? collectionValue.toString() : null}
+                </Text>
               </GridItem>
             </Grid>
           </Box>
