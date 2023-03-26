@@ -44,6 +44,7 @@ const CollectionList: React.FC = () => {
   const [searchByCard, setSearchByCard] = useState<string>("");
   const [loadedCollection, setLoadedCollection] = useState<boolean>(false);
   const [exactMatch, setExactMatch] = useState<boolean>(false);
+  const [collectionValue, setCollectionValue] = useState<string>("");
   const timeout = useRef<null | ReturnType<typeof setTimeout>>();
 
   const handleFilters = (e) => {
@@ -112,14 +113,11 @@ const CollectionList: React.FC = () => {
   };
 
   const handleCollectionChange = (event) => {
-    console.log("this is the event", event);
     // setSearch({ ...search, collection: "hi" });
     // setSelectedCollection(event);
   };
 
   useEffect(() => {
-    console.log("search object changed", search);
-
     fetchData();
   }, [search?.rarity, search?.color, search?.exact, search?.page, search?.boxset, search?.search]);
 
@@ -137,7 +135,6 @@ const CollectionList: React.FC = () => {
     });
 
     if (collectionData) {
-      console.log("collection loaded", collectionData.data);
       const collection = collectionData.data.filter(
         (collection: PlayerCollectionType) =>
           collection.quantity > 0 || collection.foil_quantity > 0
@@ -148,7 +145,7 @@ const CollectionList: React.FC = () => {
 
   useEffect(() => {
     if (!username || !id) {
-      console.log("not found");
+      console.warn("not found");
       return;
     }
 
@@ -184,6 +181,12 @@ const CollectionList: React.FC = () => {
           return Number(collection.value) === Number(id);
         });
 
+        const value = filterOptions.data.collections.find(
+          (collection) => collection.name === "Main Collection"
+        );
+        console.log("value", value);
+
+        setCollectionValue(value.total_value);
         setBoxsetOptions(boxsets);
         setCollectionOptions(collections);
         setSelectedCollection(defaultCollection[0]);
@@ -279,6 +282,12 @@ const CollectionList: React.FC = () => {
                     icon={<HamburgerIcon />}
                   />
                 </Stack>
+              </GridItem>
+              <GridItem colSpan={1}>
+                <Text>
+                  Value:{" "}
+                  {collectionValue !== "" && collectionValue ? collectionValue.toString() : null}
+                </Text>
               </GridItem>
             </Grid>
           </Box>

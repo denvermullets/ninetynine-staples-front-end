@@ -13,23 +13,15 @@ import CardList from "../../components/CardList";
 import GridList from "../../components/GridList";
 import { PlayerContext } from "../../components/providers/CurrentPlayerProvider";
 import config from "../../config";
-import {
-  Boxset,
-  MagicCardType,
-  PlayerCollectionType,
-  SelectedCollectionOption,
-} from "../../types";
+import { Boxset, MagicCardType, PlayerCollectionType, SelectedCollectionOption } from "../../types";
 
 const LandingPage: React.FC = () => {
   const [boxsetOptions, setBoxsetOptions] = useState<Boxset[]>([]);
-  const [userCollectionsOptions, setUserCollectionsOptions] = useState<
-    SelectedCollectionOption[]
-  >([]);
-  const [selectedCollection, setSelectedCollection] =
-    useState<SelectedCollectionOption>();
-  const [userCollection, setUserCollection] = useState<PlayerCollectionType[]>(
+  const [userCollectionsOptions, setUserCollectionsOptions] = useState<SelectedCollectionOption[]>(
     []
   );
+  const [selectedCollection, setSelectedCollection] = useState<SelectedCollectionOption>();
+  const [userCollection, setUserCollection] = useState<PlayerCollectionType[]>([]);
   const [cards, setCards] = useState<MagicCardType[]>([]);
   const [gridView, setGridView] = useState<boolean>(false);
   const { currentPlayer } = useContext(PlayerContext);
@@ -58,7 +50,6 @@ const LandingPage: React.FC = () => {
         { headers: { Authorization: `Bearer ${currentPlayer.token}` } }
       );
 
-      console.log("this is the collection options?", collections);
       if (collections) {
         const selectOptions = collections.data.map((collection) => {
           return {
@@ -75,7 +66,6 @@ const LandingPage: React.FC = () => {
   };
 
   const handleBoxsetChange = async (e) => {
-    console.log(e);
     // try {
     //   const loadCards = await axios(`${config.API_URL}/boxsets/${e.value}`);
     //   if (loadCards) {
@@ -100,7 +90,6 @@ const LandingPage: React.FC = () => {
     }
 
     if (!userCollectionsOptions.length && currentPlayer) {
-      console.log("load collection options?");
       // potential loop if no collection created
       loadUserCollectionsOptions();
     }
@@ -122,14 +111,13 @@ const LandingPage: React.FC = () => {
             magicCards.push(collection.magic_card);
           }
         });
-        console.log("updating collection", collectedCards);
+
         setUserCollection(collectedCards);
         setCards(magicCards);
       }
     };
 
     if (selectedCollection) {
-      console.log("collection pulled");
       fetchData();
     }
   }, [selectedCollection]);
@@ -167,11 +155,7 @@ const LandingPage: React.FC = () => {
           </GridItem>
         </Grid>
         {gridView ? (
-          <GridList
-            userCollection={userCollection}
-            gridView={gridView}
-            setGridView={setGridView}
-          />
+          <GridList userCollection={userCollection} gridView={gridView} setGridView={setGridView} />
         ) : (
           <CardList
             gridView={gridView}

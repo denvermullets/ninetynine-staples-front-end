@@ -28,7 +28,6 @@ const CollectionQuantityInput: React.FC<CollectionQuantityProps> = ({
   const { currentPlayer } = useContext(PlayerContext);
 
   useEffect(() => {
-    console.log("updating quantity?", quantity);
     setQuantity(cardQuantity);
   }, [cardQuantity]);
 
@@ -58,8 +57,16 @@ const CollectionQuantityInput: React.FC<CollectionQuantityProps> = ({
             headers: { Authorization: `Bearer ${currentPlayer.token}` },
           }
         );
+        if (createCard.status === 204) {
+          // card was deleted from collection
+          const existingCollection = [...playerCollection];
+          const trimmedCards = existingCollection.filter(
+            (card) => Number(card.magic_card_id) !== Number(cardId)
+          );
 
-        if (createCard) {
+          setPlayerCollection(trimmedCards);
+          return;
+        } else if (createCard) {
           if (!findCardInCollection(createCard.data).length) {
             setPlayerCollection([...playerCollection, createCard.data]);
           } else {
@@ -77,7 +84,6 @@ const CollectionQuantityInput: React.FC<CollectionQuantityProps> = ({
 
             setPlayerCollection([...newCollection]);
           }
-          console.log("we upated the db", createCard.data);
         }
       } catch (error) {
         throw new Error("unable to update collection!");

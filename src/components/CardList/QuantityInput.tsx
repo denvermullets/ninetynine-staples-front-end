@@ -26,7 +26,6 @@ const QuantityInput: React.FC<QuantityInputProps> = ({
   const { currentPlayer } = useContext(PlayerContext);
 
   useEffect(() => {
-    console.log("updating quantity?", quantity);
     setQuantity(cardQuantity);
   }, [cardQuantity]);
 
@@ -56,7 +55,17 @@ const QuantityInput: React.FC<QuantityInputProps> = ({
           }
         );
 
-        if (createCard) {
+        if (createCard.status === 204) {
+          // TODO: we need to really simplify the state of things across the app
+          // card was deleted from collection
+          const existingCollection = [...collection];
+          const trimmedCards = existingCollection.filter(
+            (existingCard) => Number(existingCard.magic_card_id) !== Number(card.id)
+          );
+
+          setUserCollection(trimmedCards);
+          return;
+        } else if (createCard) {
           if (!findCardInCollection(createCard.data).length) {
             setUserCollection([...collection, createCard.data]);
           } else {
@@ -68,7 +77,6 @@ const QuantityInput: React.FC<QuantityInputProps> = ({
 
             setUserCollection([...newCollection]);
           }
-          console.log("we upated the db", createCard.data);
         }
       } catch (error) {
         throw new Error("unable to update collection!");
