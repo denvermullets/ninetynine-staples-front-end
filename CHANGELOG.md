@@ -1,3 +1,10 @@
+## [1.14.1](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.14.0...v1.14.1) (2023-03-26)
+
+
+### Bug Fixes
+
+* **collections:** tweak deleting card from collections ([#70](https://github.com/denvermullets/ninetynine-staples-front-end/issues/70)) ([5da06a8](https://github.com/denvermullets/ninetynine-staples-front-end/commit/5da06a8dd6a3b3bb6736ed289a404a76542dace4))
+
 # [1.14.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.13.0...v1.14.0) (2023-03-25)
 
 
