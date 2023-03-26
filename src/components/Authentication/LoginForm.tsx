@@ -63,7 +63,7 @@ const LoginForm: React.FC = () => {
       });
 
       if (!loginUser) {
-        console.log("something went wrong logging in");
+        console.error("something went wrong logging in");
         throw Error("Unable to create account");
       }
 
@@ -100,7 +100,7 @@ const LoginForm: React.FC = () => {
         navigate(`/collections/${player.username}/${player.defaultCollection.id}`);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
