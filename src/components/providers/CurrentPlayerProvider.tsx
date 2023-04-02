@@ -30,6 +30,12 @@ export const CurrentPlayerProvider = ({ children }) => {
   const [currentPlayer, setCurrentPlayer] = useState<CurrentPlayer>();
   const [cookies] = useCookies(["ninetynine_staples"]);
 
+  const determineDefault = (collections: CollectionType[]) => {
+    const sortedCollection = collections.sort((a, b) => Number(a.id) - Number(b.id));
+
+    return sortedCollection[0];
+  };
+
   const loadCollections = async () => {
     const collections = await axios(
       `${config.API_URL}/collections/${cookies.ninetynine_staples.username}`
@@ -43,7 +49,7 @@ export const CurrentPlayerProvider = ({ children }) => {
         id: cookies.ninetynine_staples.id,
         username: cookies.ninetynine_staples.username,
         token: cookies.ninetynine_staples.token,
-        defaultCollection: collections.data.collections[0],
+        defaultCollection: determineDefault(collections.data.collections),
       });
     }
   };

@@ -118,7 +118,7 @@ const Boxsets: React.FC = () => {
     if (selectedCollection) {
       fetchData();
     }
-  }, [selectedCollection]);
+  }, [selectedCollection, currentBox?.id]);
 
   return (
     <Container
