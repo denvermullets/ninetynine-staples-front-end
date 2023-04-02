@@ -1,3 +1,10 @@
+## [1.14.2](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.14.1...v1.14.2) (2023-04-02)
+
+
+### Bug Fixes
+
+* **collections:** force collection reloading when changing, nin-90, nin-88 ([#72](https://github.com/denvermullets/ninetynine-staples-front-end/issues/72)) ([b0c8dee](https://github.com/denvermullets/ninetynine-staples-front-end/commit/b0c8dee01c5781c1c4901a888ea479ab87a66a20))
+
 ## [1.14.1](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.14.0...v1.14.1) (2023-03-26)
 
 
