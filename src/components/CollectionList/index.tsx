@@ -24,7 +24,7 @@ import axios from "axios";
 import { Select } from "chakra-react-select";
 import React, { useEffect, useRef, useState } from "react";
 import { FiSearch } from "react-icons/fi";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import config from "../../config";
 import { Boxset, CollectionOption, FilterOptions, PlayerCollectionType } from "../../types";
 import { useCustomSearchParams } from "../../util/customHooks";
@@ -46,8 +46,11 @@ const CollectionList: React.FC = () => {
   const [exactMatch, setExactMatch] = useState<boolean>(false);
   const [collectionValue, setCollectionValue] = useState<string>("");
   const timeout = useRef<null | ReturnType<typeof setTimeout>>();
+  const navigate = useNavigate();
 
   const handleFilters = (e) => {
+    const updatedParams = { ...search };
+
     const selectedFilters = e.filter(
       (option) =>
         option.value === "mythic" ||
@@ -65,8 +68,17 @@ const CollectionList: React.FC = () => {
         color.value === "G"
     );
 
+    if (!colors.length) {
+      delete updatedParams["color"];
+    }
+
+    if (!selectedFilters.length) {
+      delete updatedParams["rarity"];
+    }
+
     // this kinda seems weird, why did i do this? was i dumb??
     setSearch({
+      ...updatedParams,
       ...(selectedFilters?.length && {
         rarity: selectedFilters.map((rarity: FilterOptions) => rarity.value).join(","),
       }),
@@ -113,13 +125,8 @@ const CollectionList: React.FC = () => {
   };
 
   const handleCollectionChange = (event) => {
-    // setSearch({ ...search, collection: "hi" });
-    // setSelectedCollection(event);
+    setSelectedCollection(event);
   };
-
-  useEffect(() => {
-    fetchData();
-  }, [search?.rarity, search?.color, search?.exact, search?.page, search?.boxset, search?.search]);
 
   const fetchData = async () => {
     const collectionData = await axios(`${config.API_URL}/collections/${username}/${id}`, {
@@ -139,9 +146,22 @@ const CollectionList: React.FC = () => {
         (collection: PlayerCollectionType) =>
           collection.quantity > 0 || collection.foil_quantity > 0
       );
+
       setPlayerCollection(collection);
     }
   };
+
+  useEffect(() => {
+    fetchData();
+  }, [
+    search?.rarity,
+    search?.color,
+    search?.exact,
+    search?.page,
+    search?.boxset,
+    search?.search,
+    id,
+  ]);
 
   useEffect(() => {
     if (!username || !id) {
@@ -182,11 +202,10 @@ const CollectionList: React.FC = () => {
         });
 
         const value = filterOptions.data.collections.find(
-          (collection) => collection.name === "Main Collection"
+          (collection) => Number(collection.id) === Number(id)
         );
-        console.log("value", value);
 
-        setCollectionValue(value.total_value);
+        setCollectionValue(value.total_value || "$0.00");
         setBoxsetOptions(boxsets);
         setCollectionOptions(collections);
         setSelectedCollection(defaultCollection[0]);
@@ -197,6 +216,12 @@ const CollectionList: React.FC = () => {
       fetchOptions();
     }
   }, [boxsetOptions, collectionOptions]);
+
+  useEffect(() => {
+    if (selectedCollection && Number(selectedCollection.value) !== Number(id)) {
+      navigate(`/collections/${username}/${selectedCollection.value}`);
+    }
+  }, [selectedCollection]);
 
   return (
     <Box bg="white">
@@ -219,7 +244,6 @@ const CollectionList: React.FC = () => {
               </GridItem>
               <GridItem colSpan={3}>
                 <Select
-                  isDisabled={true}
                   options={collectionOptions}
                   value={selectedCollection}
                   onChange={handleCollectionChange}
