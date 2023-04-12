@@ -16,23 +16,15 @@ import {
 import { CollectionTableProps, PlayerCollectionType } from "../../types";
 import "keyrune";
 import "mana-font";
-import { createUseStyles } from "react-jss";
 import CollectionQuantityInput from "./CollectionQuantityInput";
 import { PlayerContext } from "../providers/CurrentPlayerProvider";
 import { useParams } from "react-router-dom";
 import { currencyFormat } from "../../util/helpers";
 
-const useStyles = createUseStyles(() => ({
-  smallerTable: {
-    paddingRight: "0px",
-  },
-}));
-
 const CollectionTable: React.FC<CollectionTableProps> = ({
   playerCollection,
   setPlayerCollection,
 }) => {
-  const classes = useStyles();
   const { username } = useParams();
   const { currentPlayer } = useContext(PlayerContext);
 
@@ -55,7 +47,7 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
     <Table size={"sm"} variant="striped" colorScheme="gray">
       <Thead>
         <Tr>
-          <Th className={classes.smallerTable} isNumeric>
+          <Th paddingRight={0} isNumeric>
             #
           </Th>
           <Th>Name</Th>
@@ -74,7 +66,7 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
         {playerCollection &&
           playerCollection.map((card: PlayerCollectionType) => (
             <Tr key={card.id}>
-              <Td className={classes.smallerTable} isNumeric>
+              <Td paddingRight={0} isNumeric>
                 {card.magic_card.card_number}
               </Td>
               <Td>

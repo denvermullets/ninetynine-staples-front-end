@@ -10,15 +10,12 @@ import {
   Input,
   Stack,
   Text,
-  useBreakpointValue,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import config from "../../config";
 import axios from "axios";
 import { PlayerContext } from "../providers/CurrentPlayerProvider";
 import { useCookies } from "react-cookie";
-
-// import { useCookies } from "react-cookie";
 
 const SignUp: React.FC = () => {
   const [email, setEmail] = useState<string>(null);
@@ -113,78 +110,82 @@ const SignUp: React.FC = () => {
   };
 
   return (
-    <Container
-      marginTop={20}
-      maxW="md"
-      py={{ base: "0", sm: "8" }}
-      px={{ base: "4", sm: "10" }}
-      bg={useBreakpointValue({ base: "transparent", sm: "white" })}
-      boxShadow={{ base: "none", sm: "xl" }}
-      borderRadius={{ base: "none", sm: "xl" }}
-    >
+    <Container variant="login">
       <Stack spacing="8">
         <Stack spacing="6">
-          {/* <Logo /> */}
           <Stack spacing={{ base: "2", md: "3" }} textAlign="center">
-            <Heading size={useBreakpointValue({ base: "xs", md: "sm" })}>
+            <Heading size={{ base: "md" }} variant="loginHeading">
               Create your account
             </Heading>
-            <Text color="muted">Start making your dreams come true</Text>
+            <Text>Start making your dreams come true</Text>
           </Stack>
         </Stack>
         <Stack spacing="6">
           <Stack spacing="5">
             <FormControl isInvalid={emailError}>
-              <FormLabel htmlFor="email">Email</FormLabel>
+              <FormLabel htmlFor="email" variant="loginLabel">
+                Email
+              </FormLabel>
               <Input
                 id="email"
                 placeholder="Enter your email"
                 type="email"
                 onChange={handleEmailChange}
+                variant="authInput"
               />
-              {!emailError ? null : (
+              {emailError && (
                 <FormErrorMessage style={{ marginBottom: "6px" }}>
                   Valid email is required.
                 </FormErrorMessage>
               )}
             </FormControl>
             <FormControl isInvalid={userNameError}>
-              <FormLabel htmlFor="username">Username</FormLabel>
+              <FormLabel htmlFor="username" variant="loginLabel">
+                Username
+              </FormLabel>
               <Input
                 id="username"
                 placeholder="Enter your username"
                 type="error"
                 onChange={handleUserNameChange}
+                variant="authInput"
               />
-              {userNameError ? (
+              {userNameError && (
                 <FormErrorMessage style={{ marginBottom: "6px" }}>
-                  This username is already taken.
+                  This username {userName !== "" ? "is already taken" : "can't be blank"}.
                 </FormErrorMessage>
-              ) : null}
+              )}
             </FormControl>
             <FormControl isInvalid={passwordError}>
-              <FormLabel htmlFor="password">Password</FormLabel>
+              <FormLabel htmlFor="password" variant="loginLabel">
+                Password
+              </FormLabel>
               <Input
                 id="password"
                 placeholder="********"
                 type="password"
                 onChange={handlePasswordChange}
+                variant="authInput"
               />
-              {!passwordError ? null : <FormErrorMessage>Password is required.</FormErrorMessage>}
+              {passwordError && <FormErrorMessage>Password is required.</FormErrorMessage>}
             </FormControl>
           </Stack>
           <Stack spacing="4">
-            <Button variant="solid" colorScheme="blue" onClick={createAccount}>
+            <Button variant="brand" onClick={createAccount}>
               Create Account
             </Button>
           </Stack>
         </Stack>
         <HStack spacing="1" justify="center">
-          <Text fontSize="sm" color="muted">
-            Already have an account?
-          </Text>
+          <Text fontSize="sm">Already have an account?</Text>
           <Link to="/login">
-            <Button variant="link" colorScheme="blue" size="sm">
+            <Button
+              variant="link"
+              colorScheme="green"
+              size="sm"
+              marginBottom="4px"
+              marginLeft="4px"
+            >
               Sign in
             </Button>
           </Link>

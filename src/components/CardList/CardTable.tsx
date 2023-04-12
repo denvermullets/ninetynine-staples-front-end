@@ -5,15 +5,8 @@ import "keyrune";
 import "mana-font";
 import QuantityInput from "./QuantityInput";
 import CardTableName from "./CardTableName";
-import { createUseStyles } from "react-jss";
 import FoilQuantityInput from "./FoilQuantityInput";
 import { currencyFormat } from "../../util/helpers";
-
-const useStyles = createUseStyles(() => ({
-  smallerTable: {
-    paddingRight: "0px",
-  },
-}));
 
 const CardTable: React.FC<CardTableProps> = ({
   cards,
@@ -21,7 +14,6 @@ const CardTable: React.FC<CardTableProps> = ({
   setUserCollection,
   selectedCollection,
 }) => {
-  const classes = useStyles();
   const findMatch = (card: MagicCardType): CollectionQuantity => {
     const result = collection.find((collectionCard) => collectionCard?.magic_card?.id === card.id);
 
@@ -53,7 +45,7 @@ const CardTable: React.FC<CardTableProps> = ({
     <Table size={"sm"} variant="striped" colorScheme="gray">
       <Thead>
         <Tr>
-          <Th className={classes.smallerTable} isNumeric>
+          <Th isNumeric paddingRight={0}>
             #
           </Th>
           <Th>Name</Th>
@@ -70,7 +62,7 @@ const CardTable: React.FC<CardTableProps> = ({
       <Tbody>
         {cards.map((card: MagicCardType) => (
           <Tr key={card.id}>
-            <Td isNumeric className={classes.smallerTable}>
+            <Td isNumeric paddingRight={0}>
               {card.card_number}
             </Td>
             <CardTableName card={card} setCode={card.boxset.code.toLowerCase()} />
