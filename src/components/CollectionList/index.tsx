@@ -21,7 +21,7 @@ import {
   CheckboxGroup,
 } from "@chakra-ui/react";
 import axios from "axios";
-import { Select } from "chakra-react-select";
+import { Select, StylesConfig } from "chakra-react-select";
 import React, { useEffect, useRef, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { useNavigate, useParams } from "react-router-dom";
@@ -47,6 +47,26 @@ const CollectionList: React.FC = () => {
   const [collectionValue, setCollectionValue] = useState<string>("");
   const timeout = useRef<null | ReturnType<typeof setTimeout>>();
   const navigate = useNavigate();
+
+  const controlColor = useColorModeValue("cyan.600", "darkGray.200");
+  const controlBackground = useColorModeValue("white", "darkGray.800");
+
+  const customStyles: StylesConfig = {
+    control: (provided) => ({
+      ...provided,
+      borderRadius: "16px",
+      color: controlColor,
+      background: controlBackground,
+    }),
+    menu: (provided) => ({
+      ...provided,
+      borderRadius: "30px",
+    }),
+    placeholder: (provided) => ({
+      ...provided,
+      color: controlColor,
+    }),
+  };
 
   const handleFilters = (e) => {
     const updatedParams = { ...search };
@@ -224,10 +244,10 @@ const CollectionList: React.FC = () => {
   }, [selectedCollection]);
 
   return (
-    <Box bg="white">
+    <Box>
       <Container width="100%" maxWidth="8xl">
         <Box
-          bg="bg-surface"
+          // bg="red"
           boxShadow={{ base: "none", md: useColorModeValue("sm", "sm-dark") }}
           borderRadius={useBreakpointValue({ base: "none", md: "lg" })}
         >
@@ -240,6 +260,9 @@ const CollectionList: React.FC = () => {
                   onChange={handleBoxsetChange}
                   placeholder="Select a Boxset"
                   value={boxset}
+                  focusBorderColor="green.500"
+                  selectedOptionColorScheme="green"
+                  chakraStyles={customStyles}
                 />
               </GridItem>
               <GridItem colSpan={3}>
@@ -249,6 +272,9 @@ const CollectionList: React.FC = () => {
                   onChange={handleCollectionChange}
                   placeholder="Select your Collection"
                   useBasicStyles
+                  focusBorderColor="green.500"
+                  selectedOptionColorScheme="green"
+                  chakraStyles={customStyles}
                 />
               </GridItem>
               <GridItem colSpan={3}>
@@ -256,7 +282,12 @@ const CollectionList: React.FC = () => {
                   <InputLeftElement pointerEvents="none">
                     <Icon as={FiSearch} color="muted" boxSize="5" />
                   </InputLeftElement>
-                  <Input placeholder="Find a card" onChange={handleSearch} value={searchByCard} />
+                  <Input
+                    placeholder="Find a card"
+                    onChange={handleSearch}
+                    value={searchByCard}
+                    variant="authInput"
+                  />
                 </InputGroup>
               </GridItem>
               <GridItem colSpan={6}>
@@ -271,6 +302,9 @@ const CollectionList: React.FC = () => {
                     useBasicStyles
                     size="md"
                     onChange={handleFilters}
+                    focusBorderColor="green.500"
+                    selectedOptionColorScheme="green"
+                    chakraStyles={customStyles}
                   />
                 </FormControl>
               </GridItem>
@@ -283,6 +317,7 @@ const CollectionList: React.FC = () => {
                     value="exact"
                     isChecked={exactMatch}
                     onChange={handleExactMatch}
+                    variant="loginForm"
                   >
                     Exact
                   </Checkbox>
@@ -309,8 +344,7 @@ const CollectionList: React.FC = () => {
               </GridItem>
               <GridItem colSpan={1}>
                 <Text>
-                  Value:{" "}
-                  {collectionValue !== "" && collectionValue ? collectionValue.toString() : null}
+                  Value: {collectionValue !== "" && collectionValue && collectionValue.toString()}
                 </Text>
               </GridItem>
             </Grid>

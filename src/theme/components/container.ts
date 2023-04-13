@@ -17,5 +17,19 @@ export const containerStyles: StyleConfig = {
       boxShadow: { base: "none", sm: "xl" },
       borderRadius: { base: "none", sm: "xl" },
     }),
+    collection: (props) => ({
+      py: { base: "4", md: "8" },
+      px: { base: "14", md: "8" },
+      marginTop: 4,
+      width: "100%",
+      maxWidth: "8xl",
+      boxShadow: { base: "none", md: "sm" },
+      borderRadius: { base: "none", md: "lg" },
+      maxW: "md",
+      bg: {
+        base: mode("transparent", "transparent")(props),
+        sm: mode("white", "darkGray.700")(props),
+      },
+    }),
   },
 };

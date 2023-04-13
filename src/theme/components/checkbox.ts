@@ -18,9 +18,7 @@ export const checkboxStyles: StyleConfig = {
         color: mode("cyan.600", "cyan.400")(props),
       },
       control: {
-        borderColor: mode("green.500", "darkGray.200")(props),
         _hover: {
-          borderColor: mode("green.600", "darkGray.300")(props),
           _notChecked: {
             bg: "green.400",
           },

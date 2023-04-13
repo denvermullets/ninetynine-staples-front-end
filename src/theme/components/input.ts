@@ -11,7 +11,7 @@ export const inputStyles: StyleConfig = {
   variants: {
     authInput: (props: StyleFunctionProps) => ({
       field: {
-        borderRadius: "25px",
+        borderRadius: "16px",
         color: mode("cyan.600", "darkGray.200")(props),
         background: mode("white", "darkGray.800")(props),
         _focus: {

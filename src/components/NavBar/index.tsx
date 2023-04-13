@@ -17,7 +17,8 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useContext } from "react";
-import { FiHelpCircle, FiSearch, FiSettings } from "react-icons/fi";
+import { FiHelpCircle, FiSearch } from "react-icons/fi";
+import { MdOutlineNightlight, MdOutlineLightMode } from "react-icons/md";
 import Logo from "./ninety_logo_512.png";
 import LightLogo from "./light_ninety_logo_512.png";
 import Sidebar from "./Sidebar";
@@ -29,7 +30,7 @@ const Navbar: React.FC = () => {
   const isDesktop = useBreakpointValue({ base: false, lg: true });
   const { isOpen, onToggle, onClose } = useDisclosure();
   const { currentPlayer } = useContext<CurrentPlayerContext>(PlayerContext);
-  const { colorMode } = useColorMode();
+  const { colorMode, toggleColorMode } = useColorMode();
 
   return (
     <Box
@@ -79,12 +80,24 @@ const Navbar: React.FC = () => {
               ) : (
                 <>
                   <IconButton icon={<FiSearch fontSize="1.25rem" />} aria-label="Search" />
-                  <IconButton icon={<FiSettings fontSize="1.25rem" />} aria-label="Settings" />
+                  {colorMode === "light" ? (
+                    <IconButton
+                      icon={<MdOutlineNightlight fontSize="1.25rem" />}
+                      aria-label="Dark Mode"
+                      onClick={toggleColorMode}
+                    />
+                  ) : (
+                    <IconButton
+                      icon={<MdOutlineLightMode fontSize="1.25rem" />}
+                      aria-label="Light Mode"
+                      onClick={toggleColorMode}
+                    />
+                  )}
                   <IconButton icon={<FiHelpCircle fontSize="1.25rem" />} aria-label="Help Center" />
                 </>
               )}
             </ButtonGroup>
-            {currentPlayer ? <Avatar boxSize="10" name={currentPlayer.username} src="" /> : null}
+            {currentPlayer && <Avatar boxSize="10" name={currentPlayer.username} src="" />}
           </HStack>
         ) : (
           <>

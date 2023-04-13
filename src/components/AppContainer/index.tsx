@@ -1,6 +1,6 @@
 import React from "react";
 import { AppContainerProps } from "../../types";
-import { Box, useTheme } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 const AppContainer: React.FC<AppContainerProps> = ({ children }) => {
   return (

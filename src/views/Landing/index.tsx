@@ -129,7 +129,7 @@ const LandingPage: React.FC = () => {
       marginTop={4}
       width="100%"
       maxWidth="8xl"
-      backgroundColor={"white"}
+      backgroundColor="white"
       boxShadow={{ base: "none", md: useColorModeValue("sm", "sm-dark") }}
       borderRadius={useBreakpointValue({ base: "none", md: "lg" })}
     >
