@@ -12,7 +12,13 @@ const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
       <InputLeftElement pointerEvents="none">
         <Icon as={FiSearch} color="muted" boxSize="5" />
       </InputLeftElement>
-      <Input placeholder="Search" onChange={handleSearch} value={search} onFocus={handleFocus} />
+      <Input
+        placeholder="Search"
+        onChange={handleSearch}
+        value={search}
+        onFocus={handleFocus}
+        variant="authInput"
+      />
     </InputGroup>
   );
 };

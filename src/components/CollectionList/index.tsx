@@ -19,6 +19,7 @@ import {
   useBreakpointValue,
   useColorModeValue,
   CheckboxGroup,
+  useColorMode,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { Select } from "chakra-react-select";
@@ -29,7 +30,7 @@ import config from "../../config";
 import { Boxset, CollectionOption, FilterOptions, PlayerCollectionType } from "../../types";
 import { useCustomSearchParams } from "../../util/customHooks";
 import CollectionTable from "./CollectionTable";
-import { groupedOptions } from "./helpers";
+import { groupedOptions, selectBoxStyles } from "./helpers";
 
 const CollectionList: React.FC = () => {
   const { username, id } = useParams();
@@ -47,6 +48,8 @@ const CollectionList: React.FC = () => {
   const [collectionValue, setCollectionValue] = useState<string>("");
   const timeout = useRef<null | ReturnType<typeof setTimeout>>();
   const navigate = useNavigate();
+  const { colorMode } = useColorMode();
+  const isMobile = useBreakpointValue({ base: true, sm: true, md: false, lg: false });
 
   const handleFilters = (e) => {
     const updatedParams = { ...search };
@@ -224,42 +227,56 @@ const CollectionList: React.FC = () => {
   }, [selectedCollection]);
 
   return (
-    <Box bg="white">
+    <Box>
       <Container width="100%" maxWidth="8xl">
         <Box
-          bg="bg-surface"
           boxShadow={{ base: "none", md: useColorModeValue("sm", "sm-dark") }}
           borderRadius={useBreakpointValue({ base: "none", md: "lg" })}
         >
           <Box paddingBottom={10}>
-            <Grid gap={6} templateColumns="repeat(10, 1fr)" padding={2}>
-              <GridItem colSpan={4}>
+            <Grid
+              gap={isMobile ? 2 : 6}
+              templateColumns="repeat(10, 1fr)"
+              padding={isMobile ? 0 : 2}
+            >
+              <GridItem colSpan={isMobile ? 10 : 4}>
                 <Select
                   useBasicStyles
                   options={boxsetOptions}
                   onChange={handleBoxsetChange}
                   placeholder="Select a Boxset"
                   value={boxset}
+                  focusBorderColor="green.500"
+                  selectedOptionColorScheme="green"
+                  chakraStyles={selectBoxStyles(colorMode)}
                 />
               </GridItem>
-              <GridItem colSpan={3}>
+              <GridItem colSpan={isMobile ? 10 : 3}>
                 <Select
                   options={collectionOptions}
                   value={selectedCollection}
                   onChange={handleCollectionChange}
                   placeholder="Select your Collection"
                   useBasicStyles
+                  focusBorderColor="green.500"
+                  selectedOptionColorScheme="green"
+                  chakraStyles={selectBoxStyles(colorMode)}
                 />
               </GridItem>
-              <GridItem colSpan={3}>
+              <GridItem colSpan={isMobile ? 10 : 3}>
                 <InputGroup>
                   <InputLeftElement pointerEvents="none">
                     <Icon as={FiSearch} color="muted" boxSize="5" />
                   </InputLeftElement>
-                  <Input placeholder="Find a card" onChange={handleSearch} value={searchByCard} />
+                  <Input
+                    placeholder="Find a card"
+                    onChange={handleSearch}
+                    value={searchByCard}
+                    variant="authInput"
+                  />
                 </InputGroup>
               </GridItem>
-              <GridItem colSpan={6}>
+              <GridItem colSpan={isMobile ? 10 : 6}>
                 <FormControl>
                   <Select
                     isMulti
@@ -271,6 +288,9 @@ const CollectionList: React.FC = () => {
                     useBasicStyles
                     size="md"
                     onChange={handleFilters}
+                    focusBorderColor="green.500"
+                    selectedOptionColorScheme="green"
+                    chakraStyles={selectBoxStyles(colorMode)}
                   />
                 </FormControl>
               </GridItem>
@@ -283,6 +303,7 @@ const CollectionList: React.FC = () => {
                     value="exact"
                     isChecked={exactMatch}
                     onChange={handleExactMatch}
+                    variant="loginForm"
                   >
                     Exact
                   </Checkbox>
@@ -307,10 +328,9 @@ const CollectionList: React.FC = () => {
                   />
                 </Stack>
               </GridItem>
-              <GridItem colSpan={1}>
+              <GridItem colSpan={isMobile ? 6 : 1}>
                 <Text>
-                  Value:{" "}
-                  {collectionValue !== "" && collectionValue ? collectionValue.toString() : null}
+                  Value: {collectionValue !== "" && collectionValue && collectionValue.toString()}
                 </Text>
               </GridItem>
             </Grid>

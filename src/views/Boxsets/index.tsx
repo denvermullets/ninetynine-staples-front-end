@@ -1,13 +1,4 @@
-import {
-  Box,
-  Container,
-  Grid,
-  GridItem,
-  HStack,
-  Spinner,
-  useBreakpointValue,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Container, Grid, GridItem, HStack, Spinner, useColorMode } from "@chakra-ui/react";
 import axios from "axios";
 import { Select } from "chakra-react-select";
 import React, { useContext, useEffect, useState } from "react";
@@ -15,6 +6,7 @@ import CardList from "../../components/CardList";
 import { PlayerContext } from "../../components/providers/CurrentPlayerProvider";
 import config from "../../config";
 import { Boxset, MagicCardType, SelectedCollectionOption } from "../../types";
+import { selectBoxStyles } from "../../components/CollectionList/helpers";
 
 const Boxsets: React.FC = () => {
   const [cards, setCards] = useState<MagicCardType[]>([]);
@@ -26,6 +18,7 @@ const Boxsets: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [gridView, setGridView] = useState<boolean>(false);
   const { currentPlayer } = useContext(PlayerContext);
+  const { colorMode } = useColorMode();
 
   const loadBoxsets = async () => {
     try {
@@ -121,36 +114,35 @@ const Boxsets: React.FC = () => {
   }, [selectedCollection, currentBox?.id]);
 
   return (
-    <Container
-      py={{ base: "4", md: "8" }}
-      px={{ base: "14", md: "8" }}
-      marginTop={4}
-      width="100%"
-      maxWidth="8xl"
-      backgroundColor={"white"}
-      boxShadow={{ base: "none", md: useColorModeValue("sm", "sm-dark") }}
-      borderRadius={useBreakpointValue({ base: "none", md: "lg" })}
-    >
-      <Box bg="white">
+    <Container variant="collection">
+      <Box>
         <Grid gap={6} templateColumns="repeat(4, 1fr)" padding={2}>
           <GridItem colSpan={2}>
             <Select
               options={boxsetOptions}
               onChange={handleBoxsetChange}
               placeholder="Select a Boxset"
+              useBasicStyles
+              focusBorderColor="green.500"
+              selectedOptionColorScheme="green"
+              chakraStyles={selectBoxStyles(colorMode)}
             />
           </GridItem>
           <GridItem colSpan={2}>
             <Select
               options={userCollectionsOptions}
-              onChange={(e) => setSelectedCollection(e)}
+              onChange={setSelectedCollection}
               key="userCollection-select"
               name="user-collection-select"
               placeholder="Select your Collection"
+              useBasicStyles
+              focusBorderColor="green.500"
+              selectedOptionColorScheme="green"
+              chakraStyles={selectBoxStyles(colorMode)}
             />
           </GridItem>
         </Grid>
-        {loading ? (
+        {loading && (
           <HStack justifyContent="center" margin={20}>
             <Spinner
               thickness="4px"
@@ -160,8 +152,8 @@ const Boxsets: React.FC = () => {
               size="xl"
             />
           </HStack>
-        ) : null}
-        {cards && cards.length ? (
+        )}
+        {cards && cards.length > 0 && (
           <CardList
             setGridView={setGridView}
             gridView={gridView}
@@ -170,7 +162,7 @@ const Boxsets: React.FC = () => {
             setUserCollection={setUserCollection}
             selectedCollection={selectedCollection}
           />
-        ) : null}
+        )}
       </Box>
     </Container>
   );

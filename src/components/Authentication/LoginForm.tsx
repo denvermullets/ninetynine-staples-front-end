@@ -11,7 +11,6 @@ import {
   Input,
   Stack,
   Text,
-  useBreakpointValue,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -25,7 +24,6 @@ const LoginForm: React.FC = () => {
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const { setCurrentPlayer } = useContext(PlayerContext);
-
   const navigate = useNavigate();
   const [, setCookie] = useCookies(["ninetynine_staples"]);
 
@@ -105,70 +103,73 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <Container
-      marginTop={20}
-      maxW="md"
-      py={{ base: "0", sm: "8" }}
-      px={{ base: "4", sm: "10" }}
-      bg={useBreakpointValue({ base: "transparent", sm: "white" })}
-      boxShadow={{ base: "none", sm: "xl" }}
-      borderRadius={{ base: "none", sm: "xl" }}
-    >
+    <Container variant="login">
       <Stack spacing="8">
         <Stack spacing="6">
-          {/* <Logo /> */}
           <Stack spacing={{ base: "2", md: "3" }} textAlign="center">
-            <Heading size={useBreakpointValue({ base: "xs", md: "sm" })}>
+            <Heading size={{ base: "md" }} as="h1" variant="loginHeading">
               Log in to your account
             </Heading>
-            <Text color="muted">Start making your dreams come true</Text>
+            <Text>Start making your dreams come true</Text>
           </Stack>
         </Stack>
         <Stack spacing="6">
           <Stack spacing="5">
             <FormControl isInvalid={emailError}>
-              <FormLabel htmlFor="email">Email</FormLabel>
+              <FormLabel htmlFor="email" variant="loginLabel">
+                Email
+              </FormLabel>
               <Input
+                variant="authInput"
                 id="email"
                 placeholder="Enter your email"
                 type="email"
                 onChange={handleEmailChange}
               />
-              {!emailError ? null : (
+              {emailError && (
                 <FormErrorMessage style={{ marginBottom: "6px" }}>
                   Valid email is required.
                 </FormErrorMessage>
               )}
             </FormControl>
             <FormControl isInvalid={passwordError}>
-              <FormLabel htmlFor="password">Password</FormLabel>
+              <FormLabel htmlFor="password" variant="loginLabel">
+                Password
+              </FormLabel>
               <Input
+                variant="authInput"
                 id="password"
                 placeholder="********"
                 type="password"
                 onChange={handlePasswordChange}
               />
-              {!passwordError ? null : <FormErrorMessage>Password is required.</FormErrorMessage>}
+              {passwordError && <FormErrorMessage>Password is required.</FormErrorMessage>}
             </FormControl>
           </Stack>
           <HStack justify="space-between">
-            <Checkbox defaultChecked>Remember me</Checkbox>
-            <Button variant="link" colorScheme="blue" size="sm">
+            <Checkbox defaultChecked variant="loginForm">
+              Remember me
+            </Checkbox>
+            <Button variant="link" colorScheme="green" size="sm">
               Forgot password
             </Button>
           </HStack>
           <Stack spacing="4">
-            <Button variant="solid" colorScheme="blue" onClick={login}>
+            <Button variant="brand" onClick={login}>
               Sign in
             </Button>
           </Stack>
         </Stack>
         <HStack spacing="1" justify="center">
-          <Text fontSize="sm" color="muted">
-            Dont have an account?
-          </Text>
+          <Text fontSize="sm">Dont have an account?</Text>
           <Link to="/sign-up">
-            <Button variant="link" colorScheme="blue" size="sm">
+            <Button
+              variant="link"
+              colorScheme="green"
+              size="sm"
+              marginBottom="4px"
+              marginLeft="4px"
+            >
               Sign up
             </Button>
           </Link>
