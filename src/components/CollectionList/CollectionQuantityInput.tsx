@@ -81,7 +81,7 @@ const CollectionQuantityInput: React.FC<CollectionQuantityProps> = ({
                   : collectionCard;
               }
             });
-
+            console.log("updating collection");
             setPlayerCollection([...newCollection]);
           }
         }
@@ -104,6 +104,7 @@ const CollectionQuantityInput: React.FC<CollectionQuantityProps> = ({
         onChange={(value) => handleQuantityChange(Number(value))}
         clampValueOnBlur={false}
         onFocus={handleFocus}
+        variant="collection"
       >
         <NumberInputField />
         <NumberInputStepper>
@@ -115,4 +116,4 @@ const CollectionQuantityInput: React.FC<CollectionQuantityProps> = ({
   );
 };
 
-export default CollectionQuantityInput;
+export default React.memo(CollectionQuantityInput);

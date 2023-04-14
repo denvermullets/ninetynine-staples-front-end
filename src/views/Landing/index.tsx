@@ -1,11 +1,4 @@
-import {
-  Box,
-  Container,
-  Grid,
-  GridItem,
-  useBreakpointValue,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Container, Grid, GridItem } from "@chakra-ui/react";
 import axios from "axios";
 import { Select } from "chakra-react-select";
 import React, { useContext, useEffect, useState } from "react";
@@ -123,16 +116,7 @@ const LandingPage: React.FC = () => {
   }, [selectedCollection]);
 
   return (
-    <Container
-      py={{ base: "4", md: "8" }}
-      px={{ base: "14", md: "8" }}
-      marginTop={4}
-      width="100%"
-      maxWidth="8xl"
-      backgroundColor={"white"}
-      boxShadow={{ base: "none", md: useColorModeValue("sm", "sm-dark") }}
-      borderRadius={useBreakpointValue({ base: "none", md: "lg" })}
-    >
+    <Container variant="collection">
       <Box bg="white">
         <Grid gap={6} templateColumns="repeat(4, 1fr)" padding={2}>
           <GridItem colSpan={2}>
