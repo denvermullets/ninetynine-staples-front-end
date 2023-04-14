@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.14.2...v1.15.0) (2023-04-14)
+
+
+### Features
+
+* **theme:** add new color theme, nin-93 ([#74](https://github.com/denvermullets/ninetynine-staples-front-end/issues/74)) ([6c0e956](https://github.com/denvermullets/ninetynine-staples-front-end/commit/6c0e9564f42befe76be50e19e03efd72b6221d96))
+
 ## [1.14.2](https://github.com/denvermullets/ninetynine-staples-front-end/compare/v1.14.1...v1.14.2) (2023-04-02)
 
 
