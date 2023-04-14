@@ -13,7 +13,7 @@ import {
   useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { Select, StylesConfig } from "chakra-react-select";
+import { Select } from "chakra-react-select";
 import React, { useEffect, useState } from "react";
 import { CardListProps, FilterOptions, MagicCardType } from "../../types";
 import CardTable from "./CardTable";
@@ -35,8 +35,6 @@ const CardList: React.FC<CardListProps> = ({
   const [filterColors, setFilterColors] = useState<FilterOptions[]>([]);
   const [search, setSearch] = useState<string>("");
   const { colorMode } = useColorMode();
-
-  const isMobile = useBreakpointValue({ base: true, sm: true, md: false, lg: false });
 
   const cardRarity = [
     { value: "mythic", label: "Mythic" },
