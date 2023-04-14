@@ -42,7 +42,7 @@ const CardTable: React.FC<CardTableProps> = ({
   };
 
   return (
-    <Table size={"sm"} variant="striped" colorScheme="gray">
+    <Table size={"sm"}>
       <Thead>
         <Tr>
           <Th isNumeric paddingRight={0}>

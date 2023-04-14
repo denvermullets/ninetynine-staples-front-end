@@ -10,13 +10,15 @@ import {
   Stack,
   Text,
   useBreakpointValue,
+  useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { Select } from "chakra-react-select";
+import { Select, StylesConfig } from "chakra-react-select";
 import React, { useEffect, useState } from "react";
 import { CardListProps, FilterOptions, MagicCardType } from "../../types";
 import CardTable from "./CardTable";
 import Search from "./Search";
+import { selectBoxStyles } from "../CollectionList/helpers";
 
 const CardList: React.FC<CardListProps> = ({
   cards,
@@ -32,6 +34,9 @@ const CardList: React.FC<CardListProps> = ({
   const [filters, setFilters] = useState<FilterOptions[]>([]);
   const [filterColors, setFilterColors] = useState<FilterOptions[]>([]);
   const [search, setSearch] = useState<string>("");
+  const { colorMode } = useColorMode();
+
+  const isMobile = useBreakpointValue({ base: true, sm: true, md: false, lg: false });
 
   const cardRarity = [
     { value: "mythic", label: "Mythic" },
@@ -174,14 +179,13 @@ const CardList: React.FC<CardListProps> = ({
   }, [cards]);
 
   return (
-    <Container py={{ base: "4", md: "4" }} px={{ base: "14", md: "8" }} width="100%" maxWidth="8xl">
+    <Container variant="boxset" marginTop="0">
       <Box
-        bg="bg-surface"
         boxShadow={{ base: "none", md: useColorModeValue("sm", "sm-dark") }}
         borderRadius={useBreakpointValue({ base: "none", md: "lg" })}
       >
         <Stack spacing="8">
-          <Box px={{ base: "4", md: "6" }} pt="5">
+          <Box px={{ base: "2" }}>
             <Stack direction={{ base: "column", md: "row" }} justify="space-between">
               <FormControl>
                 <Select
@@ -194,6 +198,9 @@ const CardList: React.FC<CardListProps> = ({
                   useBasicStyles
                   size="md"
                   onChange={(e) => handleFilters(e)}
+                  focusBorderColor="green.500"
+                  selectedOptionColorScheme="green"
+                  chakraStyles={selectBoxStyles(colorMode)}
                 />
               </FormControl>
               <Search search={search} setSearch={setSearch} />

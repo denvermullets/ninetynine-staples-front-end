@@ -123,16 +123,7 @@ const LandingPage: React.FC = () => {
   }, [selectedCollection]);
 
   return (
-    <Container
-      py={{ base: "4", md: "8" }}
-      px={{ base: "14", md: "8" }}
-      marginTop={4}
-      width="100%"
-      maxWidth="8xl"
-      backgroundColor="white"
-      boxShadow={{ base: "none", md: useColorModeValue("sm", "sm-dark") }}
-      borderRadius={useBreakpointValue({ base: "none", md: "lg" })}
-    >
+    <Container variant="collection">
       <Box bg="white">
         <Grid gap={6} templateColumns="repeat(4, 1fr)" padding={2}>
           <GridItem colSpan={2}>

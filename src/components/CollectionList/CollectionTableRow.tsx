@@ -1,5 +1,15 @@
 import React, { useContext } from "react";
-import { Badge, Box, HStack, Image, Td, Text, Tooltip, Tr } from "@chakra-ui/react";
+import {
+  Badge,
+  Box,
+  HStack,
+  Image,
+  Td,
+  Text,
+  Tooltip,
+  Tr,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import CollectionQuantityInput from "./CollectionQuantityInput";
 import { currencyFormat } from "../../util/helpers";
 import ManaSymbols from "./ManaSymbols";
@@ -21,6 +31,7 @@ const CollectionTableRow: React.FC<CollectionTableRowProps> = ({
   const { username } = useParams();
   const { currentPlayer } = useContext(PlayerContext);
   const playerLoggedIn = playerCollection && currentPlayer && currentPlayer.username === username;
+  const isMobile = useBreakpointValue({ base: true, sm: true, md: false, lg: false });
 
   return (
     <Tr key={card.id}>
@@ -31,7 +42,7 @@ const CollectionTableRow: React.FC<CollectionTableRowProps> = ({
         <Tooltip label={<Image src={card.magic_card.image_medium} />}>
           <HStack spacing="3">
             <i
-              className={`ss ss-${card.magic_card.boxset.code.toLowerCase()} ss-${
+              className={`ss ss-${card?.magic_card?.boxset?.code?.toLowerCase()} ss-${
                 card.magic_card.rarity
               } ss-2x`}
             />
@@ -43,24 +54,28 @@ const CollectionTableRow: React.FC<CollectionTableRowProps> = ({
           </HStack>
         </Tooltip>
       </Td>
-      <Td>
-        <Badge
-          size="sm"
-          colorScheme={
-            card.magic_card.border_color === "borderless" ? "green" : card.magic_card.border_color
-          }
-        >
-          {card.magic_card.border_color}
-        </Badge>
-      </Td>
-      <Td>
-        <Text color="muted">{card.magic_card.card_type}</Text>
-      </Td>
-      <Td>
-        <Text color="muted">
-          {card?.magic_card?.mana_cost && <ManaSymbols manaCost={card.magic_card.mana_cost} />}
-        </Text>
-      </Td>
+      {!isMobile && (
+        <>
+          <Td>
+            <Badge
+              size="sm"
+              colorScheme={
+                card.magic_card.border_color === "borderless"
+                  ? "green"
+                  : card.magic_card.border_color
+              }
+            >
+              {card.magic_card.border_color}
+            </Badge>
+          </Td>
+          <Td>
+            <Text color="muted">{card.magic_card.card_type}</Text>
+          </Td>
+          <Td>
+            {card?.magic_card?.mana_cost && <ManaSymbols manaCost={card.magic_card.mana_cost} />}
+          </Td>
+        </>
+      )}
       {playerLoggedIn && card.magic_card.card_side !== "b" ? (
         <CollectionQuantityInput
           disabled={
@@ -137,4 +152,4 @@ const CollectionTableRow: React.FC<CollectionTableRowProps> = ({
   );
 };
 
-export default CollectionTableRow;
+export default React.memo(CollectionTableRow);

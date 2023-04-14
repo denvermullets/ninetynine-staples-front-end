@@ -7,6 +7,7 @@ import { containerStyles } from "./components/container";
 import { customText } from "./components/text";
 import { customFormLabel } from "./components/formLabel";
 import { checkboxStyles } from "./components/checkbox";
+import { numberInputStyles } from "./components/numberInput";
 
 const config: ThemeConfig = {
   initialColorMode: "light",
@@ -39,6 +40,9 @@ const customTheme = extendTheme({
     },
     Checkbox: {
       ...checkboxStyles,
+    },
+    NumberInput: {
+      ...numberInputStyles,
     },
   },
   ...globalStyles,

@@ -19,9 +19,10 @@ import {
   useBreakpointValue,
   useColorModeValue,
   CheckboxGroup,
+  useColorMode,
 } from "@chakra-ui/react";
 import axios from "axios";
-import { Select, StylesConfig } from "chakra-react-select";
+import { Select } from "chakra-react-select";
 import React, { useEffect, useRef, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { useNavigate, useParams } from "react-router-dom";
@@ -29,7 +30,7 @@ import config from "../../config";
 import { Boxset, CollectionOption, FilterOptions, PlayerCollectionType } from "../../types";
 import { useCustomSearchParams } from "../../util/customHooks";
 import CollectionTable from "./CollectionTable";
-import { groupedOptions } from "./helpers";
+import { groupedOptions, selectBoxStyles } from "./helpers";
 
 const CollectionList: React.FC = () => {
   const { username, id } = useParams();
@@ -47,26 +48,8 @@ const CollectionList: React.FC = () => {
   const [collectionValue, setCollectionValue] = useState<string>("");
   const timeout = useRef<null | ReturnType<typeof setTimeout>>();
   const navigate = useNavigate();
-
-  const controlColor = useColorModeValue("cyan.600", "darkGray.200");
-  const controlBackground = useColorModeValue("white", "darkGray.800");
-
-  const customStyles: StylesConfig = {
-    control: (provided) => ({
-      ...provided,
-      borderRadius: "16px",
-      color: controlColor,
-      background: controlBackground,
-    }),
-    menu: (provided) => ({
-      ...provided,
-      borderRadius: "30px",
-    }),
-    placeholder: (provided) => ({
-      ...provided,
-      color: controlColor,
-    }),
-  };
+  const { colorMode } = useColorMode();
+  const isMobile = useBreakpointValue({ base: true, sm: true, md: false, lg: false });
 
   const handleFilters = (e) => {
     const updatedParams = { ...search };
@@ -247,13 +230,16 @@ const CollectionList: React.FC = () => {
     <Box>
       <Container width="100%" maxWidth="8xl">
         <Box
-          // bg="red"
           boxShadow={{ base: "none", md: useColorModeValue("sm", "sm-dark") }}
           borderRadius={useBreakpointValue({ base: "none", md: "lg" })}
         >
           <Box paddingBottom={10}>
-            <Grid gap={6} templateColumns="repeat(10, 1fr)" padding={2}>
-              <GridItem colSpan={4}>
+            <Grid
+              gap={isMobile ? 2 : 6}
+              templateColumns="repeat(10, 1fr)"
+              padding={isMobile ? 0 : 2}
+            >
+              <GridItem colSpan={isMobile ? 10 : 4}>
                 <Select
                   useBasicStyles
                   options={boxsetOptions}
@@ -262,10 +248,10 @@ const CollectionList: React.FC = () => {
                   value={boxset}
                   focusBorderColor="green.500"
                   selectedOptionColorScheme="green"
-                  chakraStyles={customStyles}
+                  chakraStyles={selectBoxStyles(colorMode)}
                 />
               </GridItem>
-              <GridItem colSpan={3}>
+              <GridItem colSpan={isMobile ? 10 : 3}>
                 <Select
                   options={collectionOptions}
                   value={selectedCollection}
@@ -274,10 +260,10 @@ const CollectionList: React.FC = () => {
                   useBasicStyles
                   focusBorderColor="green.500"
                   selectedOptionColorScheme="green"
-                  chakraStyles={customStyles}
+                  chakraStyles={selectBoxStyles(colorMode)}
                 />
               </GridItem>
-              <GridItem colSpan={3}>
+              <GridItem colSpan={isMobile ? 10 : 3}>
                 <InputGroup>
                   <InputLeftElement pointerEvents="none">
                     <Icon as={FiSearch} color="muted" boxSize="5" />
@@ -290,7 +276,7 @@ const CollectionList: React.FC = () => {
                   />
                 </InputGroup>
               </GridItem>
-              <GridItem colSpan={6}>
+              <GridItem colSpan={isMobile ? 10 : 6}>
                 <FormControl>
                   <Select
                     isMulti
@@ -304,7 +290,7 @@ const CollectionList: React.FC = () => {
                     onChange={handleFilters}
                     focusBorderColor="green.500"
                     selectedOptionColorScheme="green"
-                    chakraStyles={customStyles}
+                    chakraStyles={selectBoxStyles(colorMode)}
                   />
                 </FormControl>
               </GridItem>
@@ -342,7 +328,7 @@ const CollectionList: React.FC = () => {
                   />
                 </Stack>
               </GridItem>
-              <GridItem colSpan={1}>
+              <GridItem colSpan={isMobile ? 6 : 1}>
                 <Text>
                   Value: {collectionValue !== "" && collectionValue && collectionValue.toString()}
                 </Text>

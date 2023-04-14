@@ -18,8 +18,8 @@ export const containerStyles: StyleConfig = {
       borderRadius: { base: "none", sm: "xl" },
     }),
     collection: (props) => ({
-      py: { base: "4", md: "8" },
-      px: { base: "14", md: "8" },
+      py: { base: "0", md: "8" },
+      px: { base: "0", md: "8" },
       marginTop: 4,
       width: "100%",
       maxWidth: "8xl",
@@ -28,7 +28,21 @@ export const containerStyles: StyleConfig = {
       maxW: "md",
       bg: {
         base: mode("transparent", "transparent")(props),
-        sm: mode("white", "darkGray.700")(props),
+        md: mode("white", "darkGray.700")(props),
+      },
+    }),
+    boxset: (props) => ({
+      py: { base: "0", md: "4" },
+      px: { base: "0", md: "8" },
+      marginTop: 4,
+      width: "100%",
+      maxWidth: "8xl",
+      boxShadow: { base: "none", md: "sm" },
+      borderRadius: { base: "none", md: "lg" },
+      maxW: "md",
+      bg: {
+        base: mode("transparent", "transparent")(props),
+        md: mode("white", "darkGray.700")(props),
       },
     }),
   },

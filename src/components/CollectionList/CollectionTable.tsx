@@ -11,11 +11,7 @@ const CollectionTable: React.FC<CollectionTableProps> = ({
   setPlayerCollection,
 }) => {
   return (
-    <Table
-      size={"sm"}
-      // variant="striped"
-      // colorScheme="gray"
-    >
+    <Table size={"sm"}>
       <CollectionTableHeader playerCollection={playerCollection} />
       <Tbody>
         {playerCollection &&

@@ -98,6 +98,7 @@ const FoilQuantityInput: React.FC<QuantityInputProps> = ({
         name={`card-quantity-${card.id}`}
         clampValueOnBlur={false}
         onFocus={handleFocus}
+        variant="collection"
       >
         <NumberInputField />
         <NumberInputStepper>
