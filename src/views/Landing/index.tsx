@@ -1,11 +1,4 @@
-import {
-  Box,
-  Container,
-  Grid,
-  GridItem,
-  useBreakpointValue,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Container, Grid, GridItem } from "@chakra-ui/react";
 import axios from "axios";
 import { Select } from "chakra-react-select";
 import React, { useContext, useEffect, useState } from "react";
