@@ -79,7 +79,6 @@ const CollectionList: React.FC = () => {
       delete updatedParams["rarity"];
     }
 
-    // this kinda seems weird, why did i do this? was i dumb??
     setSearch({
       ...updatedParams,
       ...(selectedFilters?.length && {
